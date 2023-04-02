@@ -1,23 +1,20 @@
 import React, {useState} from 'react';
 import './App.css';
 import Deck from "./components/Deck";
-import {createDeck} from "./utils/Helper";
 import Player from "./components/Player";
 import DeckStore from "./stores/DeckStore";
-import {CardProps} from "./components/Card";
-import {PlayerStore} from "./stores/PlayerStore";
-import player from "./components/Player";
+import HandStore from "./stores/HandStore";
 
 const deckStore = new DeckStore();
-const playerStore = new PlayerStore();
-deckStore.createDeck();
+const handStore = new HandStore();
+deckStore.createDeck(); //TODO: create deck should be triggered on game state "Starting"
 
 function App() {
 
     const handleDealCard = () => {
         const card = deckStore.dealCard();
         if (card !== undefined) {
-            playerStore.addCard(card);
+            handStore.addCard(card);
         }
     };
 
@@ -29,7 +26,7 @@ function App() {
             <p>-------------------------------</p>
 
             <h2>PLAYER</h2>
-            <Player playerStore={playerStore}/>
+            <Player playerStore={handStore}/>
 
             <h2>DECK</h2>
             <Deck deckStore={deckStore}/>

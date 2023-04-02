@@ -1,7 +1,7 @@
 import { makeObservable, observable, action } from "mobx";
 import { CardProps } from "../components/Card";
 
-export class PlayerStore {
+export class HandStore {
     cards: CardProps[] = [];
     isDone = false;
 
@@ -31,4 +31,4 @@ export class PlayerStore {
 
 
 
-export default PlayerStore;
+export default HandStore;

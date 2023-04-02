@@ -1,10 +1,11 @@
 import React from "react";
 import {observer} from "mobx-react";
-import PlayerStore from "../stores/PlayerStore";
+import HandStore from "../stores/HandStore";
 import {Card} from "./Card";
+import Hand from "./Hand";
 
 interface IPlayerProps {
-    playerStore: PlayerStore;
+    playerStore: HandStore;
 }
 
 class Player extends React.Component<IPlayerProps> {
@@ -14,22 +15,11 @@ class Player extends React.Component<IPlayerProps> {
         return (
             <div>
                 <div className="hand">
-                    {playerStore.cards.length > 0 ? (
-                        playerStore.cards.map((card, index) => (
-                            <Card
-                                key={index}
-                                value={card.value}
-                                suit={card.suit}
-                                isHidden={card.isHidden}
-                            />
-                        ))
-                    ) : (
-                        <h2> Player has no cards</h2>
-                    )}
+                    <Hand cards={playerStore.cards} owner={"player"} />
                 </div>
             </div>
         );
     }
 }
 
-export default observer(Player);
+export default (Player);
