@@ -22,22 +22,38 @@
     display: flex;
     align-items: center;
     font-size: 30px;
+    padding: 0px 10px;
+}
+
+.suit-hearts {
     color: red;
 }
 
+.suit-diamonds {
+    color: red;
+}
+
+.suit-spades {
+    color: black;
+}
+
+.suit-clubs {
+    color: black;
+}
+
 .top-left {
-    transform: rotate(-180deg);
+    transform: rotate(0deg);
 }
 
 .bottom-right {
-    transform: rotate(0deg);
+    transform: rotate(-180deg);
 }
 
 .value {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 30px;
+    font-size: 60px;
 }
 
 

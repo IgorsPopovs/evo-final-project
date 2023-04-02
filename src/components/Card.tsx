@@ -12,13 +12,13 @@ export const Card: React.FC<CardProps> = ({value, suit, isHidden = false}) => {
 
     const suitClass = `suit-${suit.toLowerCase()}`;
     const suitIcon = SuitIcons[suit];
-    const valueText = value; //Todo map values
+    const valueText = value;
 
     return (
         <div className={`card ${suitClass} ${isHidden ? 'hidden' : ''}`}>
-            <div className="corner top-left">{suitIcon}</div>
-            <div className="value">{valueText}</div>
-            <div className="corner bottom-right">{suitIcon}</div>
+            <div className="corner top-left">{valueText}</div>
+            <div className="value">{suitIcon}</div>
+            <div className="corner bottom-right">{valueText}</div>
         </div>
     );
 };
