@@ -17,7 +17,7 @@ class Player extends React.Component<IPlayerProps> {
         // const {walletStore} =
         return (
             <div>
-                <Hand cards={handStore.cards} owner={"player"}/>
+                <Hand handStore={handStore} owner={"player"}/>
                 <Wallet walletStore={walletStore}/>
             </div>
         );
