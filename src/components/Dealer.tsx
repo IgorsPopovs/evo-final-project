@@ -4,21 +4,21 @@ import HandStore from "../stores/HandStore";
 import {Card} from "./Card";
 import Hand from "./Hand";
 
-interface IPlayerProps {
+interface IDealerProps {
     handStore: HandStore;
 }
 
-class Player extends React.Component<IPlayerProps> {
+class Dealer extends React.Component<IDealerProps> {
     render() {
         const {handStore} = this.props;
         return (
             <div>
                 <div className="hand">
-                    <Hand cards={handStore.cards} owner={"player"} />
+                    <Hand cards={handStore.cards} owner={"dealer"} />
                 </div>
             </div>
         );
     }
 }
 
-export default (Player);
+export default (Dealer);
