@@ -13,9 +13,7 @@ class Dealer extends React.Component<IDealerProps> {
         const {handStore} = this.props;
         return (
             <div>
-                <div className="hand">
-                    <Hand cards={handStore.cards} owner={"dealer"} />
-                </div>
+                <Hand cards={handStore.cards} owner={"dealer"}/>
             </div>
         );
     }

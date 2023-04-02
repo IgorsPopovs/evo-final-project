@@ -3,19 +3,22 @@ import {observer} from "mobx-react";
 import HandStore from "../stores/HandStore";
 import {Card} from "./Card";
 import Hand from "./Hand";
+import Wallet from "./Wallet";
+import WalletStore from "../stores/WalletStore";
 
 interface IPlayerProps {
     handStore: HandStore;
+    walletStore: WalletStore;
 }
 
 class Player extends React.Component<IPlayerProps> {
     render() {
-        const {handStore} = this.props;
+        const {handStore, walletStore} = this.props;
+        // const {walletStore} =
         return (
             <div>
-                <div className="hand">
-                    <Hand cards={handStore.cards} owner={"player"} />
-                </div>
+                <Hand cards={handStore.cards} owner={"player"}/>
+                <Wallet walletStore={walletStore}/>
             </div>
         );
     }

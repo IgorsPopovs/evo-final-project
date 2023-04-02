@@ -2,27 +2,27 @@ import React, {useState} from 'react';
 import './App.css';
 import Deck from "./components/Deck";
 import Player from "./components/Player";
-import DeckStore from "./stores/DeckStore";
-import HandStore from "./stores/HandStore";
 import Dealer from "./components/Dealer";
-import player from "./components/Player";
 
-const deckStore = new DeckStore();
-const playersHandStore = new HandStore();
-const dealersHandStore = new HandStore();
-deckStore.createDeck(); //TODO: create deck should be triggered on game state "Starting"
+import RootStore from "./stores/RootStore";
+
+const rootStore = new RootStore();
+
+//TODO: triggered on game state "Starting"
+rootStore.deckStore.createDeck();
+rootStore.walletStore.setBalance(3333);
 
 
 function App() {
 
     const handleDealCard = (receiver: "player" | "dealer") => {
-        const card = deckStore.dealCard();
+        const card = rootStore.deckStore.dealCard();
         if (card !== undefined) {
             if (receiver === 'player') {
-                playersHandStore.addCard(card);
+                rootStore.playersHandStore.addCard(card);
             }
             if (receiver === 'dealer') {
-                dealersHandStore.addCard(card);
+                rootStore.dealersHandStore.addCard(card);
             }
         }
     };
@@ -36,13 +36,13 @@ function App() {
             <p>-------------------------------</p>
 
             <h2>PLAYER</h2>
-            <Player handStore={playersHandStore}/>
+            <Player handStore={rootStore.playersHandStore} walletStore={rootStore.walletStore}/>
 
             <h2>DEALER</h2>
-            <Dealer handStore={dealersHandStore}/>
+            <Dealer handStore={rootStore.dealersHandStore}/>
 
             <h2>DECK</h2>
-            <Deck deckStore={deckStore}/>
+            <Deck deckStore={rootStore.deckStore}/>
 
 
         </div>
