@@ -27,12 +27,16 @@ function App() {
         }
     };
 
+    const handleShuffle = () => {
+        rootStore.deckStore.shuffle();
+    }
 
     return (
         <div className="App">
 
             <button onClick={() => handleDealCard('player')}>Deal to Player</button>
             <button onClick={() => handleDealCard('dealer')}>Deal to Dealer</button>
+            <button onClick={() => handleShuffle()}>Shuffle</button>
             <p>-------------------------------</p>
 
             <h2>PLAYER</h2>
