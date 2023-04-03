@@ -1,19 +1,15 @@
-import React from "react";
-import HandStore from "../stores/HandStore";
+import React, {useContext} from "react";
 import Hand from "./Hand";
 import Wallet from "./Wallet";
-import WalletStore from "../stores/WalletStore";
+import {RootStoreContext} from "../App";
 
-interface IPlayerProps {
-    handStore: HandStore;
-    walletStore: WalletStore;
-}
+const Player: React.FC = () => {
+    const rootStore = useContext(RootStoreContext);
 
-const Player: React.FC<IPlayerProps> = ({handStore, walletStore}) => {
     return (
         <div>
-            <Hand handStore={handStore} owner={"player"}/>
-            <Wallet walletStore={walletStore}/>
+            <Hand handStore={rootStore.playersHandStore} owner={"player"}/>
+            <Wallet/>
         </div>
     );
 }

@@ -10,7 +10,7 @@ import {autorun} from "mobx";
 import {GameStatus} from "./utils/Constant";
 
 const rootStore = new RootStore();
-const RootStoreContext = createContext(rootStore);
+export const RootStoreContext = createContext(rootStore);
 
 //TODO: triggered on game state "Starting"
 rootStore.deckStore.createDeck();
@@ -42,13 +42,13 @@ function App() {
                 <p>-------------------------------</p>
 
                 <h2>PLAYER</h2>
-                <Player handStore={rootStore.playersHandStore} walletStore={rootStore.walletStore}/>
+                <Player/>
 
                 <h2>DEALER</h2>
-                <Dealer handStore={rootStore.dealersHandStore}/>
+                <Dealer/>
 
                 <h2>DECK</h2>
-                <Deck deckStore={rootStore.deckStore}/>
+                <Deck/>
 
 
             </div>

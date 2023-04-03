@@ -1,16 +1,12 @@
-import React from "react";
+import React, {useContext} from "react";
 import {observer} from "mobx-react";
-import WalletStore from "../stores/WalletStore";
 import {Chips} from "../utils/Constant";
+import {RootStoreContext} from "../App";
 
-interface IWalletProps {
-    walletStore: WalletStore;
-}
-
-const Wallet: React.FC<IWalletProps> = ({walletStore}) => {
-
+const Wallet: React.FC = () => {
+    const rootStore = useContext(RootStoreContext);
     const handleSetBet = (amount: number) => {
-        walletStore.setBet(amount);
+        rootStore.walletStore.setBet(amount);
     }
 
     return (
@@ -26,7 +22,7 @@ const Wallet: React.FC<IWalletProps> = ({walletStore}) => {
                     >{chip}</button>
                 })}
             </div>
-            <p>Wallet balance: {walletStore.balance}</p>
+            <p>Wallet balance: {rootStore.walletStore.balance}</p>
         </div>
     );
 }

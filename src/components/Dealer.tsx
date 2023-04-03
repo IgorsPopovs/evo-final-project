@@ -1,16 +1,13 @@
-import React from "react";
+import React, {useContext} from "react";
 import {observer} from "mobx-react";
-import HandStore from "../stores/HandStore";
 import Hand from "./Hand";
+import {RootStoreContext} from "../App";
 
-interface IDealerProps {
-    handStore: HandStore;
-}
-
-const Dealer: React.FC<IDealerProps> = ({ handStore }) => {
+const Dealer: React.FC = () => {
+    const rootStore = useContext(RootStoreContext);
     return (
         <div>
-            <Hand handStore={handStore} owner={"dealer"}/>
+            <Hand handStore={rootStore.dealersHandStore} owner={"dealer"}/>
         </div>
     );
 };

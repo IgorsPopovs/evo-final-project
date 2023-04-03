@@ -1,15 +1,12 @@
-import React, {useState} from 'react';
+import React, {useContext} from 'react';
 import './Card';
-import {Card, CardProps} from "./Card";
-import DeckStore from "../stores/DeckStore";
+import {Card} from "./Card";
 import {observer} from "mobx-react";
+import {RootStoreContext} from "../App";
 
-type DeckProps = {
-    deckStore: DeckStore;
-};
-
-const Deck: React.FC<DeckProps> = ({deckStore}) => {
-    const [cards, setCards] = React.useState<CardProps[]>(deckStore.cards);
+const Deck: React.FC = () => {
+    const rootStore = useContext(RootStoreContext);
+    const cards = rootStore.deckStore.cards;
 
     return (
         <div>
