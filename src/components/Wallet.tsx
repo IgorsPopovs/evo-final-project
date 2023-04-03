@@ -10,8 +10,6 @@ interface IWalletProps {
 class Wallet extends React.Component<IWalletProps> {
 
     // walletStore = new WalletStore();
-
-
     render() {
         const {walletStore} = this.props;
         const handleSetBet = (amount: number) => {
@@ -22,7 +20,10 @@ class Wallet extends React.Component<IWalletProps> {
                 <div className='wallet-controls'>
                     <p>Make a bet:</p>
                     {Chips.map((chip) => {
-                        return <button onClick={() => {handleSetBet(chip)}}>{chip}</button>
+                        return <button
+                            onClick={() => {handleSetBet(chip)}}
+                            key={chip}
+                        >{chip}</button>
                     })}
                 </div>
                 <p>Wallet balance: {walletStore.balance}</p>

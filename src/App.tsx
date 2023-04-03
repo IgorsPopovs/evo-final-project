@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import './App.css';
 import Deck from "./components/Deck";
 import Player from "./components/Player";
@@ -6,7 +6,8 @@ import Dealer from "./components/Dealer";
 
 import RootStore from "./stores/RootStore";
 import Game from "./components/Game";
-import gameStore from "./stores/GameStore";
+import {autorun} from "mobx";
+import {GameStatus} from "./utils/Constant";
 
 const rootStore = new RootStore();
 
@@ -14,31 +15,26 @@ const rootStore = new RootStore();
 rootStore.deckStore.createDeck();
 rootStore.walletStore.setBalance(1500);
 
+autorun(() => {
+    // console.log("Game status: " + rootStore.gameStore.status);
+    // console.log("Score: " + rootStore.playersHandStore.score);
+    if (rootStore.gameStore.status === GameStatus.dealerFinished) {
+        if (rootStore.playersHandStore.score > rootStore.dealersHandStore.score) {
+            rootStore.gameStore.setStatus(GameStatus.playerWon);
+        }
+        if (rootStore.playersHandStore.score < rootStore.dealersHandStore.score) {
+            rootStore.gameStore.setStatus(GameStatus.dealerWon);
+        }
+        if (rootStore.playersHandStore.score === rootStore.dealersHandStore.score) {
+            rootStore.gameStore.setStatus(GameStatus.tie);
+        }
+    }
+})
 
 function App() {
-
-    const handleDealCard = (receiver: "player" | "dealer") => {
-        const card = rootStore.deckStore.dealCard();
-        if (card !== undefined) {
-            if (receiver === 'player') {
-                rootStore.playersHandStore.addCard(card);
-            }
-            if (receiver === 'dealer') {
-                rootStore.dealersHandStore.addCard(card);
-            }
-        }
-    };
-
-    const handleShuffle = () => {
-        rootStore.deckStore.shuffle();
-    }
-
+    rootStore.gameStore.setStatus(GameStatus.playersBet);
     return (
         <div className="App">
-
-            <button onClick={() => handleDealCard('player')}>Deal to Player</button>
-            <button onClick={() => handleDealCard('dealer')}>Deal to Dealer</button>
-            <button onClick={() => handleShuffle()}>Shuffle</button>
 
             <Game gameStore={rootStore.gameStore}/>
             <p>-------------------------------</p>

@@ -14,7 +14,6 @@ interface IPlayerProps {
 class Player extends React.Component<IPlayerProps> {
     render() {
         const {handStore, walletStore} = this.props;
-        // const {walletStore} =
         return (
             <div>
                 <Hand handStore={handStore} owner={"player"}/>
