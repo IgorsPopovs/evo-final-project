@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {createContext} from 'react';
 import './App.css';
 import Deck from "./components/Deck";
 import Player from "./components/Player";
@@ -10,6 +10,7 @@ import {autorun} from "mobx";
 import {GameStatus} from "./utils/Constant";
 
 const rootStore = new RootStore();
+const RootStoreContext = createContext(rootStore);
 
 //TODO: triggered on game state "Starting"
 rootStore.deckStore.createDeck();
@@ -34,22 +35,24 @@ autorun(() => {
 function App() {
     rootStore.gameStore.setStatus(GameStatus.playersBet);
     return (
-        <div className="App">
+        <RootStoreContext.Provider value={rootStore}>
+            <div className="App">
 
-            <Game gameStore={rootStore.gameStore}/>
-            <p>-------------------------------</p>
+                <Game gameStore={rootStore.gameStore}/>
+                <p>-------------------------------</p>
 
-            <h2>PLAYER</h2>
-            <Player handStore={rootStore.playersHandStore} walletStore={rootStore.walletStore}/>
+                <h2>PLAYER</h2>
+                <Player handStore={rootStore.playersHandStore} walletStore={rootStore.walletStore}/>
 
-            <h2>DEALER</h2>
-            <Dealer handStore={rootStore.dealersHandStore}/>
+                <h2>DEALER</h2>
+                <Dealer handStore={rootStore.dealersHandStore}/>
 
-            <h2>DECK</h2>
-            <Deck deckStore={rootStore.deckStore}/>
+                <h2>DECK</h2>
+                <Deck deckStore={rootStore.deckStore}/>
 
 
-        </div>
+            </div>
+        </RootStoreContext.Provider>
     );
 }
 
