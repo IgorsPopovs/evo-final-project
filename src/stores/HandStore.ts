@@ -1,7 +1,6 @@
-import {makeObservable, observable, action, computed} from "mobx";
+import {makeObservable, observable, action} from "mobx";
 import {CardProps} from "../components/Card";
 import RootStore from "./RootStore";
-import {getCardScore} from "../utils/Helper";
 
 class HandStore {
     cards: CardProps[] = [];
@@ -18,6 +17,7 @@ class HandStore {
             reset: action,
             // totalValue: computed,
             calculateScore: action,
+            setDone: action,
         });
         this.rootStore = rootStore;
     }
@@ -28,12 +28,6 @@ class HandStore {
         this.calculateScore();
     }
 
-    // get isDone() {
-    //     console.log(this.totalValue);
-    //     return this.totalValue >= 21;
-    // }
-
-    // get totalValue() {
     calculateScore() {
         let total = 0;
         let aceCount = 0;
@@ -58,20 +52,18 @@ class HandStore {
 
         this.score = total;
         if (total >= 21) {
-            this.toggleDone();
+            this.setDone();
         }
     }
-
 
     reset() {
         this.cards = [];
         this.isDone = false;
     }
 
-    toggleDone() {
-        this.isDone = !this.isDone;
+    setDone() {
+        this.isDone = true;
     }
 }
-
 
 export default HandStore;

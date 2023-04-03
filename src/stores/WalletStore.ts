@@ -1,4 +1,4 @@
-import {action, computed, makeObservable, observable} from "mobx";
+import {action, makeObservable, observable} from "mobx";
 import RootStore from "./RootStore";
 
 class WalletStore {
@@ -13,6 +13,7 @@ class WalletStore {
             withdraw: action,
             deposit: action,
             setBalance: action,
+            setBet: action,
         });
         this.rootStore = rootStore;
     }

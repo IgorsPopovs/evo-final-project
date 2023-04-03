@@ -6,31 +6,16 @@ import Dealer from "./components/Dealer";
 
 import RootStore from "./stores/RootStore";
 import Game from "./components/Game";
-import {autorun} from "mobx";
 import {GameStatus} from "./utils/Constant";
+import Messenger from "./components/Messenger/Messenger";
 
 const rootStore = new RootStore();
 export const RootStoreContext = createContext(rootStore);
 
 //TODO: triggered on game state "Starting"
 rootStore.deckStore.createDeck();
+rootStore.deckStore.shuffle();
 rootStore.walletStore.setBalance(1500);
-
-autorun(() => {
-    // console.log("Game status: " + rootStore.gameStore.status);
-    // console.log("Score: " + rootStore.playersHandStore.score);
-    if (rootStore.gameStore.status === GameStatus.dealerFinished) {
-        if (rootStore.playersHandStore.score > rootStore.dealersHandStore.score) {
-            rootStore.gameStore.setStatus(GameStatus.playerWon);
-        }
-        if (rootStore.playersHandStore.score < rootStore.dealersHandStore.score) {
-            rootStore.gameStore.setStatus(GameStatus.dealerWon);
-        }
-        if (rootStore.playersHandStore.score === rootStore.dealersHandStore.score) {
-            rootStore.gameStore.setStatus(GameStatus.tie);
-        }
-    }
-})
 
 function App() {
     rootStore.gameStore.setStatus(GameStatus.playersBet);
@@ -38,7 +23,8 @@ function App() {
         <RootStoreContext.Provider value={rootStore}>
             <div className="App">
 
-                <Game gameStore={rootStore.gameStore}/>
+                <Game/>
+                <Messenger/>
                 <p>-------------------------------</p>
 
                 <h2>PLAYER</h2>

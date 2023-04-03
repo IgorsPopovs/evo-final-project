@@ -1,10 +1,11 @@
 import React, {useContext} from "react";
 import {observer} from "mobx-react";
-import {Chips} from "../utils/Constant";
+import {Chips, GameStatus} from "../utils/Constant";
 import {RootStoreContext} from "../App";
 
 const Wallet: React.FC = () => {
     const rootStore = useContext(RootStoreContext);
+
     const handleSetBet = (amount: number) => {
         rootStore.walletStore.setBet(amount);
     }
@@ -18,6 +19,10 @@ const Wallet: React.FC = () => {
                         onClick={() => {
                             handleSetBet(chip)
                         }}
+                        disabled={
+                            rootStore.gameStore.status !== GameStatus.playersBet ||
+                            rootStore.walletStore.balance < chip
+                        }
                         key={chip}
                     >{chip}</button>
                 })}

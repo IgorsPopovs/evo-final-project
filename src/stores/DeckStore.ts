@@ -1,4 +1,4 @@
-import {makeAutoObservable} from "mobx";
+import {action, makeObservable, observable} from "mobx";
 import {CardProps} from "../components/Card";
 import {createDeck} from "../utils/Helper";
 import RootStore from "./RootStore";
@@ -8,7 +8,12 @@ class DeckStore {
     rootStore:RootStore;
 
     constructor(rootStore: RootStore) {
-        makeAutoObservable(this);
+        makeObservable(this, {
+            cards: observable,
+            createDeck: action,
+            dealCard: action,
+            shuffle: action,
+        });
         this.rootStore = rootStore;
     }
 

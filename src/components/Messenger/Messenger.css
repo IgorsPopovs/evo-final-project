@@ -1,0 +1,11 @@
+.message-text {
+    color: crimson;
+    font-size: 30px;
+}
+
+.message-container {
+    border-left: 4px solid #04AA6D;
+    background: cornsilk;
+    width: 600px;
+}
+

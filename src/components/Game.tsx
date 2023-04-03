@@ -1,45 +1,83 @@
-import React, {Component} from 'react';
+import React, {useContext} from 'react';
 import {observer} from "mobx-react";
-import GameStore from "../stores/GameStore";
+import {RootStoreContext} from "../App";
+import {autorun} from "mobx";
+import {GameStatus} from "../utils/Constant";
 
-type GameProps = {
-    gameStore: GameStore;
-}
+const Game: React.FC = () => {
+    const rootStore = useContext(RootStoreContext);
 
-const Game: React.FC<GameProps> = ({gameStore}) => {
-    const {rootStore} = gameStore;
+    autorun(() => {
+        if (rootStore.gameStore.status === GameStatus.playersTurn &&
+            rootStore.playersHandStore.isDone) {
+            rootStore.gameStore.setStatus(GameStatus.dealersTurn);
+        }
 
-    const handleDealCard = (receiver: "player" | "dealer") => {
+    })
+
+    autorun(() => {
+        if (rootStore.playersHandStore.isDone && rootStore.dealersHandStore.isDone) {
+            const playerScore = rootStore.playersHandStore.score;
+            const dealerScore = rootStore.dealersHandStore.score
+            if (playerScore > dealerScore && playerScore <= 21) {
+                rootStore.gameStore.setStatus(GameStatus.playerWon);
+            } else if (
+                (playerScore < dealerScore && dealerScore <= 21) ||
+                playerScore > 21
+            ) {
+                rootStore.gameStore.setStatus(GameStatus.dealerWon);
+            } else if (playerScore === dealerScore) {
+                rootStore.gameStore.setStatus(GameStatus.tie);
+            }
+        }
+    })
+
+    const handleDealCard = () => {
         const card = rootStore.deckStore.dealCard();
         if (card !== undefined) {
-            if (receiver === 'player') {
-                rootStore.playersHandStore.addCard(card);
-            }
-            if (receiver === 'dealer') {
-                rootStore.dealersHandStore.addCard(card);
-            }
+            rootStore.gameStore.setStatus(GameStatus.playersTurn);
+            rootStore.playersHandStore.addCard(card);
         }
     };
 
-    const handleShuffle = () => {
-        rootStore.deckStore.shuffle();
+    const handleStay = () => {
+        rootStore.playersHandStore.setDone();
     }
 
     return (
         <div>
             <div>
-                <p> Player isDone: {rootStore.playersHandStore.isDone ? ('Yes') : ('No')} </p>
+                {/*<p> Player isDone: {rootStore.playersHandStore.isDone ? ('Yes') : ('No')} </p>*/}
                 <p> Player's bet: {rootStore.walletStore.bet} </p>
                 <p> Game status: {rootStore.gameStore.status} </p>
             </div>
             <div>
                 <button
-                    disabled={rootStore.playersHandStore.isDone === true}
-                    onClick={() => handleDealCard('player')}
-                >Deal to Player
+                    disabled={
+                        rootStore.playersHandStore.isDone ||
+                        rootStore.walletStore.bet === 0
+                    }
+                    onClick={() => handleDealCard()}
+                >Hit
                 </button>
-                <button onClick={() => handleDealCard('dealer')}>Deal to Dealer</button>
-                <button onClick={() => handleShuffle()}>Shuffle</button>
+                <button
+                    disabled={
+                        !(!rootStore.playersHandStore.isDone &&
+                        rootStore.gameStore.status === GameStatus.playersTurn)
+                    }
+                    onClick={() => handleStay()}
+                >
+                    Stay
+                </button>
+                {/*<button*/}
+                {/*    disabled={*/}
+                {/*        rootStore.dealersHandStore.isDone === true*/}
+                {/*    }*/}
+                {/*    onClick={() => handleDealCard('dealer')}*/}
+                {/*>Deal to Dealer*/}
+                {/*</button>*/}
+                {/*<button onClick={() => handleShuffle()}>Shuffle</button>*/}
+
             </div>
         </div>
     );

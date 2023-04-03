@@ -8,18 +8,18 @@ export const SuitIcons: Record<Suit, string> = {
     'HEARTS': '♥️',
     'DIAMONDS': '♦️',
     'CLUBS': '♣️',
-}
+};
 
 export enum GameStatus {
     'init',
     'playersBet',
     'playersTurn',
-    'playerFinished',
+    // 'playerFinished',
     'dealersTurn',
-    'dealerFinished',
+    // 'dealerFinished',
     'playerWon',
     'dealerWon',
     'tie',
-};
+}
 
 export const Chips = [20, 50, 100, 200, 500, 1000];
