@@ -5,12 +5,14 @@ import Player from "./components/Player";
 import Dealer from "./components/Dealer";
 
 import RootStore from "./stores/RootStore";
+import Game from "./components/Game";
+import gameStore from "./stores/GameStore";
 
 const rootStore = new RootStore();
 
 //TODO: triggered on game state "Starting"
 rootStore.deckStore.createDeck();
-rootStore.walletStore.setBalance(3333);
+rootStore.walletStore.setBalance(1500);
 
 
 function App() {
@@ -37,6 +39,8 @@ function App() {
             <button onClick={() => handleDealCard('player')}>Deal to Player</button>
             <button onClick={() => handleDealCard('dealer')}>Deal to Dealer</button>
             <button onClick={() => handleShuffle()}>Shuffle</button>
+
+            <Game gameStore={rootStore.gameStore}/>
             <p>-------------------------------</p>
 
             <h2>PLAYER</h2>

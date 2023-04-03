@@ -9,3 +9,11 @@ export const SuitIcons: Record<Suit, string> = {
     'DIAMONDS': '♦️',
     'CLUBS': '♣️',
 }
+
+export enum GameStatus {
+    'init',
+    'playing',
+    'gameOver',
+};
+
+export const Chips = [20, 50, 100, 200, 500, 1000];
