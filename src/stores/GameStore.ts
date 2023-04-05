@@ -2,13 +2,9 @@ import {GameStatus} from "../utils/Constant";
 import RootStore from "./RootStore";
 import {action, autorun, makeObservable, observable} from "mobx";
 
-// interface IGameStore {
-//     status: GameStatus,
-// }
-
 class GameStore {
     rootStore: RootStore;
-    status:GameStatus = GameStatus.init;
+    status: GameStatus = GameStatus.playersBet;
 
     constructor(rootStore: RootStore) {
         makeObservable(this, {
@@ -18,7 +14,7 @@ class GameStore {
         this.rootStore = rootStore;
     }
 
-    setStatus(newStatus:GameStatus) {
+    setStatus(newStatus: GameStatus) {
         this.status = newStatus;
     }
 

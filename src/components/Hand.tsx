@@ -11,7 +11,7 @@ type HandProps = {
 const Hand: React.FC<HandProps> = ({handStore, owner}) => {
     return (
         <div>
-            <div>Score: {handStore.score}</div>
+            <div>Score: {handStore.calculateScore}</div>
             <div className="hand">
                 {handStore.cards.length > 0 ? (
                     handStore.cards.map((card, index) => (

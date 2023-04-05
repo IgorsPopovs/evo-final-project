@@ -17,9 +17,10 @@ rootStore.deckStore.createDeck();
 rootStore.deckStore.shuffle();
 rootStore.walletStore.setBalance(1500);
 
+
+
 function App() {
-    rootStore.gameStore.setStatus(GameStatus.playersBet);
-    return (
+     return (
         <RootStoreContext.Provider value={rootStore}>
             <div className="App">
 

@@ -16,15 +16,14 @@ const Dealer: React.FC = () => {
             const card = rootStore.deckStore.dealCard();
             if (card !== undefined) {
                 if (
-                    rootStore.dealersHandStore.score >= 17 ||
-                    rootStore.dealersHandStore.score > rootStore.playersHandStore.score ||
-                    rootStore.playersHandStore.score > 21
+                    rootStore.dealersHandStore.calculateScore >= 17 ||
+                    rootStore.dealersHandStore.calculateScore > rootStore.playersHandStore.calculateScore ||
+                    rootStore.playersHandStore.calculateScore > 21
                 ) {
                     rootStore.dealersHandStore.setDone();
                     console.log('setting done')
                 } else {
                     rootStore.dealersHandStore.addCard(card);
-                    console.log(rootStore.dealersHandStore.score);
                 }
             }
 

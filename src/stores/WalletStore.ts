@@ -1,4 +1,4 @@
-import {action, makeObservable, observable} from "mobx";
+import {action, computed, makeObservable, observable} from "mobx";
 import RootStore from "./RootStore";
 
 class WalletStore {
@@ -10,19 +10,27 @@ class WalletStore {
         makeObservable(this, {
             balance: observable,
             bet: observable,
-            withdraw: action,
             deposit: action,
             setBalance: action,
+            addBet: action,
             setBet: action,
+            betPlaced: computed,
         });
         this.rootStore = rootStore;
     }
 
-    public setBet(amount: number) {
+    public get betPlaced() {
+        return this.bet > 0;
+    }
+    public addBet(amount: number) {
         if (this.balance >= amount) {
             this.bet += amount;
             this.balance -= amount;
         }
+    }
+
+    public setBet(amount: number) {
+        this.bet = amount;
     }
 
     public setBalance(amount: number): void {
@@ -31,13 +39,6 @@ class WalletStore {
 
     public deposit(amount: number): void {
         this.balance += amount;
-    }
-
-    public withdraw(amount: number): void {
-        if (amount > this.balance) {
-            throw new Error("Insufficient balance.");
-        }
-        this.balance -= amount;
     }
 }
 

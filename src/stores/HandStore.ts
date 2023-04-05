@@ -1,10 +1,9 @@
-import {makeObservable, observable, action} from "mobx";
+import {makeObservable, observable, action, computed} from "mobx";
 import {CardProps} from "../components/Card";
 import RootStore from "./RootStore";
 
 class HandStore {
     cards: CardProps[] = [];
-    score: number = 0;
     isDone = false;
     rootStore: RootStore;
 
@@ -12,11 +11,9 @@ class HandStore {
         makeObservable(this, {
             cards: observable,
             isDone: observable,
-            score: observable,
             addCard: action,
             reset: action,
-            // totalValue: computed,
-            calculateScore: action,
+            calculateScore: computed,
             setDone: action,
         });
         this.rootStore = rootStore;
@@ -24,11 +21,9 @@ class HandStore {
 
     addCard(card: CardProps) {
         this.cards.push(card);
-        // this.score += (this.score, getCardScore(card.value));
-        this.calculateScore();
     }
 
-    calculateScore() {
+    get calculateScore() {
         let total = 0;
         let aceCount = 0;
         this.cards.forEach((card) => {
@@ -50,10 +45,11 @@ class HandStore {
             }
         }
 
-        this.score = total;
         if (total >= 21) {
             this.setDone();
         }
+
+        return total;
     }
 
     reset() {

@@ -16,17 +16,29 @@ const Game: React.FC = () => {
     })
 
     autorun(() => {
-        if (rootStore.playersHandStore.isDone && rootStore.dealersHandStore.isDone) {
-            const playerScore = rootStore.playersHandStore.score;
-            const dealerScore = rootStore.dealersHandStore.score
-            if (playerScore > dealerScore && playerScore <= 21) {
+        if (
+            rootStore.playersHandStore.isDone &&
+            rootStore.dealersHandStore.isDone &&
+            rootStore.gameStore.status === GameStatus.dealersTurn
+        ) {
+            const playerScore = rootStore.playersHandStore.calculateScore;
+            const dealerScore = rootStore.dealersHandStore.calculateScore
+            if (
+                (playerScore > dealerScore && playerScore <= 21) ||
+                dealerScore > 21
+            ){
+                rootStore.walletStore.deposit(rootStore.walletStore.bet + rootStore.walletStore.bet);
+                rootStore.walletStore.setBet(0);
                 rootStore.gameStore.setStatus(GameStatus.playerWon);
             } else if (
                 (playerScore < dealerScore && dealerScore <= 21) ||
                 playerScore > 21
             ) {
+                rootStore.walletStore.setBet(0);
                 rootStore.gameStore.setStatus(GameStatus.dealerWon);
             } else if (playerScore === dealerScore) {
+                rootStore.walletStore.deposit(rootStore.walletStore.bet);
+                rootStore.walletStore.setBet(0);
                 rootStore.gameStore.setStatus(GameStatus.tie);
             }
         }
@@ -44,18 +56,26 @@ const Game: React.FC = () => {
         rootStore.playersHandStore.setDone();
     }
 
+    const handleReset = () => {
+        console.log("Resetting...");
+        rootStore.gameStore.setStatus(GameStatus.playersBet);
+        rootStore.dealersHandStore.reset();
+        rootStore.playersHandStore.reset();
+        rootStore.deckStore.createDeck();
+        rootStore.deckStore.shuffle();
+    }
+
     return (
         <div>
             <div>
                 {/*<p> Player isDone: {rootStore.playersHandStore.isDone ? ('Yes') : ('No')} </p>*/}
-                <p> Player's bet: {rootStore.walletStore.bet} </p>
                 <p> Game status: {rootStore.gameStore.status} </p>
             </div>
             <div>
                 <button
                     disabled={
                         rootStore.playersHandStore.isDone ||
-                        rootStore.walletStore.bet === 0
+                        !rootStore.walletStore.betPlaced
                     }
                     onClick={() => handleDealCard()}
                 >Hit
@@ -63,11 +83,16 @@ const Game: React.FC = () => {
                 <button
                     disabled={
                         !(!rootStore.playersHandStore.isDone &&
-                        rootStore.gameStore.status === GameStatus.playersTurn)
+                            rootStore.gameStore.status === GameStatus.playersTurn)
                     }
                     onClick={() => handleStay()}
                 >
                     Stay
+                </button>
+                <button
+                    onClick={() => handleReset()}
+                >
+                    reset
                 </button>
                 {/*<button*/}
                 {/*    disabled={*/}
