@@ -7,9 +7,9 @@ import {autorun} from "mobx";
 const Wallet: React.FC = () => {
     const rootStore = useContext(RootStoreContext);
 
-    autorun (()=>{
-        console.log(rootStore.walletStore.balance);
-    })
+    // autorun (()=>{
+    //     console.log(rootStore.walletStore.balance);
+    // })
     // autorun(() => {
     //     if (
     //         rootStore.gameStore.status === GameStatus.playerWon &&

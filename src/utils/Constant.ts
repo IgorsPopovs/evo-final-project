@@ -17,6 +17,7 @@ export enum GameStatus {
     // 'playerFinished',
     'dealersTurn',
     // 'dealerFinished',
+    'turnsEnded',
     'playerWon',
     'dealerWon',
     'tie',

@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {observer} from "mobx-react";
 import {RootStoreContext} from "../App";
 import {autorun} from "mobx";
@@ -7,42 +7,11 @@ import {GameStatus} from "../utils/Constant";
 const Game: React.FC = () => {
     const rootStore = useContext(RootStoreContext);
 
-    autorun(() => {
-        if (rootStore.gameStore.status === GameStatus.playersTurn &&
-            rootStore.playersHandStore.isDone) {
-            rootStore.gameStore.setStatus(GameStatus.dealersTurn);
-        }
-
-    })
-
-    autorun(() => {
-        if (
-            rootStore.playersHandStore.isDone &&
-            rootStore.dealersHandStore.isDone &&
-            rootStore.gameStore.status === GameStatus.dealersTurn
-        ) {
-            const playerScore = rootStore.playersHandStore.calculateScore;
-            const dealerScore = rootStore.dealersHandStore.calculateScore
-            if (
-                (playerScore > dealerScore && playerScore <= 21) ||
-                dealerScore > 21
-            ){
-                rootStore.walletStore.deposit(rootStore.walletStore.bet + rootStore.walletStore.bet);
-                rootStore.walletStore.setBet(0);
-                rootStore.gameStore.setStatus(GameStatus.playerWon);
-            } else if (
-                (playerScore < dealerScore && dealerScore <= 21) ||
-                playerScore > 21
-            ) {
-                rootStore.walletStore.setBet(0);
-                rootStore.gameStore.setStatus(GameStatus.dealerWon);
-            } else if (playerScore === dealerScore) {
-                rootStore.walletStore.deposit(rootStore.walletStore.bet);
-                rootStore.walletStore.setBet(0);
-                rootStore.gameStore.setStatus(GameStatus.tie);
-            }
-        }
-    })
+    // useEffect(() => {
+    //     return () => {
+    //         rootStore.gameStore.dispose();
+    //     };
+    // }, []);
 
     const handleDealCard = () => {
         const card = rootStore.deckStore.dealCard();
