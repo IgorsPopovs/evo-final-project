@@ -3,22 +3,24 @@ import {observer} from "mobx-react";
 import {RootStoreContext} from "../App";
 import {autorun} from "mobx";
 import {GameStatus} from "../utils/Constant";
+import dealerStore from "../stores/DealerStore";
 
 const Game: React.FC = () => {
     const rootStore = useContext(RootStoreContext);
 
-    // useEffect(() => {
-    //     return () => {
-    //         rootStore.gameStore.dispose();
-    //     };
-    // }, []);
+    useEffect(() => {
+        return () => {
+            rootStore.gameStore.dispose();
+        };
+    }, []);
 
-    const handleDealCard = () => {
-        const card = rootStore.deckStore.dealCard();
-        if (card !== undefined) {
-            rootStore.gameStore.setStatus(GameStatus.playersTurn);
-            rootStore.playersHandStore.addCard(card);
-        }
+    const handleHit = () => {
+        // const card = rootStore.deckStore.dealCard();
+        // if (card !== undefined) {
+        //     rootStore.gameStore.setStatus(GameStatus.playersTurn);
+        //     rootStore.playersHandStore.addCard(card);
+        // }
+        rootStore.dealerStore.hit();
     };
 
     const handleStay = () => {
@@ -44,9 +46,9 @@ const Game: React.FC = () => {
                 <button
                     disabled={
                         rootStore.playersHandStore.isDone ||
-                        !rootStore.walletStore.betPlaced
+                        rootStore.gameStore.status !== GameStatus.playersTurn
                     }
-                    onClick={() => handleDealCard()}
+                    onClick={() => handleHit()}
                 >Hit
                 </button>
                 <button

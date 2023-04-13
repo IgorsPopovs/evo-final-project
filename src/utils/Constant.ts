@@ -13,6 +13,7 @@ export const SuitIcons: Record<Suit, string> = {
 export enum GameStatus {
     'init',
     'playersBet',
+    'initialDeal',
     'playersTurn',
     // 'playerFinished',
     'dealersTurn',
@@ -24,3 +25,5 @@ export enum GameStatus {
 }
 
 export const Chips = [20, 50, 100, 200, 500, 1000];
+
+export const bettingTime: number = 4; //15

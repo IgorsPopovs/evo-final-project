@@ -3,9 +3,11 @@ import DeckStore from "./DeckStore";
 import HandStore from "./HandStore";
 import WalletStore from "./WalletStore";
 import GameStore from "./GameStore";
+import DealerStore from "./DealerStore";
 
 class RootStore {
     deckStore: DeckStore;
+    dealerStore: DealerStore;
     playersHandStore: HandStore;
     dealersHandStore: HandStore;
     walletStore: WalletStore;
@@ -13,6 +15,7 @@ class RootStore {
 
     constructor() {
         this.deckStore = new DeckStore(this);
+        this.dealerStore = new DealerStore(this);
         this.playersHandStore = new HandStore(this);
         this.dealersHandStore = new HandStore(this);
         this.walletStore = new WalletStore(this);
