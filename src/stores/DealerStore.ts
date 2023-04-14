@@ -17,7 +17,6 @@ class DealerStore {
                 this.rootStore.gameStore.status === GameStatus.dealersTurn &&
                 !this.rootStore.dealersHandStore.isDone
             ) {
-                //const card = rootStore.deckStore.dealCard();
                 if (
                     this.rootStore.dealersHandStore.calculateScore >= 17 ||
                     this.rootStore.dealersHandStore.calculateScore > rootStore.playersHandStore.calculateScore ||
@@ -27,10 +26,8 @@ class DealerStore {
                     console.log('setting done')
                 } else {
                     this.rootStore.dealerStore.hitDealer(false);
-                    //rootStore.dealersHandStore.addCard(card);
                 }
             }
-
         })
     }
 

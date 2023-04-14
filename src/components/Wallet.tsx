@@ -1,6 +1,6 @@
 import React, {useContext} from "react";
 import {observer} from "mobx-react";
-import {GameStatus} from "../utils/Constant";
+import {Chips, GameStatus} from "../utils/Constant";
 import {RootStoreContext} from "../App";
 import MakeBet from "./MakeBet";
 import BettingTimer from "./BettingTimer";
@@ -10,12 +10,11 @@ const Wallet: React.FC = () => {
 
     const handleTimeout = () => {
         if (rootStore.walletStore.bet === 0) {
-            rootStore.gameStore.setStatus(GameStatus.init); // TODO: What should happen?
-        } else {
-            rootStore.gameStore.setStatus(GameStatus.initialDeal);
-            rootStore.dealerStore.initDeal();
-            console.log('Betting timer has ended');
+            rootStore.walletStore.addBet(Chips[0]);
         }
+        rootStore.gameStore.setStatus(GameStatus.initialDeal);
+        rootStore.dealerStore.initDeal();
+        console.log('Betting timer has ended');
     };
 
     return (

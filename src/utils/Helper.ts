@@ -6,7 +6,7 @@ export const createDeck = (): CardProps[] => {
 
     for (const suit of suits) {
         for (const value of values) {
-            const card: CardProps = {suit, value, isHidden: false}; //TODO: change to true
+            const card: CardProps = {suit, value, isHidden: true}; //TODO: change to true
             deck.push(card);
         }
     }
