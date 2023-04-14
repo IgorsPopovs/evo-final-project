@@ -8,18 +8,13 @@ import dealerStore from "../stores/DealerStore";
 const Game: React.FC = () => {
     const rootStore = useContext(RootStoreContext);
 
-    useEffect(() => {
-        return () => {
-            rootStore.gameStore.dispose();
-        };
-    }, []);
+    // useEffect(() => {
+    //     return () => {
+    //         rootStore.gameStore.dispose();
+    //     };
+    // }, []);
 
     const handleHit = () => {
-        // const card = rootStore.deckStore.dealCard();
-        // if (card !== undefined) {
-        //     rootStore.gameStore.setStatus(GameStatus.playersTurn);
-        //     rootStore.playersHandStore.addCard(card);
-        // }
         rootStore.dealerStore.hit();
     };
 

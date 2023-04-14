@@ -1,6 +1,7 @@
 import {GameStatus} from "../utils/Constant";
 import RootStore from "./RootStore";
 import {action, autorun, IReactionDisposer, makeAutoObservable, reaction, runInAction,} from "mobx";
+import rootStore from "./RootStore";
 
 class GameStore {
     rootStore: RootStore;
@@ -71,6 +72,9 @@ class GameStore {
     }
 
     setStatus(newStatus: GameStatus) {
+        if (newStatus === GameStatus.dealersTurn) {
+            this.rootStore.dealerStore.exposeCards();
+        }
         this.status = newStatus;
     }
 

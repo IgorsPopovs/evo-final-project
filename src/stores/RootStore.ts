@@ -14,12 +14,12 @@ class RootStore {
     gameStore: GameStore;
 
     constructor() {
+        this.gameStore = new GameStore(this);
         this.deckStore = new DeckStore(this);
         this.dealerStore = new DealerStore(this);
         this.playersHandStore = new HandStore(this);
         this.dealersHandStore = new HandStore(this);
         this.walletStore = new WalletStore(this);
-        this.gameStore = new GameStore(this);
     }
 }
 
