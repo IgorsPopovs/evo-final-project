@@ -1,11 +1,10 @@
-import {GameStatus} from "../utils/Constant";
+import {Balance, GameStatus} from "../utils/Constant";
 import RootStore from "./RootStore";
 import {action, autorun, IReactionDisposer, makeAutoObservable, reaction, runInAction,} from "mobx";
-import rootStore from "./RootStore";
 
 class GameStore {
     rootStore: RootStore;
-    status: GameStatus = GameStatus.playersBet;
+    status: GameStatus = GameStatus.init;
     disposers: IReactionDisposer[] = [];
 
     constructor(rootStore: RootStore) {
@@ -14,6 +13,7 @@ class GameStore {
             setStatus: action,
         });
         this.rootStore = rootStore;
+        this.setStatus(GameStatus.playersBet);
 
         this.disposers.push(
             autorun(() => {

@@ -1,6 +1,6 @@
 import {action, autorun, makeObservable} from "mobx";
 import RootStore from "./RootStore";
-import {GameStatus} from "../utils/Constant";
+import {GameStatus, Users} from "../utils/Constant";
 
 class DealerStore {
     rootStore: RootStore;
@@ -25,37 +25,30 @@ class DealerStore {
                     this.rootStore.dealersHandStore.setDone();
                     console.log('setting done')
                 } else {
-                    this.rootStore.dealerStore.hitDealer(false);
+                    this.hit(Users.Dealer, false);
                 }
             }
         })
     }
 
     initDeal(): void {
-        this.hit();
-        this.hit();
-        this.hitDealer(false);
-        this.hitDealer(true);
+        this.hit(Users.Player, false);
+        this.hit(Users.Player, false);
+        this.hit(Users.Dealer, false);
+        this.hit(Users.Dealer, true);
         this.rootStore.gameStore.setStatus(GameStatus.playersTurn);
     }
 
-    hit(): void {
+    hit(receiver:Users, hidden: boolean): void {
         const card = this.rootStore.deckStore.dealCard();
         if (card !== undefined) {
-            // this.rootStore.gameStore.setStatus(GameStatus.playersTurn);
-            card.isHidden = false;
-            this.rootStore.playersHandStore.addCard(card);
-            // this.rootStore.gameStore.setStatus(GameStatus.dealersTurn);
-        }
-    };
-
-    hitDealer(hidden: boolean): void {
-        const card = this.rootStore.deckStore.dealCard();
-        if (card !== undefined) {
-            // this.rootStore.gameStore.setStatus(GameStatus.playersTurn);
             card.isHidden = hidden;
-            this.rootStore.dealersHandStore.addCard(card);
-            // this.rootStore.gameStore.setStatus(GameStatus.playersTurn);
+            if (receiver === Users.Player) {
+                this.rootStore.playersHandStore.addCard(card);
+            }
+            if (receiver === Users.Dealer) {
+                this.rootStore.dealersHandStore.addCard(card);
+            }
         }
     }
 

@@ -1,5 +1,6 @@
 import {action, computed, makeObservable, observable} from "mobx";
 import RootStore from "./RootStore";
+import {Balance} from "../utils/Constant";
 
 class WalletStore {
     balance: number = 0;
@@ -17,6 +18,8 @@ class WalletStore {
             betPlaced: computed,
         });
         this.rootStore = rootStore;
+
+        this.setBalance(Balance);
     }
 
     public get betPlaced() {

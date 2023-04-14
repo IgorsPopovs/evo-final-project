@@ -1,9 +1,7 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useContext} from 'react';
 import {observer} from "mobx-react";
 import {RootStoreContext} from "../App";
-import {autorun} from "mobx";
-import {GameStatus} from "../utils/Constant";
-import dealerStore from "../stores/DealerStore";
+import {GameStatus, Users} from "../utils/Constant";
 
 const Game: React.FC = () => {
     const rootStore = useContext(RootStoreContext);
@@ -15,7 +13,7 @@ const Game: React.FC = () => {
     // }, []);
 
     const handleHit = () => {
-        rootStore.dealerStore.hit();
+        rootStore.dealerStore.hit(Users.Player, false);
     };
 
     const handleStay = () => {

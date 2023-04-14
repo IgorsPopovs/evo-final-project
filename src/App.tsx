@@ -12,12 +12,6 @@ import Messenger from "./components/Messenger/Messenger";
 const rootStore = new RootStore();
 export const RootStoreContext = createContext(rootStore);
 
-//TODO: triggered on game state "Starting"
-rootStore.deckStore.createDeck();
-rootStore.deckStore.shuffle();
-rootStore.walletStore.setBalance(1500);
-
-
 
 function App() {
      return (

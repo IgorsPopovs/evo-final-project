@@ -2,6 +2,7 @@ import {action, makeObservable, observable} from "mobx";
 import {CardProps} from "../components/Card";
 import {createDeck} from "../utils/Helper";
 import RootStore from "./RootStore";
+import {Balance} from "../utils/Constant";
 
 class DeckStore {
     cards: CardProps[] = [];
@@ -15,6 +16,9 @@ class DeckStore {
             shuffle: action,
         });
         this.rootStore = rootStore;
+
+        this.createDeck();
+        this.shuffle();
     }
 
     createDeck(): void {

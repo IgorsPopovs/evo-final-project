@@ -15,9 +15,7 @@ export enum GameStatus {
     'playersBet',
     'initialDeal',
     'playersTurn',
-    // 'playerFinished',
     'dealersTurn',
-    // 'dealerFinished',
     'turnsEnded',
     'playerWon',
     'dealerWon',
@@ -27,3 +25,10 @@ export enum GameStatus {
 export const Chips = [20, 50, 100, 200, 500, 1000];
 
 export const bettingTime: number = 4; //15
+
+export const Balance: number = 1500;
+
+export enum Users {
+    'Player',
+    'Dealer',
+}
