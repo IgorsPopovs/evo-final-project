@@ -1,13 +1,14 @@
 import {CardProps} from "../components/Card";
-import {suits, Value, values} from "./Constant";
+import {DecksCount, suits, Value, values} from "./Constant";
 
 export const createDeck = (): CardProps[] => {
     const deck: CardProps[] = [];
-
-    for (const suit of suits) {
-        for (const value of values) {
-            const card: CardProps = {suit, value, isHidden: true}; //TODO: change to true
-            deck.push(card);
+    for (let i = 0; i < DecksCount; i++) {
+        for (const suit of suits) {
+            for (const value of values) {
+                const card: CardProps = {suit, value, isHidden: true};
+                deck.push(card);
+            }
         }
     }
 

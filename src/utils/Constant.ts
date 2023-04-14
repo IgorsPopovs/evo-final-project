@@ -32,3 +32,5 @@ export enum Users {
     'Player',
     'Dealer',
 }
+
+export const DecksCount: number = 4;
