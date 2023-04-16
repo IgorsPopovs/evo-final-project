@@ -1,0 +1,12 @@
+.hand {
+    display: flex;
+}
+
+.handContainer {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+
+    border: solid;
+    padding: 15px;
+}

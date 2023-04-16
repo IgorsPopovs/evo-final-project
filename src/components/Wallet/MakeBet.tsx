@@ -1,18 +1,19 @@
 import React, {useContext} from "react";
 import {observer} from "mobx-react";
-import {Chips, GameStatus} from "../utils/Constant";
-import {RootStoreContext} from "../App";
+import {Chips, GameStatus} from "../../utils/Constant";
+import {RootStoreContext} from "../../App";
 import {autorun} from "mobx";
+import "./Wallet.css";
 
 const MakeBet: React.FC = () => {
     const rootStore = useContext(RootStoreContext);
 
     const handleSetBet = (amount: number) => {
-        rootStore.walletStore.addBet(amount);
+        rootStore.handManagerStore.hands[0].betStore.addBet(amount);
     }
 
     return (
-        <div>
+        <div className={"chips"}>
             {Chips.map((chip) => {
                 return <button
                     onClick={() => {

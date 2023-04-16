@@ -18,9 +18,9 @@ class DealerStore {
                 !this.rootStore.dealersHandStore.isDone
             ) {
                 if (
-                    this.rootStore.dealersHandStore.calculateScore >= 17 ||
-                    this.rootStore.dealersHandStore.calculateScore > rootStore.playersHandStore.calculateScore ||
-                    this.rootStore.playersHandStore.calculateScore > 21
+                    this.rootStore.dealersHandStore.calculateScore >= 17 //||
+                    // this.rootStore.dealersHandStore.calculateScore > rootStore.playersHandStore.calculateScore ||
+                    // this.rootStore.playersHandStore.calculateScore > 21
                 ) {
                     this.rootStore.dealersHandStore.setDone();
                     console.log('setting done')
@@ -39,12 +39,13 @@ class DealerStore {
         this.rootStore.gameStore.setStatus(GameStatus.playersTurn);
     }
 
-    hit(receiver:Users, hidden: boolean): void {
+    hit(receiver:Users, hidden: boolean, hand:number = 0): void {
         const card = this.rootStore.deckStore.dealCard();
         if (card !== undefined) {
             card.isHidden = hidden;
             if (receiver === Users.Player) {
-                this.rootStore.playersHandStore.addCard(card);
+                console.log(hand)
+                this.rootStore.handManagerStore.hands[hand].addCard(card);
             }
             if (receiver === Users.Dealer) {
                 this.rootStore.dealersHandStore.addCard(card);

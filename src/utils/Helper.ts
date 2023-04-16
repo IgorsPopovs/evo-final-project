@@ -1,4 +1,4 @@
-import {CardProps} from "../components/Card";
+import {CardProps} from "../components/Card/Card";
 import {DecksCount, suits, Value, values} from "./Constant";
 
 export const createDeck = (): CardProps[] => {

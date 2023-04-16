@@ -1,7 +1,8 @@
 import React from "react";
-import {Card, CardProps} from "./Card";
+import {Card, CardProps} from "../Card/Card";
 import {observer} from "mobx-react";
-import HandStore from "../stores/HandStore";
+import HandStore from "../../stores/HandStore";
+import './Hand.css';
 
 type HandProps = {
     handStore: HandStore;
@@ -10,7 +11,7 @@ type HandProps = {
 
 const Hand: React.FC<HandProps> = ({handStore, owner}) => {
     return (
-        <div>
+        <div className={"handContainer"}>
             <div>Score: {handStore.calculateScore}</div>
             <div className="hand">
                 {handStore.cards.length > 0 ? (

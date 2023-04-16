@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import {bettingTime} from "../utils/Constant";
+import {bettingTime} from "../../utils/Constant";
 
 type BettingTimerProps = {
     onTimeout: () => void;

@@ -1,6 +1,6 @@
 import React from 'react';
-import '../css/Card.css';
-import {Suit, Value, SuitIcons} from "../utils/Constant";
+import './Card.css';
+import {Suit, Value, SuitIcons} from "../../utils/Constant";
 
 export type CardProps = { //TODO: Create interface?
     suit: Suit;

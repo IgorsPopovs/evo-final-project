@@ -14,7 +14,7 @@
 
 
 .card.hidden {
-    background-image: url('../images/card-back-black.png');
+    background-image: url('../../images/card-back-black.png');
     background-size: cover;
 }
 
@@ -54,9 +54,4 @@
     justify-content: center;
     align-items: center;
     font-size: 60px;
-}
-
-
-.hand {
-    display: flex;
 }

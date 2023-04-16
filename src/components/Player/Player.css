@@ -1,0 +1,15 @@
+.playerHandsContainer {
+    display: flex;
+    width: fit-content;
+
+    border: solid;
+    padding: 15px;
+}
+
+.playerContainer {
+    display: flex;
+    width: fit-content;
+
+    border: solid;
+    padding: 15px;
+}

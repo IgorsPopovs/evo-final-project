@@ -24,7 +24,7 @@ export enum GameStatus {
 
 export const Chips = [20, 50, 100, 200, 500, 1000];
 
-export const bettingTime: number = 4; //15
+export const bettingTime: number = 5; //15
 
 export const Balance: number = 1500;
 

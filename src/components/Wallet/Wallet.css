@@ -1,0 +1,12 @@
+.wallet-controls {
+    display: flex;
+    flex-direction: column;
+
+    border: solid;
+    padding: 15px;
+}
+
+.chips {
+    flex-direction: column;
+    display: flex;
+}

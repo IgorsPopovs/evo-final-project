@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
-import './Card';
-import {Card} from "./Card";
+import './Card/Card';
+import {Card} from "./Card/Card";
 import {observer} from "mobx-react";
 import {RootStoreContext} from "../App";
 
