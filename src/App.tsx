@@ -1,8 +1,8 @@
 import React, {createContext} from 'react';
 import './App.css';
-import Deck from "./components/Deck";
+import Deck from "./components/Deck/Deck";
 import Player from "./components/Player/Player";
-import Dealer from "./components/Dealer";
+import Dealer from "./components/Player/Dealer";
 
 import RootStore from "./stores/RootStore";
 import Game from "./components/Hand/HandActions";
@@ -15,7 +15,7 @@ export const RootStoreContext = createContext(rootStore);
 
 
 function App() {
-     return (
+    return (
         <RootStoreContext.Provider value={rootStore}>
             <div className="App">
                 <div>
@@ -25,17 +25,13 @@ function App() {
 
                 <Messenger/>
                 <p>-------------------------------</p>
-
-                <h2>PLAYER</h2>
-                <Player/>
-
-                <h2>DEALER</h2>
-                <Dealer/>
-
-                <h2>DECK</h2>
-                <Deck/>
-
-
+                <div className={"main-container"}>
+                    <div className={"top-main-container"}>
+                        <Dealer/>
+                        <Deck/>
+                    </div>
+                    <Player/>
+                </div>
             </div>
         </RootStoreContext.Provider>
     );

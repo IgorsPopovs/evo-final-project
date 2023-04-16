@@ -1,5 +1,5 @@
 import {makeObservable, observable, action, computed, reaction} from "mobx";
-import {CardProps} from "../components/Card/Card";
+import {CardProps} from "../components/Hand/Card/Card";
 import RootStore from "./RootStore";
 import BetStore from "./BetStore";
 import betStore from "./BetStore";

@@ -1,5 +1,5 @@
 import React from "react";
-import {Card, CardProps} from "../Card/Card";
+import {Card, CardProps} from "./Card/Card";
 import {observer} from "mobx-react";
 import HandStore from "../../stores/HandStore";
 import './Hand.css';

@@ -1,4 +1,4 @@
-.playerHandsContainer {
+.player-hands-container {
     display: flex;
     width: fit-content;
 
@@ -6,10 +6,15 @@
     padding: 15px;
 }
 
-.playerContainer {
+.player-container {
     display: flex;
     width: fit-content;
 
     border: solid;
     padding: 15px;
+}
+
+.player-container h2 {
+    border: solid;
+    margin: 0;
 }

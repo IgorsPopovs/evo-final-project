@@ -11,8 +11,9 @@ const Player: React.FC = () => {
     const rootStore = useContext(RootStoreContext);
 
     return (
-        <div className={"playerContainer"}>
-            <div className={"playerHandsContainer"}>
+        <div className={"player-container"}>
+            <h2>PLAYER</h2>
+            <div className={"player-hands-container"}>
                 {rootStore.handManagerStore.hands.map((hand,i) => {
                     return (<div key={i} >
                         <Hand handStore={hand} owner={"player"}/>

@@ -1,15 +1,16 @@
 import React, {useContext} from "react";
 import {observer} from "mobx-react";
-import Hand from "./Hand/Hand";
-import {RootStoreContext} from "../App";
+import Hand from "../Hand/Hand";
+import {RootStoreContext} from "../../App";
 import {autorun} from "mobx";
-import {GameStatus} from "../utils/Constant";
+import {GameStatus} from "../../utils/Constant";
 
 const Dealer: React.FC = () => {
     const rootStore = useContext(RootStoreContext);
 
     return (
-        <div>
+        <div className={"player-container"}>
+            <h2>DEALER</h2>
             <Hand handStore={rootStore.dealersHandStore} owner={"dealer"}/>
         </div>
     );

@@ -1,15 +1,17 @@
 import React, {useContext} from 'react';
-import './Card/Card';
-import {Card} from "./Card/Card";
+import '../Hand/Card/Card';
+import {Card} from "../Hand/Card/Card";
 import {observer} from "mobx-react";
-import {RootStoreContext} from "../App";
+import {RootStoreContext} from "../../App";
+import "./Deck.css";
 
 const Deck: React.FC = () => {
     const rootStore = useContext(RootStoreContext);
     const cards = rootStore.deckStore.cards;
 
     return (
-        <div>
+        <div className={"deck-container"}>
+            <h2>DECK</h2>
             <h2>Cards count: {cards.length}</h2>
             <div className="hand">
                 {/*{console.log(cards)}*/}
