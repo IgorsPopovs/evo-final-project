@@ -45,9 +45,9 @@ export const bettingTime: number = 1; //15
 
 export const Balance: number = 1500;
 
-export enum Users {
-    'Player',
-    'Dealer',
-}
+// export enum Users {
+//     'Player',
+//     'Dealer',
+// }
 
 export const DecksCount: number = 4;

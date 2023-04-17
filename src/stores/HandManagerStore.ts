@@ -1,7 +1,7 @@
 import HandStore from "./HandStore";
 import RootStore from "./RootStore";
 import {autorun, computed, makeAutoObservable} from "mobx";
-import {HandStatus, Users} from "../utils/Constant";
+import {HandStatus} from "../utils/Constant";
 
 class HandManagerStore {
     rootStore: RootStore;
@@ -10,7 +10,7 @@ class HandManagerStore {
     constructor(rootStore: RootStore) {
 
         this.rootStore = rootStore;
-        this.hands = [new HandStore(this.rootStore, 0, Users.Player)];
+        this.hands = [new HandStore(this.rootStore)];
 
         makeAutoObservable(this, {
             isDone: computed,
@@ -40,7 +40,7 @@ class HandManagerStore {
 
     public resetAll() {
         //TODO: dispose handsStore's
-        this.hands = [new HandStore(this.rootStore, 0, Users.Player)];
+        this.hands = [new HandStore(this.rootStore)];
     }
 
     private get isFinishedPlaying() {

@@ -2,11 +2,11 @@ import {action, makeAutoObservable, reaction} from "mobx";
 import RootStore from "./RootStore";
 import BetStore from "./BetStore";
 import CardStore from "./CardStore";
-import {HandCombination, HandStatus, Users} from "../utils/Constant";
+import {HandCombination, HandStatus} from "../utils/Constant";
 
 class HandStore {
-    id: number;
-    public owner: Users;
+    // id: number;
+    // public owner: Users;
     cards: CardStore[] = [];
     isDone: boolean = false;
     status: HandStatus = HandStatus.Playing;
@@ -15,11 +15,11 @@ class HandStore {
     betStore: BetStore;
 
 
-    constructor(rootStore: RootStore, id: number, owner: Users) {
+    constructor(rootStore: RootStore) {
         this.rootStore = rootStore;
         this.betStore = new BetStore(this.rootStore);
-        this.id = id;
-        this.owner = owner;
+        // this.id = id;
+        // this.owner = owner;
 
         makeAutoObservable(this, {
             setDone: action,
@@ -119,7 +119,7 @@ class HandStore {
     }
 
     public splitHand() {
-        const newHand = new HandStore(this.rootStore, this.rootStore.handManagerStore.hands.length, Users.Player);
+        const newHand = new HandStore(this.rootStore);
         const popCard = this.pullCard();
         if (popCard !== undefined) {
             newHand.addCard(popCard)
