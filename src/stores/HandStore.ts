@@ -1,4 +1,4 @@
-import {makeAutoObservable, reaction, runInAction} from "mobx";
+import {action, makeAutoObservable, reaction} from "mobx";
 import RootStore from "./RootStore";
 import BetStore from "./BetStore";
 import CardStore from "./CardStore";
@@ -21,6 +21,11 @@ class HandStore {
         this.id = id;
         this.owner = owner;
 
+        makeAutoObservable(this, {
+            setDone: action,
+            addCard: action,
+        });
+
         reaction(
             () => ({
                 status: this.status,
@@ -31,8 +36,6 @@ class HandStore {
                 if (status === HandStatus.Tie) console.log('results... I Dont know!');
             }
         );
-
-        makeAutoObservable(this);
     }
 
     public setStatus(status: HandStatus) {
@@ -44,30 +47,27 @@ class HandStore {
     }
 
     public addCard(card: CardStore) {
-        runInAction(() => {
-            this.cards.push(card);
-            console.log(this.totalScore);
-            this.checkIsDone();
-            this.assignCombination();
-        })
+        this.cards.push(card);
+        console.log(this.totalScore);
+        this.checkIsDone();
+        this.assignCombination();
     }
 
     private assignCombination() {
         console.log('assigning combination...' + this.totalScore);
-        if (this.cards.length === 2) {
-            if (this.totalScore === 21) this.setCombination(HandCombination.NaturalBlackJack);
-        } else {
-            if (this.totalScore === 21) this.setCombination(HandCombination.BlackJack);
-        }
-        if (this.checkSplit()) this.setCombination(HandCombination.Split);
-        if (this.totalScore > 21) this.setCombination(HandCombination.Bust);
+        if (this.cards.length === 2 && this.totalScore === 21) this.setCombination(HandCombination.NaturalBlackJack);
+        else if (this.totalScore === 21) this.setCombination(HandCombination.BlackJack);
+        else if (this.checkSplit()) this.setCombination(HandCombination.Split);
+        else if (this.totalScore > 21) this.setCombination(HandCombination.Bust);
+        else this.setCombination(HandCombination.None);
     }
 
     private checkSplit() {
+        console.log('SPLIT ' + this.rootStore.handManagerStore.handsLength)
         return (
             (this.cards.length === 2) &&
             (this.cards[0].value === this.cards[1].value) &&
-            (this.rootStore.handManagerStore.hands.length === 2)
+            (this.rootStore.handManagerStore.handsLength === 1)
         );
     }
 

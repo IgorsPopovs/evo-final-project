@@ -1,4 +1,4 @@
-import {makeAutoObservable, runInAction} from "mobx";
+import {makeAutoObservable} from "mobx";
 import {createDeck} from "../utils/Helper";
 import RootStore from "./RootStore";
 import CardStore from "./CardStore";
@@ -16,15 +16,11 @@ class DeckStore {
     }
 
     createDeck(): void {
-        runInAction(() => {
-            this.cards = createDeck();
-        });
+        this.cards = createDeck();
     }
 
     dealCard(): CardStore | undefined {
-        return runInAction(() => {
-            return this.cards.pop();
-        });
+        return this.cards.pop();
     }
 
     shuffle(): void {

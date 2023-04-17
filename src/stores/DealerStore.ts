@@ -1,4 +1,4 @@
-import {action, autorun, makeAutoObservable, runInAction} from "mobx";
+import {action, autorun, makeAutoObservable} from "mobx";
 import RootStore from "./RootStore";
 import {GameStatus} from "../utils/Constant";
 import HandStore from "./HandStore";
@@ -8,6 +8,12 @@ class DealerStore {//extends HandStore{
 
     constructor(rootStore: RootStore) {
         this.rootStore = rootStore;
+
+        makeAutoObservable(this, {
+            exposeCards: action,
+            hit: action,
+            // initDeal: action,
+        });
 
         autorun(() => {
             if (
@@ -29,25 +35,18 @@ class DealerStore {//extends HandStore{
 
         autorun(() => {
             if (this.rootStore.gameStore.status === GameStatus.initialDeal) {
-                runInAction(() => this.initDeal());
+                this.initDeal();
             }
-        });
-
-        makeAutoObservable(this, {
-            exposeCards: action,
-            hit: action,
         });
     }
 
     private initDeal(): void {
-        runInAction(() => {
-            this.hit(this.rootStore.handManagerStore.hands[0], false);
-            this.hit(this.rootStore.handManagerStore.hands[0], false);
-            this.hit(this.rootStore.dealersHandStore, false);
-            this.hit(this.rootStore.dealersHandStore, true);
-            // this.rootStore.handManagerStore.hands[0].checkNaturalBlackJack();
-            this.rootStore.gameStore.setStatus(GameStatus.playersTurn);
-        });
+        this.hit(this.rootStore.handManagerStore.hands[0], false);
+        this.hit(this.rootStore.handManagerStore.hands[0], false);
+        this.hit(this.rootStore.dealersHandStore, false);
+        this.hit(this.rootStore.dealersHandStore, true);
+
+        this.rootStore.gameStore.setStatus(GameStatus.playersTurn);
     }
 
     public hit(hand: HandStore, hidden: boolean): void {

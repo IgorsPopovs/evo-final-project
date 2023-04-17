@@ -1,6 +1,6 @@
 import HandStore from "./HandStore";
 import RootStore from "./RootStore";
-import {autorun, makeAutoObservable} from "mobx";
+import {autorun, computed, makeAutoObservable} from "mobx";
 import {HandStatus, Users} from "../utils/Constant";
 
 class HandManagerStore {
@@ -8,9 +8,13 @@ class HandManagerStore {
     hands: HandStore[];
 
     constructor(rootStore: RootStore) {
-        makeAutoObservable(this);
+
         this.rootStore = rootStore;
         this.hands = [new HandStore(this.rootStore, 0, Users.Player)];
+
+        makeAutoObservable(this, {
+            isDone: computed,
+        });
 
         autorun(() => {
             if (this.isFinishedPlaying) {
@@ -19,6 +23,9 @@ class HandManagerStore {
         })
     }
 
+    public get handsLength(): number {
+        return this.hands.length;
+    }
     public get isDone(): boolean {
         // this.hands.forEach((hand) => {
         for (let i = 0; i < this.hands.length; i++) {
