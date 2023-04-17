@@ -18,7 +18,7 @@ class HandManagerStore {
         })
     }
 
-    get isDone(): boolean {
+    public get isDone(): boolean {
         // this.hands.forEach((hand) => {
         for (let i = 0; i < this.hands.length; i++) {
             console.log(!this.hands[i].isDone);
@@ -34,7 +34,7 @@ class HandManagerStore {
         this.hands = [new HandStore(this.rootStore, 0)];
     }
 
-    get isResultsCalculated() {
+    private get isResultsCalculated() {
         return (this.hands.filter(hand => hand.won === undefined).length === 0);
     }
 }

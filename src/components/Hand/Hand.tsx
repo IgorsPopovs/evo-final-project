@@ -12,7 +12,7 @@ type HandProps = {
 const Hand: React.FC<HandProps> = ({handStore, owner}) => {
     return (
         <div className={handStore.won === undefined ? "handContainer" : handStore.won ? "handContainer green" : "handContainer red"}>
-            <div>Score: {handStore.calculateScore}</div>
+            <div>Score: {handStore.totalScore}</div>
             <div className={"hand"}>
                 {handStore.cards.length > 0 ? (
                     handStore.cards.map((card, index) => (

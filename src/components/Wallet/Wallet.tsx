@@ -16,7 +16,7 @@ const Wallet: React.FC = () => {
         })
 
         rootStore.gameStore.setStatus(GameStatus.initialDeal);
-        rootStore.dealerStore.initDeal();
+        // rootStore.dealerStore.initDeal();
         console.log('Betting timer has ended');
     };
 

@@ -1,4 +1,4 @@
-import {reaction, makeAutoObservable, runInAction} from "mobx";
+import {reaction, makeAutoObservable, autorun, runInAction} from "mobx";
 import RootStore from "./RootStore";
 import BetStore from "./BetStore";
 import CardStore from "./CardStore";
@@ -25,27 +25,34 @@ class HandStore {
                 if (won === false) console.log('results... I LOST!');
                 if (won === undefined) console.log('results... I Dont know!');
             }
-        )
+        );
 
         makeAutoObservable(this);
     }
 
     setWon(isWon: boolean) {
-        runInAction(() => {
-            this.won = isWon;
-        });
-    }
-    addCard(card: CardStore) {
-        runInAction(() => {
-            this.cards.push(card);
-        });
+        this.won = isWon;
     }
 
-    pullCard() {
+    public addCard(card: CardStore) {
+        runInAction(() => {
+            this.cards.push(card);
+            this.checkIsDone();
+        })
+
+    }
+
+    private checkIsDone() {
+        if (this.totalScore >= 21) {
+            this.setDone();
+        }
+    }
+
+    private pullCard() {
         return this.cards.pop();
     }
 
-    get calculateScore() {
+    public get totalScore() {
         let total = 0;
         let aceCount = 0;
         this.cards.forEach((card) => {
@@ -70,19 +77,17 @@ class HandStore {
         return total;
     }
 
-    reset() {
+    public reset() {
         this.cards = [];
         this.isDone = false;
     }
 
-    setDone() {
-        runInAction(() => {
-            this.isDone = true;
-        });
+    public setDone() {
+        this.isDone = true;
         console.log("done");
     }
 
-    splitHand() {
+    public splitHand() {
         const newHand = new HandStore(this.rootStore, this.rootStore.handManagerStore.hands.length);
         const popCard = this.pullCard();
         if (popCard !== undefined) {
