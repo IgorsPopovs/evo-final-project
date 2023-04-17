@@ -38,6 +38,9 @@ class DealerStore {//extends HandStore{
         if (card !== undefined) {
             if (receiver === Users.Player) {
                 this.rootStore.handManagerStore.hands[hand].addCard(card);
+                if (this.rootStore.handManagerStore.hands[hand].calculateScore >= 21) {
+                    this.rootStore.handManagerStore.hands[hand].setDone();
+                }
             } else if (receiver === Users.Dealer) {
                 this.rootStore.dealersHandStore.addCard(card);
             }

@@ -67,10 +67,6 @@ class HandStore {
             }
         }
 
-        if (total >= 21) {
-            this.setDone();
-        }
-
         return total;
     }
 
