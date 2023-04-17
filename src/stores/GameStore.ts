@@ -28,7 +28,6 @@ class GameStore {
                         this.setStatus(GameStatus.turnsEnded);
                     })
                 }
-                ;
             }),
             reaction(
                 () => ({
@@ -37,7 +36,7 @@ class GameStore {
                 ({status}) => {
                     if (status === GameStatus.turnsEnded) {
                         console.log('Whi is winner?');
-                        this.rootStore.handManagerStore.hands.forEach((hand, i) => {
+                        this.rootStore.handManagerStore.hands.forEach((hand) => {
 
                             const playerScore = hand.calculateScore;
                             const dealerScore = this.rootStore.dealersHandStore.calculateScore;

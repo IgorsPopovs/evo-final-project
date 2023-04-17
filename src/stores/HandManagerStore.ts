@@ -26,7 +26,6 @@ class HandManagerStore {
                 return false;
             }
         }
-        ;
         return true;
     }
 
