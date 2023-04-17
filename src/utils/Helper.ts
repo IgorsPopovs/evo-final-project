@@ -1,4 +1,3 @@
-import {CardProps} from "../components/Hand/Card/Card";
 import {DecksCount, suits, Value, values} from "./Constant";
 import CardStore from "../stores/CardStore";
 

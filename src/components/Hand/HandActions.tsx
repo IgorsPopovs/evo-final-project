@@ -3,7 +3,6 @@ import {observer} from "mobx-react";
 import {RootStoreContext} from "../../App";
 import {GameStatus, Users} from "../../utils/Constant";
 import HandStore from "../../stores/HandStore";
-import betStore from "../../stores/BetStore";
 
 type HandActionsProps = {
     handStore: HandStore;
@@ -14,7 +13,6 @@ const HandActions: React.FC<HandActionsProps> = ({handStore}) => {
         gameStore,
         dealerStore,
         dealersHandStore,
-        walletStore,
         handManagerStore,
         deckStore
     } = useContext(RootStoreContext);
