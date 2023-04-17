@@ -1,6 +1,7 @@
 export const suits = ['SPADES', 'HEARTS', 'DIAMONDS', 'CLUBS'] as const;
-export const values = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'] as const;
-export const valuesOfTen = ['J', 'Q', 'K'];
+// export const values = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'] as const;
+export const values = ['A', 'J', 'K', 'Q'] as const;
+
 
 export type Suit = typeof suits[number];
 export type Value = typeof values[number];
@@ -40,7 +41,7 @@ export enum HandCombination {
 
 export const Chips = [20, 50, 100, 200, 500, 1000] as const;
 
-export const bettingTime: number = 5; //15
+export const bettingTime: number = 1; //15
 
 export const Balance: number = 1500;
 

@@ -98,6 +98,16 @@ class GameStore {
         });
     }
 
+    private tie(hand: HandStore) {
+        runInAction(() => {
+            this.rootStore.walletStore.deposit(hand.betStore.bet);
+            hand.betStore.setBet(0);
+            hand.setStatus(HandStatus.Tie);
+
+            // this.setStatus(GameStatus.tie);
+        });
+    }
+
     private endTurn(): void {
         runInAction(() => {
             console.log(this.rootStore.handManagerStore.isDone);
@@ -105,13 +115,7 @@ class GameStore {
         });
     }
 
-    private tie(hand: HandStore) {
-        runInAction(() => {
-            this.rootStore.walletStore.deposit(hand.betStore.bet);
-            hand.betStore.setBet(0);
-            this.setStatus(GameStatus.tie);
-        });
-    }
+
 
     dispose() {
         this.disposers.forEach((disposer) => disposer());

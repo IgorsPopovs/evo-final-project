@@ -1,7 +1,7 @@
-import {runInAction} from "mobx";
+import {makeAutoObservable} from "mobx";
 import {Suit, Value} from "../utils/Constant";
 
-export type CardStoreProps2 = { //TODO: Create interface?
+export type CardStoreProps2 = {
     suit: Suit;
     value: Value;
     isHidden: boolean;
@@ -14,13 +14,11 @@ class CardStore {
         this.suit = card.suit;
         this.value = card.value;
         this.isHidden = card.isHidden;
-        // makeAutoObservable(this);
+        makeAutoObservable(this);
     }
 
     public expose(): void {
-        runInAction(() => {
             this.isHidden = false;
-        });
     }
 }
 

@@ -1,6 +1,7 @@
 import {autorun, makeAutoObservable, runInAction} from "mobx";
 import RootStore from "./RootStore";
-import {GameStatus, Users} from "../utils/Constant";
+import {GameStatus} from "../utils/Constant";
+import HandStore from "./HandStore";
 
 class DealerStore {//extends HandStore{
     rootStore: RootStore;
@@ -12,9 +13,11 @@ class DealerStore {//extends HandStore{
             if (
                 this.rootStore.gameStore.status === GameStatus.dealersTurn
             ) {
+                runInAction(() => this.exposeCards());
                 while (!this.rootStore.dealersHandStore.isDone) {
+                    console.log(this.rootStore.dealersHandStore.totalScore);
                     if (this.canDealToDealer()) {
-                        runInAction(() => this.hit(Users.Dealer, false));
+                        runInAction(() => this.hit(this.rootStore.dealersHandStore, false));
                     } else {
                         runInAction(() => this.rootStore.dealersHandStore.setDone());
                         console.log('dealer done')
@@ -34,29 +37,30 @@ class DealerStore {//extends HandStore{
 
     private initDeal(): void {
         runInAction(() => {
-            this.hit(Users.Player, false);
-            this.hit(Users.Player, false);
-            this.hit(Users.Dealer, false);
-            this.hit(Users.Dealer, true);
+            this.hit(this.rootStore.handManagerStore.hands[0], false);
+            this.hit(this.rootStore.handManagerStore.hands[0], false);
+            this.hit(this.rootStore.dealersHandStore, false);
+            this.hit(this.rootStore.dealersHandStore, true);
             // this.rootStore.handManagerStore.hands[0].checkNaturalBlackJack();
             this.rootStore.gameStore.setStatus(GameStatus.playersTurn);
         });
     }
 
-    public hit(receiver: Users, hidden: boolean, hand: number = 0): void {
+    public hit(hand: HandStore, hidden: boolean): void {
         const card = this.rootStore.deckStore.dealCard();
         if (card !== undefined) {
-            if (receiver === Users.Player) {
-                this.rootStore.handManagerStore.hands[hand].addCard(card);
-                // if (this.rootStore.handManagerStore.hands[hand].calculateScore >= 21) {
-                //     this.rootStore.handManagerStore.hands[hand].setDone();
-                // }
-            } else if (receiver === Users.Dealer) {
-                this.rootStore.dealersHandStore.addCard(card);
-            }
             if (!hidden) {
                 card.expose();
             }
+            hand.addCard(card);
+            // if (hand.owner === Users.Player) {
+            //     this.rootStore.handManagerStore.hands[hand].addCard(card);
+            //     // if (this.rootStore.handManagerStore.hands[hand].calculateScore >= 21) {
+            //     //     this.rootStore.handManagerStore.hands[hand].setDone();
+            //     // }
+            // } else if (receiver === Users.Dealer) {
+            //     this.rootStore.dealersHandStore.addCard(card);
+            // }
         }
     }
 

@@ -2,10 +2,11 @@ import {makeAutoObservable, reaction, runInAction} from "mobx";
 import RootStore from "./RootStore";
 import BetStore from "./BetStore";
 import CardStore from "./CardStore";
-import {HandCombination, HandStatus, valuesOfTen} from "../utils/Constant";
+import {HandCombination, HandStatus, Users} from "../utils/Constant";
 
 class HandStore {
     id: number;
+    public owner: Users;
     cards: CardStore[] = [];
     isDone: boolean = false;
     status: HandStatus = HandStatus.Playing;
@@ -13,10 +14,12 @@ class HandStore {
     rootStore: RootStore;
     betStore: BetStore;
 
-    constructor(rootStore: RootStore, id: number) {
+
+    constructor(rootStore: RootStore, id: number, owner: Users) {
         this.rootStore = rootStore;
         this.betStore = new BetStore(this.rootStore);
         this.id = id;
+        this.owner = owner;
 
         reaction(
             () => ({
@@ -43,12 +46,14 @@ class HandStore {
     public addCard(card: CardStore) {
         runInAction(() => {
             this.cards.push(card);
+            console.log(this.totalScore);
             this.checkIsDone();
             this.assignCombination();
         })
     }
 
     private assignCombination() {
+        console.log('assigning combination...' + this.totalScore);
         if (this.cards.length === 2) {
             if (this.totalScore === 21) this.setCombination(HandCombination.NaturalBlackJack);
         } else {
@@ -61,9 +66,9 @@ class HandStore {
     private checkSplit() {
         return (
             (this.cards.length === 2) && (
-                (this.cards[0].value === this.cards[1].value) || (
-                    valuesOfTen.includes(this.cards[0].value) && valuesOfTen.includes(this.cards[1].value)
-                )
+                (this.cards[0].value === this.cards[1].value) //|| (
+                //     valuesOfTen.includes(this.cards[0].value) && valuesOfTen.includes(this.cards[1].value)
+                // )
             )
         );
     }
@@ -88,12 +93,14 @@ class HandStore {
         let total = 0;
         let aceCount = 0;
         this.cards.forEach((card) => {
-            if (card.value === "J" || card.value === "Q" || card.value === "K") {
-                total += 10;
-            } else if (card.value === "A") {
-                aceCount++;
-            } else {
-                total += Number(card.value);
+            if (!card.isHidden) {
+                if (card.value === "J" || card.value === "Q" || card.value === "K") {
+                    total += 10;
+                } else if (card.value === "A") {
+                    aceCount++;
+                } else {
+                    total += Number(card.value);
+                }
             }
         });
 
@@ -120,12 +127,15 @@ class HandStore {
     }
 
     public splitHand() {
-        const newHand = new HandStore(this.rootStore, this.rootStore.handManagerStore.hands.length);
+        const newHand = new HandStore(this.rootStore, this.rootStore.handManagerStore.hands.length, Users.Player);
         const popCard = this.pullCard();
         if (popCard !== undefined) {
             newHand.addCard(popCard)
             newHand.betStore.addBet(this.betStore.bet);
             this.rootStore.handManagerStore.hands.push(newHand);
+
+            this.rootStore.dealerStore.hit(this, false);
+            this.rootStore.dealerStore.hit(newHand, false);
         }
     }
 }

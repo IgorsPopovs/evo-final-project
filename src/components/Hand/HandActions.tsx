@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import {observer} from "mobx-react";
 import {RootStoreContext} from "../../App";
-import {GameStatus, Users} from "../../utils/Constant";
+import {GameStatus, HandCombination} from "../../utils/Constant";
 import HandStore from "../../stores/HandStore";
 
 type HandActionsProps = {
@@ -18,7 +18,7 @@ const HandActions: React.FC<HandActionsProps> = ({handStore}) => {
     } = useContext(RootStoreContext);
 
     const handleHit = () => {
-        dealerStore.hit(Users.Player, false, handStore.id);
+        dealerStore.hit(handStore, false);
     };
 
     const handleStay = () => {
@@ -62,8 +62,7 @@ const HandActions: React.FC<HandActionsProps> = ({handStore}) => {
                 </button>
                 <button
                     disabled={
-                        handStore.isDone ||
-                        handManagerStore.hands.length === 2
+                        handStore.combination !== HandCombination.Split
                     }
                     onClick={() => handleSplit()}
                 >

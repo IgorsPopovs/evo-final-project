@@ -4,6 +4,7 @@ import WalletStore from "./WalletStore";
 import GameStore from "./GameStore";
 import DealerStore from "./DealerStore";
 import HandManagerStore from "./HandManagerStore";
+import {Users} from "../utils/Constant";
 
 class RootStore {
     deckStore: DeckStore;
@@ -21,7 +22,7 @@ class RootStore {
         this.dealerStore = new DealerStore(this);
 
         // this.playersHandStore = new HandStore(this);
-        this.dealersHandStore = new HandStore(this, 0);
+        this.dealersHandStore = new HandStore(this, 0, Users.Dealer);
         this.walletStore = new WalletStore(this);
     }
 }
