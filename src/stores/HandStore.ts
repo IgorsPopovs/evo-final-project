@@ -1,40 +1,39 @@
-import {action, makeAutoObservable, reaction} from "mobx";
+import {action, IReactionDisposer, makeAutoObservable, reaction} from "mobx";
 import RootStore from "./RootStore";
 import BetStore from "./BetStore";
 import CardStore from "./CardStore";
 import {HandCombination, HandStatus} from "../utils/Constant";
 
 class HandStore {
-    // id: number;
-    // public owner: Users;
     cards: CardStore[] = [];
     isDone: boolean = false;
     status: HandStatus = HandStatus.Playing;
     combination: HandCombination = HandCombination.None;
     rootStore: RootStore;
     betStore: BetStore;
+    disposers: IReactionDisposer[] = [];
 
 
     constructor(rootStore: RootStore) {
         this.rootStore = rootStore;
         this.betStore = new BetStore(this.rootStore);
-        // this.id = id;
-        // this.owner = owner;
 
         makeAutoObservable(this, {
             setDone: action,
             addCard: action,
         });
 
-        reaction(
-            () => ({
-                status: this.status,
-            }),
-            ({status}) => {
-                if (status === HandStatus.Win) console.log('results... I WON!');
-                if (status === HandStatus.Lost) console.log('results... I LOST!');
-                if (status === HandStatus.Tie) console.log('results... I Dont know!');
-            }
+        this.disposers.push(
+            reaction(
+                () => ({
+                    status: this.status,
+                }),
+                ({status}) => {
+                    if (status === HandStatus.Win) console.log('results... I WON!');
+                    if (status === HandStatus.Lost) console.log('results... I LOST!');
+                    if (status === HandStatus.Tie) console.log('results... I Dont know!');
+                }
+            ),
         );
     }
 
