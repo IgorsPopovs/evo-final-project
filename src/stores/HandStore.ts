@@ -1,13 +1,15 @@
-import {reaction, makeAutoObservable, autorun, runInAction} from "mobx";
+import {makeAutoObservable, reaction, runInAction} from "mobx";
 import RootStore from "./RootStore";
 import BetStore from "./BetStore";
 import CardStore from "./CardStore";
+import {HandCombination, HandStatus, valuesOfTen} from "../utils/Constant";
 
 class HandStore {
     id: number;
     cards: CardStore[] = [];
     isDone: boolean = false;
-    won: boolean | undefined = undefined;
+    status: HandStatus = HandStatus.Playing;
+    combination: HandCombination = HandCombination.None;
     rootStore: RootStore;
     betStore: BetStore;
 
@@ -18,29 +20,59 @@ class HandStore {
 
         reaction(
             () => ({
-                won: this.won,
+                status: this.status,
             }),
-            ({won}) => {
-                if (won === true) console.log('results... I WON!');
-                if (won === false) console.log('results... I LOST!');
-                if (won === undefined) console.log('results... I Dont know!');
+            ({status}) => {
+                if (status === HandStatus.Win) console.log('results... I WON!');
+                if (status === HandStatus.Lost) console.log('results... I LOST!');
+                if (status === HandStatus.Tie) console.log('results... I Dont know!');
             }
         );
 
         makeAutoObservable(this);
     }
 
-    setWon(isWon: boolean) {
-        this.won = isWon;
+    public setStatus(status: HandStatus) {
+        this.status = status;
+    }
+
+    public setCombination(combo: HandCombination) {
+        this.combination = combo;
     }
 
     public addCard(card: CardStore) {
         runInAction(() => {
             this.cards.push(card);
             this.checkIsDone();
+            this.assignCombination();
         })
-
     }
+
+    private assignCombination() {
+        if (this.cards.length === 2) {
+            if (this.totalScore === 21) this.setCombination(HandCombination.NaturalBlackJack);
+        } else {
+            if (this.totalScore === 21) this.setCombination(HandCombination.BlackJack);
+        }
+        if (this.checkSplit()) this.setCombination(HandCombination.Split);
+        if (this.totalScore > 21) this.setCombination(HandCombination.Bust);
+    }
+
+    private checkSplit() {
+        return (
+            (this.cards.length === 2) && (
+                (this.cards[0].value === this.cards[1].value) || (
+                    valuesOfTen.includes(this.cards[0].value) && valuesOfTen.includes(this.cards[1].value)
+                )
+            )
+        );
+    }
+
+    // public checkNaturalBlackJack(){
+    //     if (this.totalScore === 21) {
+    //         this.setCombination(HandCombination.NaturalBlackJack);
+    //     }
+    // }
 
     private checkIsDone() {
         if (this.totalScore >= 21) {

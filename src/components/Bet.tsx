@@ -1,8 +1,4 @@
-import React, {useContext} from "react";
-import Hand from "./Hand/Hand";
-import Wallet from "./Wallet/Wallet";
-import {RootStoreContext} from "../App";
-import HandActions from "./Hand/HandActions";
+import React from "react";
 import {observer} from "mobx-react";
 import HandStore from "../stores/HandStore";
 

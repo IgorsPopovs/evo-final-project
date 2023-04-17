@@ -1,6 +1,7 @@
 import HandStore from "./HandStore";
 import RootStore from "./RootStore";
 import {autorun, makeAutoObservable} from "mobx";
+import {HandStatus} from "../utils/Constant";
 
 class HandManagerStore {
     rootStore: RootStore;
@@ -12,7 +13,7 @@ class HandManagerStore {
         this.hands = [new HandStore(this.rootStore, 0)];
 
         autorun(() => {
-            if (this.isResultsCalculated) {
+            if (this.isFinishedPlaying) {
                 console.log('resultCalculated');
             }
         })
@@ -34,8 +35,10 @@ class HandManagerStore {
         this.hands = [new HandStore(this.rootStore, 0)];
     }
 
-    private get isResultsCalculated() {
-        return (this.hands.filter(hand => hand.won === undefined).length === 0);
+    private get isFinishedPlaying() {
+        return (
+            this.hands.filter(hand => hand.status === HandStatus.Playing).length === 0
+        );
     }
 }
 

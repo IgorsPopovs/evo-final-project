@@ -2,7 +2,6 @@ import React, {useContext} from "react";
 import {observer} from "mobx-react";
 import {Chips, GameStatus} from "../../utils/Constant";
 import {RootStoreContext} from "../../App";
-import {autorun} from "mobx";
 import "./Wallet.css";
 
 const MakeBet: React.FC = () => {

@@ -1,4 +1,4 @@
-import {GameStatus} from "../utils/Constant";
+import {GameStatus, HandStatus} from "../utils/Constant";
 import RootStore from "./RootStore";
 import {autorun, IReactionDisposer, makeAutoObservable, reaction, runInAction,} from "mobx";
 import HandStore from "./HandStore";
@@ -40,18 +40,38 @@ class GameStore {
                         const dealerScore = this.rootStore.dealersHandStore.totalScore;
                         this.rootStore.handManagerStore.hands.forEach((hand) => {
                             const playerScore = hand.totalScore;
-                            if ((playerScore > dealerScore && playerScore <= 21) || dealerScore > 21) {
+                            if (this.verifyPlayerWins(dealerScore, playerScore)) {
                                 this.playerWins(hand);
-                            } else if ((playerScore < dealerScore && dealerScore <= 21) || playerScore > 21) {
+                            } else if (this.verifyPlayerLoses(dealerScore, playerScore)) {
                                 this.playerLoses(hand);
-                            } else if (playerScore === dealerScore) {
+                            } else if (this.verifyTie(dealerScore, playerScore)) {
                                 this.tie(hand);
                             }
                         });
                     }
                 }
             )
+        );
+    }
 
+    private verifyPlayerWins(dealerScore: number, playerScore: number) {
+        return (
+            (playerScore > dealerScore && playerScore <= 21) ||
+            (playerScore <= 21 && dealerScore > 21)
+        );
+    }
+
+    private verifyPlayerLoses(dealerScore: number, playerScore: number) {
+        return (
+            (dealerScore > playerScore && dealerScore <= 21) ||
+            (dealerScore <= 21 && playerScore > 21)
+        );
+    }
+
+    private verifyTie(dealerScore: number, playerScore: number) {
+        return (
+            (dealerScore === playerScore) ||
+            (dealerScore > 21 && playerScore > 21)
         );
     }
 
@@ -67,14 +87,14 @@ class GameStore {
         runInAction(() => {
             this.rootStore.walletStore.deposit(hand.betStore.bet * 2);
             hand.betStore.setBet(0);
-            hand.setWon(true);
+            hand.setStatus(HandStatus.Win);
         });
     }
 
     private playerLoses(hand: HandStore) {
         runInAction(() => {
             hand.betStore.setBet(0);
-            hand.setWon(false);
+            hand.setStatus(HandStatus.Lost);
         });
     }
 

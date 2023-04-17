@@ -1,11 +1,9 @@
-import { makeAutoObservable } from "mobx";
 import DeckStore from "./DeckStore";
 import HandStore from "./HandStore";
 import WalletStore from "./WalletStore";
 import GameStore from "./GameStore";
 import DealerStore from "./DealerStore";
 import HandManagerStore from "./HandManagerStore";
-import BetStore from "./BetStore";
 
 class RootStore {
     deckStore: DeckStore;

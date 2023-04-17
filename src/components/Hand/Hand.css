@@ -9,7 +9,7 @@
 
     border: solid;
     padding: 15px;
-    height: 220px;
+    min-height: 220px;
 }
 
 .red{

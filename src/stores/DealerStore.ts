@@ -1,4 +1,4 @@
-import {autorun, makeAutoObservable, reaction, runInAction} from "mobx";
+import {autorun, makeAutoObservable, runInAction} from "mobx";
 import RootStore from "./RootStore";
 import {GameStatus, Users} from "../utils/Constant";
 
@@ -10,21 +10,22 @@ class DealerStore {//extends HandStore{
 
         autorun(() => {
             if (
-                this.rootStore.gameStore.status === GameStatus.dealersTurn &&
-                !this.rootStore.dealersHandStore.isDone
+                this.rootStore.gameStore.status === GameStatus.dealersTurn
             ) {
-                if (this.canDealToDealer()) {
-                    this.hit(Users.Dealer, false);
-                } else {
-                    this.rootStore.dealersHandStore.setDone();
-                    console.log('dealer done')
+                while (!this.rootStore.dealersHandStore.isDone) {
+                    if (this.canDealToDealer()) {
+                        runInAction(() => this.hit(Users.Dealer, false));
+                    } else {
+                        runInAction(() => this.rootStore.dealersHandStore.setDone());
+                        console.log('dealer done')
+                    }
                 }
             }
         });
 
         autorun(() => {
             if (this.rootStore.gameStore.status === GameStatus.initialDeal) {
-                this.initDeal();
+                runInAction(() => this.initDeal());
             }
         });
 
@@ -37,6 +38,7 @@ class DealerStore {//extends HandStore{
             this.hit(Users.Player, false);
             this.hit(Users.Dealer, false);
             this.hit(Users.Dealer, true);
+            // this.rootStore.handManagerStore.hands[0].checkNaturalBlackJack();
             this.rootStore.gameStore.setStatus(GameStatus.playersTurn);
         });
     }
