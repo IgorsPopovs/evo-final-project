@@ -16,6 +16,7 @@ const Hand: React.FC<HandProps> = ({handStore, owner}) => {
         <div className={classNames("handContainer", {
                 green: handStore.status === HandStatus.Win,
                 red: handStore.status === HandStatus.Lost,
+                yellow: handStore.status === HandStatus.Tie,
             }
         )}>
             <div>Score: {handStore.totalScore}</div>

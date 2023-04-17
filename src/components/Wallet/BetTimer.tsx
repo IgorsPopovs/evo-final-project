@@ -5,7 +5,7 @@ type BettingTimerProps = {
     onTimeout: () => void;
 };
 
-const BettingTimer: React.FC<BettingTimerProps> = ({ onTimeout }) => {
+const BetTimer: React.FC<BettingTimerProps> = ({ onTimeout }) => {
     const [remainingSeconds, setRemainingSeconds] = useState<number>(bettingTime);
 
     useEffect(() => {
@@ -25,4 +25,4 @@ const BettingTimer: React.FC<BettingTimerProps> = ({ onTimeout }) => {
     return <div>{`Time left to bet: ${remainingSeconds} seconds`}</div>;
 };
 
-export default BettingTimer;
+export default BetTimer;

@@ -7,15 +7,22 @@
     flex-direction: column;
     width: fit-content;
 
-    border: solid;
+    /*border: solid;*/
+    border-radius: 10px;
     padding: 15px;
     min-height: 220px;
+
+    margin: 0px 10px;
 }
 
-.red{
+.red {
     background-color: orangered;
 }
 
-.green{
+.green {
     background-color: aquamarine;
+}
+
+.yellow {
+    background-color: goldenrod;
 }

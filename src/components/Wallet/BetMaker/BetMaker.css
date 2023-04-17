@@ -1,0 +1,98 @@
+.chips-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.chips-container .chip {
+    display: flex;
+    font-weight: bold;
+    font-size: 26px;
+    height: 90px;
+    width: 90px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.5), 0 0 4px 0 rgba(0, 0, 0, 0.27) inset;
+    border: 7px dashed white;
+    transition: all 0.6s;
+    color: white;
+    font-family: 'Lato', sans-serif;
+    margin: 8px 8px;
+}
+
+
+.chips-container .chip span {
+    border: 3px dashed white;
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 60px;
+}
+
+.chips-container .chip-20 {
+    background-color: #61dafb;
+}
+
+.chips-container .chip-50 {
+    background-color: #04AA6D;
+}
+
+.chips-container .chip-100 {
+    background-color: goldenrod;
+}
+
+.chips-container .chip-200 {
+    background-color: crimson;
+}
+
+.chips-container .chip-500 {
+    background-color: dimgrey;
+}
+
+.chips-container .chip-1000 {
+    background-color: darkorchid;
+    font-size: 20px;
+}
+
+.chips-container .chip:disabled{
+    background-color: #282c34;
+    color: dimgrey;
+    box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.5), 0 0 3px 0 rgba(0, 0, 0, 0.4) inset;
+}
+/* .spin */
+.chips-container .chip:enabled:after {
+    content: "";
+    background-color: rgba(0, 128, 0, 0);
+    border-radius: 50%;
+}
+.chips-container .chip:enabled:hover:after {
+    content: "";
+    /*transform: rotate(360deg);*/
+    background-color: rgba(125, 255, 0, 0.32);
+    height: 90px;
+    width: 90px;
+    position: absolute;
+    border-radius: 50%;
+}
+
+.chips-container .chip:enabled:active{
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+    transition: 0.1s;
+}
+
+.chip-outer {
+    display: flex;
+    border-radius: 50%;
+    box-shadow: 0 9px #999;
+    height: 90px;
+    width: 90px;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+
+

@@ -41,13 +41,8 @@ export enum HandCombination {
 
 export const Chips = [20, 50, 100, 200, 500, 1000] as const;
 
-export const bettingTime: number = 1; //15
+export const bettingTime: number = 555; //15
 
 export const Balance: number = 1500;
-
-// export enum Users {
-//     'Player',
-//     'Dealer',
-// }
 
 export const DecksCount: number = 4;

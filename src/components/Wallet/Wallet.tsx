@@ -2,8 +2,8 @@ import React, {useContext} from "react";
 import {observer} from "mobx-react";
 import {Chips, GameStatus} from "../../utils/Constant";
 import {RootStoreContext} from "../../App";
-import MakeBet from "./MakeBet";
-import BettingTimer from "./BettingTimer";
+import BetMaker from "./BetMaker/BetMaker";
+import BetTimer from "./BetTimer";
 
 const Wallet: React.FC = () => {
     const rootStore = useContext(RootStoreContext);
@@ -23,10 +23,10 @@ const Wallet: React.FC = () => {
     return (
             <div className='wallet-controls'>
                 {rootStore.gameStore.status === GameStatus.playersBet &&
-                    <BettingTimer onTimeout={handleTimeout} />
+                    <BetTimer onTimeout={handleTimeout} />
                 }
                 {rootStore.gameStore.status === GameStatus.playersBet &&
-                    <MakeBet/>
+                    <BetMaker/>
                 }
                 <p>Wallet balance: {rootStore.walletStore.balance}</p>
             </div>
