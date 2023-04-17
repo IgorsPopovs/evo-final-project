@@ -11,9 +11,9 @@ type HandProps = {
 
 const Hand: React.FC<HandProps> = ({handStore, owner}) => {
     return (
-        <div className={"handContainer"}>
+        <div className={handStore.won === undefined ? "handContainer" : handStore.won ? "handContainer green" : "handContainer red"}>
             <div>Score: {handStore.calculateScore}</div>
-            <div className="hand">
+            <div className={"hand"}>
                 {handStore.cards.length > 0 ? (
                     handStore.cards.map((card, index) => (
                         <Card key={index} value={card.value} suit={card.suit} isHidden={card.isHidden}/>

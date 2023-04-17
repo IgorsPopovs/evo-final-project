@@ -39,7 +39,7 @@ class DealerStore {
         this.rootStore.gameStore.setStatus(GameStatus.playersTurn);
     }
 
-    hit(receiver:Users, hidden: boolean, hand:number = 0): void {
+    hit(receiver: Users, hidden: boolean, hand: number = 0): void {
         const card = this.rootStore.deckStore.dealCard();
         if (card !== undefined) {
             card.isHidden = hidden;
@@ -56,9 +56,7 @@ class DealerStore {
     exposeCards(): void {
         this.rootStore.dealersHandStore.cards.forEach((card) => {
             card.isHidden = false;
-        }) ;
-
-
+        });
     }
 
 }

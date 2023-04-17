@@ -1,7 +1,7 @@
 import HandStore from "./HandStore";
 import RootStore from "./RootStore";
 import {GameStatus} from "../utils/Constant";
-import {action, computed, IReactionDisposer, makeAutoObservable, reaction} from "mobx";
+import {action, autorun, computed, IReactionDisposer, makeAutoObservable, observable, reaction} from "mobx";
 import hand from "../components/Hand/Hand";
 
 class HandManagerStore {
@@ -12,10 +12,17 @@ class HandManagerStore {
         makeAutoObservable(this, {
             isDone: computed,
             isResultsCalculated: computed,
+            hands: observable,
         });
         this.rootStore = rootStore;
         this.hands = [new HandStore(this.rootStore, 0)];
         //isResultsCalculated
+
+        autorun(() => {
+            if (this.isResultsCalculated) {
+                console.log('resultCalculated');
+            }
+        })
     }
 
     get isDone(): boolean {
@@ -31,16 +38,12 @@ class HandManagerStore {
     }
 
 
-
     resetAll() {
-        // this.hands.forEach((hand) => {
-        //     hand.reset();
-        // });
         this.hands = [new HandStore(this.rootStore, 0)];
     }
 
     get isResultsCalculated() {
-        return (this.hands.filter(hand => hand.won !== undefined).length === 0);
+        return (this.hands.filter(hand => hand.won === undefined).length === 0);
     }
 }
 

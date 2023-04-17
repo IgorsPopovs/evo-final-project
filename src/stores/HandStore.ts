@@ -39,7 +39,6 @@ class HandStore {
                 if (won === undefined) console.log('results... I Dont know!');
             }
         )
-        //isResultsCalculated
     }
 
     setWon(isWon: boolean) {
@@ -97,8 +96,9 @@ class HandStore {
         const popCard = this.pullCard();
         if (popCard !== undefined) {
             newHand.addCard(popCard)
+            newHand.betStore.addBet(this.betStore.bet);
+            this.rootStore.handManagerStore.hands.push(newHand);
         }
-        this.rootStore.handManagerStore.hands.push(newHand);
     }
 }
 
