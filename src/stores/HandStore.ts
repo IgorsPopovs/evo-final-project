@@ -65,19 +65,11 @@ class HandStore {
 
     private checkSplit() {
         return (
-            (this.cards.length === 2) && (
-                (this.cards[0].value === this.cards[1].value) //|| (
-                //     valuesOfTen.includes(this.cards[0].value) && valuesOfTen.includes(this.cards[1].value)
-                // )
-            )
+            (this.cards.length === 2) &&
+            (this.cards[0].value === this.cards[1].value) &&
+            (this.rootStore.handManagerStore.hands.length === 2)
         );
     }
-
-    // public checkNaturalBlackJack(){
-    //     if (this.totalScore === 21) {
-    //         this.setCombination(HandCombination.NaturalBlackJack);
-    //     }
-    // }
 
     private checkIsDone() {
         if (this.totalScore >= 21) {

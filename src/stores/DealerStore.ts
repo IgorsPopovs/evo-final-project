@@ -1,4 +1,4 @@
-import {autorun, makeAutoObservable, runInAction} from "mobx";
+import {action, autorun, makeAutoObservable, runInAction} from "mobx";
 import RootStore from "./RootStore";
 import {GameStatus} from "../utils/Constant";
 import HandStore from "./HandStore";
@@ -13,13 +13,14 @@ class DealerStore {//extends HandStore{
             if (
                 this.rootStore.gameStore.status === GameStatus.dealersTurn
             ) {
-                runInAction(() => this.exposeCards());
+                console.log('autorun');
+                this.exposeCards();
                 while (!this.rootStore.dealersHandStore.isDone) {
                     console.log(this.rootStore.dealersHandStore.totalScore);
                     if (this.canDealToDealer()) {
-                        runInAction(() => this.hit(this.rootStore.dealersHandStore, false));
+                        this.hit(this.rootStore.dealersHandStore, false);
                     } else {
-                        runInAction(() => this.rootStore.dealersHandStore.setDone());
+                        this.rootStore.dealersHandStore.setDone();
                         console.log('dealer done')
                     }
                 }
@@ -32,7 +33,10 @@ class DealerStore {//extends HandStore{
             }
         });
 
-        makeAutoObservable(this);
+        makeAutoObservable(this, {
+            exposeCards: action,
+            hit: action,
+        });
     }
 
     private initDeal(): void {
@@ -75,7 +79,6 @@ class DealerStore {//extends HandStore{
             card.expose();
         });
     }
-
 }
 
 export default DealerStore;

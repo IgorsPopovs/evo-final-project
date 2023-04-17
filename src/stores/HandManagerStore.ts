@@ -32,6 +32,7 @@ class HandManagerStore {
 
 
     public resetAll() {
+        //TODO: dispose handsStore's
         this.hands = [new HandStore(this.rootStore, 0, Users.Player)];
     }
 

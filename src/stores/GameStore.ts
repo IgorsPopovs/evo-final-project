@@ -76,9 +76,9 @@ class GameStore {
     }
 
     setStatus(newStatus: GameStatus) {
-        if (newStatus === GameStatus.dealersTurn) {
-            this.rootStore.dealerStore.exposeCards();
-        }
+        // if (newStatus === GameStatus.dealersTurn) {
+        //     this.rootStore.dealerStore.exposeCards();
+        // }
         this.status = newStatus;
     }
 
