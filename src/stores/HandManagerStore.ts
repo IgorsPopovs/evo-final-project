@@ -1,11 +1,13 @@
 import HandStore from "./HandStore";
 import RootStore from "./RootStore";
-import {autorun, computed, makeAutoObservable} from "mobx";
+import {autorun, computed, IReactionDisposer, makeAutoObservable} from "mobx";
 import {HandStatus} from "../utils/Constant";
+import {dispose} from "../utils/Helper";
 
 class HandManagerStore {
     rootStore: RootStore;
     hands: HandStore[];
+    disposers: IReactionDisposer[] = [];
 
     constructor(rootStore: RootStore) {
 
@@ -16,16 +18,19 @@ class HandManagerStore {
             isDone: computed,
         });
 
-        autorun(() => {
-            if (this.isFinishedPlaying) {
-                console.log('resultCalculated');
-            }
-        })
+        this.disposers.push(
+            autorun(() => {
+                if (this.isFinishedPlaying) {
+                    console.log('resultCalculated');
+                }
+            }),
+        )
     }
 
     public get handsLength(): number {
         return this.hands.length;
     }
+
     public get isDone(): boolean {
         // this.hands.forEach((hand) => {
         for (let i = 0; i < this.hands.length; i++) {
@@ -39,7 +44,7 @@ class HandManagerStore {
 
 
     public resetAll() {
-        //TODO: dispose handsStore's
+        dispose(this.disposers);
         this.hands = [new HandStore(this.rootStore)];
     }
 

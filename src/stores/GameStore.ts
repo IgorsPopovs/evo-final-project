@@ -95,11 +95,6 @@ class GameStore {
             hand.betStore.setBet(0);
             hand.setStatus(HandStatus.Tie);
     }
-
-    dispose() {
-        this.disposers.forEach((disposer) => disposer());
-        this.disposers = [];
-    }
 }
 
 export default GameStore;

@@ -119,9 +119,9 @@ class HandStore {
     }
 
     public splitHand() {
-        const newHand = new HandStore(this.rootStore);
         const popCard = this.pullCard();
         if (popCard !== undefined) {
+            const newHand = new HandStore(this.rootStore);
             newHand.addCard(popCard)
             newHand.betStore.addBet(this.betStore.bet);
             this.rootStore.handManagerStore.hands.push(newHand);

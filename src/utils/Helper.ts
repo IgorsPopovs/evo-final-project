@@ -1,5 +1,6 @@
 import {DecksCount, suits, Value, values} from "./Constant";
 import CardStore from "../stores/CardStore";
+import {IReactionDisposer} from "mobx";
 
 export const createDeck = (): CardStore[] => {
     const deck: CardStore[] = [];
@@ -14,6 +15,11 @@ export const createDeck = (): CardStore[] => {
 
     return deck;
 };
+
+export const dispose = (disposers: IReactionDisposer[]): IReactionDisposer[] => {
+    disposers.forEach((disposer) => disposer());
+    return [];
+}
 
 export const getCardScore = (sum: number, value: Value): number => {
     switch (value) {
