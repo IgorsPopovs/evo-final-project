@@ -1,21 +1,20 @@
 import React from 'react';
 import './Card.css';
-import {Suit, Value, SuitIcons} from "../../../utils/Constant";
+import {SuitIcons} from "../../../utils/Constant";
+import CardStore from "../../../stores/CardStore";
 
 export type CardProps = { //TODO: Create interface?
-    suit: Suit;
-    value: Value;
-    isHidden: boolean;
+    cardStore: CardStore;
 };
 
-export const Card: React.FC<CardProps> = ({value, suit, isHidden = false}) => {
+export const Card: React.FC<CardProps> = ({cardStore}) => {
 
-    const suitClass = `suit-${suit.toLowerCase()}`;
-    const suitIcon = SuitIcons[suit];
-    const valueText = value;
+    const suitClass = `suit-${cardStore.suit.toLowerCase()}`;
+    const suitIcon = SuitIcons[cardStore.suit];
+    const valueText = cardStore.value;
 
     return (
-        <div className={`card ${suitClass} ${isHidden ? 'hidden' : ''}`}>
+        <div className={`card ${suitClass} ${cardStore.isHidden ? 'hidden' : ''}`}>
             <div className="corner top-left">{valueText}</div>
             <div className="value">{suitIcon}</div>
             <div className="corner bottom-right">{valueText}</div>

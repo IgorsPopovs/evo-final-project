@@ -1,7 +1,6 @@
-import {Balance, GameStatus} from "../utils/Constant";
+import {GameStatus} from "../utils/Constant";
 import RootStore from "./RootStore";
-import {action, autorun, IReactionDisposer, makeAutoObservable, reaction, runInAction,} from "mobx";
-import handManagerStore from "./HandManagerStore";
+import {autorun, IReactionDisposer, makeAutoObservable, reaction, runInAction,} from "mobx";
 
 class GameStore {
     rootStore: RootStore;
@@ -9,10 +8,7 @@ class GameStore {
     disposers: IReactionDisposer[] = [];
 
     constructor(rootStore: RootStore) {
-        makeAutoObservable(this, {
-            status: true,
-            setStatus: action,
-        });
+        makeAutoObservable(this);
         this.rootStore = rootStore;
         this.setStatus(GameStatus.playersBet);
 
@@ -41,37 +37,30 @@ class GameStore {
                 ({status}) => {
                     if (status === GameStatus.turnsEnded) {
                         console.log('Whi is winner?');
-                        this.rootStore.handManagerStore.hands.forEach((hand,i) => {
+                        this.rootStore.handManagerStore.hands.forEach((hand, i) => {
 
                             const playerScore = hand.calculateScore;
                             const dealerScore = this.rootStore.dealersHandStore.calculateScore;
-                            console.log(playerScore);
-                            console.log(dealerScore);
                             if (
                                 (playerScore > dealerScore && playerScore <= 21) ||
                                 dealerScore > 21
                             ) {
-                                console.log('hand' + i + 'won');
                                 runInAction(() => {
                                     this.rootStore.walletStore.deposit(
                                         hand.betStore.bet + hand.betStore.bet
                                     );
                                     hand.betStore.setBet(0);//TODO: move it to walletStore
                                     hand.setWon(true);
-                                    //this.setStatus(GameStatus.playerWon);
                                 });
                             } else if (
                                 (playerScore < dealerScore && dealerScore <= 21) ||
                                 playerScore > 21
                             ) {
-                                console.log('hand' + i + 'lost');
                                 runInAction(() => {
                                     hand.betStore.setBet(0);
                                     hand.setWon(false);
-                                    // this.setStatus(GameStatus.dealerWon);
                                 });
                             } else if (playerScore === dealerScore) {
-                                console.log('hand' + i + 'tie');
                                 runInAction(() => {
                                     this.rootStore.walletStore.deposit(hand.betStore.bet);
                                     hand.betStore.setBet(0);

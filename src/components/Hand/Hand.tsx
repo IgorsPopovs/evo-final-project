@@ -1,5 +1,5 @@
 import React from "react";
-import {Card, CardProps} from "./Card/Card";
+import {Card} from "./Card/Card";
 import {observer} from "mobx-react";
 import HandStore from "../../stores/HandStore";
 import './Hand.css';
@@ -16,7 +16,7 @@ const Hand: React.FC<HandProps> = ({handStore, owner}) => {
             <div className={"hand"}>
                 {handStore.cards.length > 0 ? (
                     handStore.cards.map((card, index) => (
-                        <Card key={index} value={card.value} suit={card.suit} isHidden={card.isHidden}/>
+                        <Card key={index} cardStore={card}/>
                     ))
                 ) : (
                     <h2>{owner} has no cards.</h2>

@@ -1,4 +1,4 @@
-import {action, computed, makeObservable, observable} from "mobx";
+import {makeAutoObservable} from "mobx";
 import RootStore from "./RootStore";
 import {Balance} from "../utils/Constant";
 
@@ -7,14 +7,10 @@ class WalletStore {
     rootStore: RootStore;
 
     constructor(rootStore: RootStore) {
-        makeObservable(this, {
-            balance: observable,
-            deposit: action,
-            setBalance: action,
-        });
         this.rootStore = rootStore;
 
         this.setBalance(Balance);
+        makeAutoObservable(this);
     }
 
     public setBalance(amount: number): void {

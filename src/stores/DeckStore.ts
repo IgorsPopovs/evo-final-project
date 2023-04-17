@@ -1,35 +1,33 @@
-import {action, makeObservable, observable} from "mobx";
-import {CardProps} from "../components/Hand/Card/Card";
+import {makeAutoObservable, runInAction} from "mobx";
 import {createDeck} from "../utils/Helper";
 import RootStore from "./RootStore";
-import {Balance} from "../utils/Constant";
+import CardStore from "./CardStore";
 
 class DeckStore {
-    cards: CardProps[] = [];
-    rootStore:RootStore;
+    cards: CardStore[] = [];
+    rootStore: RootStore;
 
     constructor(rootStore: RootStore) {
-        makeObservable(this, {
-            cards: observable,
-            createDeck: action,
-            dealCard: action,
-            shuffle: action,
-        });
         this.rootStore = rootStore;
 
         this.createDeck();
         this.shuffle();
+        makeAutoObservable(this);
     }
 
     createDeck(): void {
-        this.cards = createDeck();
+        runInAction(() => {
+            this.cards = createDeck();
+        });
     }
 
-    dealCard(): CardProps | undefined {
-        return this.cards.pop();
+    dealCard(): CardStore | undefined {
+        return runInAction(() => {
+            return this.cards.pop();
+        });
     }
 
-    shuffle():void {
+    shuffle(): void {
         for (let i = this.cards.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             const temp = this.cards[i];

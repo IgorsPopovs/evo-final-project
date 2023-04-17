@@ -14,13 +14,8 @@ const Deck: React.FC = () => {
             <h2>DECK</h2>
             <h2>Cards count: {cards.length}</h2>
             <div className="hand">
-                {/*{console.log(cards)}*/}
                 {cards && cards.length > 0 ? (
-                    <Card
-                        value={cards[cards.length - 1].value}
-                        suit={cards[cards.length - 1].suit}
-                        isHidden={cards[cards.length - 1].isHidden}
-                    />
+                    <Card key={9} cardStore={cards[cards.length -1]}/>
                 ) : (
                     <h2>No more cards in the deck</h2>
                 )}

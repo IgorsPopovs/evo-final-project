@@ -1,30 +1,17 @@
-import {makeObservable, observable, action, computed, reaction} from "mobx";
-import {CardProps} from "../components/Hand/Card/Card";
+import {reaction, makeAutoObservable, runInAction} from "mobx";
 import RootStore from "./RootStore";
 import BetStore from "./BetStore";
-import betStore from "./BetStore";
+import CardStore from "./CardStore";
 
 class HandStore {
     id: number;
-    cards: CardProps[] = [];
+    cards: CardStore[] = [];
     isDone: boolean = false;
     won: boolean | undefined = undefined;
     rootStore: RootStore;
     betStore: BetStore;
 
     constructor(rootStore: RootStore, id: number) {
-        makeObservable(this, {
-            cards: observable,
-            isDone: observable,
-            won: observable,
-            addCard: action,
-            pullCard: action,
-            reset: action,
-            calculateScore: computed,
-            setDone: action,
-            setWon: action,
-            splitHand: action,
-        });
         this.rootStore = rootStore;
         this.betStore = new BetStore(this.rootStore);
         this.id = id;
@@ -39,13 +26,19 @@ class HandStore {
                 if (won === undefined) console.log('results... I Dont know!');
             }
         )
+
+        makeAutoObservable(this);
     }
 
     setWon(isWon: boolean) {
-        this.won = isWon;
+        runInAction(() => {
+            this.won = isWon;
+        });
     }
-    addCard(card: CardProps) {
-        this.cards.push(card);
+    addCard(card: CardStore) {
+        runInAction(() => {
+            this.cards.push(card);
+        });
     }
 
     pullCard() {
@@ -87,7 +80,9 @@ class HandStore {
     }
 
     setDone() {
-        this.isDone = true;
+        runInAction(() => {
+            this.isDone = true;
+        });
         console.log("done");
     }
 
