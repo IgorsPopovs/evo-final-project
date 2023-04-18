@@ -48,11 +48,11 @@
 }
 
 .chips-container .chip-500 {
-    background-color: dimgrey;
+    background-color: #92199a;
 }
 
 .chips-container .chip-1000 {
-    background-color: darkorchid;
+    background-color: #323acc;
     font-size: 20px;
 }
 
@@ -60,11 +60,16 @@
     background-color: #282c34;
     color: dimgrey;
     box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.5), 0 0 3px 0 rgba(0, 0, 0, 0.4) inset;
+    border: 7px dashed rgba(255, 246, 222, 0.26);
 }
+.chips-container .chip:disabled span {
+    border: 3px dashed rgba(255, 246, 222, 0.26);
+}
+
 /* .spin */
 .chips-container .chip:enabled:after {
     content: "";
-    background-color: rgba(0, 128, 0, 0);
+    background-color: rgba(255, 246, 222, 0.59);
     border-radius: 50%;
 }
 .chips-container .chip:enabled:hover:after {
