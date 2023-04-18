@@ -3,6 +3,7 @@ import RootStore from "./RootStore";
 import BetStore from "./BetStore";
 import CardStore from "./CardStore";
 import {HandCombination, HandStatus} from "../utils/Constant";
+import HandActionsStore from "./HandActionsStore";
 
 class HandStore {
     cards: CardStore[] = [];
@@ -12,11 +13,13 @@ class HandStore {
     rootStore: RootStore;
     betStore: BetStore;
     disposers: IReactionDisposer[] = [];
+    handActionsStore: HandActionsStore;
 
 
     constructor(rootStore: RootStore) {
         this.rootStore = rootStore;
         this.betStore = new BetStore(this.rootStore);
+        this.handActionsStore = new HandActionsStore(this.rootStore, this);
 
         makeAutoObservable(this, {
             setDone: action,
@@ -122,7 +125,7 @@ class HandStore {
         if (popCard !== undefined) {
             const newHand = new HandStore(this.rootStore);
             newHand.addCard(popCard)
-            newHand.betStore.addBet(this.betStore.bet);
+            newHand.betStore.addBet(this.betStore.getBet);
             this.rootStore.handManagerStore.hands.push(newHand);
 
             this.rootStore.dealerStore.hit(this, false);

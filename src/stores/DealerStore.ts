@@ -2,6 +2,7 @@ import {action, autorun, makeAutoObservable} from "mobx";
 import RootStore from "./RootStore";
 import {GameStatus} from "../utils/Constant";
 import HandStore from "./HandStore";
+import Hand from "../components/Hand/Hand";
 
 class DealerStore {//extends HandStore{
     rootStore: RootStore;
@@ -47,6 +48,12 @@ class DealerStore {//extends HandStore{
         this.hit(this.rootStore.dealersHandStore, true);
 
         this.rootStore.gameStore.setStatus(GameStatus.playersTurn);
+    }
+
+    public double(hand: HandStore): void {
+        hand.betStore.addBet(hand.betStore.getBet);
+        this.hit(hand, false);
+        hand.setDone();
     }
 
     public hit(hand: HandStore, hidden: boolean): void {

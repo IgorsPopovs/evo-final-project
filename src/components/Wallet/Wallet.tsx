@@ -10,7 +10,7 @@ const Wallet: React.FC = () => {
 
     const handleTimeout = () => {
         rootStore.handManagerStore.hands.forEach((hand) => {
-            if (hand.betStore.bet === 0) {
+            if (hand.betStore.getBet === 0) {
                 hand.betStore.addBet(Chips[0]);
             }
         })

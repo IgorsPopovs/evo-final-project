@@ -2,8 +2,8 @@ import {makeAutoObservable} from "mobx";
 import RootStore from "./RootStore";
 
 class BetStore {
-    rootStore: RootStore;
-    bet: number = 0;
+    rootStore: RootStore; //TODO: Change to walletStore
+    private bet: number = 0;
 
     constructor(rootStore: RootStore) {
         this.rootStore = rootStore;

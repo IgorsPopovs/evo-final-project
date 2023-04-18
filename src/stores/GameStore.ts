@@ -80,7 +80,7 @@ class GameStore {
 
 
     private playerWins(hand: HandStore) {
-            this.rootStore.walletStore.deposit(hand.betStore.bet * 2);
+            this.rootStore.walletStore.deposit(hand.betStore.getBet * 2);
             hand.betStore.setBet(0);
             hand.setStatus(HandStatus.Win);
     }
@@ -91,7 +91,7 @@ class GameStore {
     }
 
     private tie(hand: HandStore) {
-            this.rootStore.walletStore.deposit(hand.betStore.bet);
+            this.rootStore.walletStore.deposit(hand.betStore.getBet);
             hand.betStore.setBet(0);
             hand.setStatus(HandStatus.Tie);
     }

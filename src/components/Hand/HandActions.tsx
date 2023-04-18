@@ -29,6 +29,10 @@ const HandActions: React.FC<HandActionsProps> = ({handStore}) => {
         handStore.splitHand();
     };
 
+    const handleDouble = () => {
+        dealerStore.double(handStore);
+    };
+
     const handleReset = () => {
         console.log("Resetting...");
         gameStore.setStatus(GameStatus.playersBet);
@@ -42,6 +46,12 @@ const HandActions: React.FC<HandActionsProps> = ({handStore}) => {
     return (
         <div>
             <div>
+                <button
+                    disabled={!handStore.handActionsStore.doubleEnabled}
+                    onClick={() => handleDouble()}
+                >
+                    Double
+                </button>
                 <button
                     disabled={
                         handStore.isDone ||
