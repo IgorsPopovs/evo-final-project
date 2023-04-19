@@ -16,7 +16,7 @@ const BetMaker: React.FC = () => {
     return (
         <div className={"chips-container"}>
             {Chips.map((chip) => {
-                return <div className={"chip-outer"}>
+                return <div className={"chip-outer"} key={chip}>
                     <button
                         className={classNames("chip", {[`chip-${chip}`]: true})}
                         onClick={() => {
