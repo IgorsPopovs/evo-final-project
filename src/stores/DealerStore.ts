@@ -65,9 +65,7 @@ class DealerStore {
     }
 
     private canDealToDealer(): boolean {
-        return this.rootStore.dealersHandStore.totalScore < 17; //||
-        // this.rootStore.dealersHandStore.calculateScore > rootStore.playersHandStore.calculateScore ||
-        // this.rootStore.playersHandStore.calculateScore > 21
+        return this.rootStore.dealersHandStore.totalScore < 17;
     }
 
     public exposeCards(): void {
