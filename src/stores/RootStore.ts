@@ -6,21 +6,18 @@ import DealerStore from "./DealerStore";
 import HandManagerStore from "./HandManagerStore";
 
 class RootStore {
-    deckStore: DeckStore;
-    dealerStore: DealerStore;
-    handManagerStore: HandManagerStore;
-    // playersHandStore: HandStore;
-    dealersHandStore: HandStore;
-    walletStore: WalletStore;
-    gameStore: GameStore;
+    public deckStore: DeckStore;
+    public dealerStore: DealerStore;
+    public handManagerStore: HandManagerStore;
+    public dealersHandStore: HandStore;
+    public walletStore: WalletStore;
+    public gameStore: GameStore;
 
     constructor() {
         this.gameStore = new GameStore(this);
         this.handManagerStore = new HandManagerStore(this);
         this.deckStore = new DeckStore(this);
         this.dealerStore = new DealerStore(this);
-
-        // this.playersHandStore = new HandStore(this);
         this.dealersHandStore = new HandStore(this);
         this.walletStore = new WalletStore(this);
     }

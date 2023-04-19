@@ -15,9 +15,10 @@ class BetStore {
     }
 
     public addBet(amount: number) {
-        if (this.rootStore.walletStore.balance >= amount) {
+        if (this.rootStore.walletStore.withdrawal(amount)) {
             this.bet += amount;
-            this.rootStore.walletStore.balance -= amount;
+        } else {
+            console.log('Not enough money');
         }
     }
 

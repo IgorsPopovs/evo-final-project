@@ -14,15 +14,15 @@ type HandProps = {
 const Hand: React.FC<HandProps> = ({handStore, owner}) => {
     return (
         <div className={classNames("handContainer", {
-                green: handStore.status === HandStatus.Win,
-                red: handStore.status === HandStatus.Lost,
-                yellow: handStore.status === HandStatus.Tie,
+                green: handStore.getStatus() === HandStatus.Win,
+                red: handStore.getStatus() === HandStatus.Lost,
+                yellow: handStore.getStatus() === HandStatus.Tie,
             }
         )}>
             <div>Score: {handStore.totalScore}</div>
             {owner !== 'dealer' &&
                 <div>
-                    <div>Status: {HandStatus[handStore.status]}</div>
+                    <div>Status: {HandStatus[handStore.getStatus()]}</div>
                     <div>Combination: {HandCombination[handStore.getCombination()]}</div>
                 </div>
             }

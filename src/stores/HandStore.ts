@@ -1,4 +1,4 @@
-import {action, IReactionDisposer, makeAutoObservable, reaction} from "mobx";
+import {IReactionDisposer, makeAutoObservable, reaction} from "mobx";
 import RootStore from "./RootStore";
 import BetStore from "./BetStore";
 import CardStore from "./CardStore";
@@ -6,15 +6,14 @@ import {HandCombination, HandStatus} from "../utils/Constant";
 import HandActionsStore from "./HandActionsStore";
 
 class HandStore {
-    cards: CardStore[] = [];
-    isDone: boolean = false;
-    status: HandStatus = HandStatus.Playing;
-    private combination: HandCombination = HandCombination.None;
     private rootStore: RootStore;
+    private status: HandStatus = HandStatus.Playing;
+    private combination: HandCombination = HandCombination.None;
+    public cards: CardStore[] = [];
+    public isDone: boolean = false;
     public betStore: BetStore;
     public disposers: IReactionDisposer[] = [];
     public handActionsStore: HandActionsStore;
-
 
     constructor(rootStore: RootStore) {
         this.rootStore = rootStore;
@@ -41,6 +40,9 @@ class HandStore {
         this.status = status;
     }
 
+    public getStatus(): HandStatus {
+        return this.status;
+    }
     public setCombination(combo: HandCombination) {
         this.combination = combo;
     }

@@ -3,8 +3,8 @@ import RootStore from "./RootStore";
 import {Balance} from "../utils/Constant";
 
 class WalletStore {
-    balance: number = 0;
-    rootStore: RootStore;
+    private rootStore: RootStore;
+    private balance: number = 0;
 
     constructor(rootStore: RootStore) {
         this.rootStore = rootStore;
@@ -17,8 +17,21 @@ class WalletStore {
         this.balance = amount;
     }
 
+    public getBalance(): number {
+        return this.balance;
+    }
+
     public deposit(amount: number): void {
         this.balance += amount;
+    }
+
+    public withdrawal(amount: number) {
+        if (amount <= this.balance) {
+            this.balance -= amount;
+            return true;
+        } else {
+            return false;
+        }
     }
 }
 

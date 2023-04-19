@@ -1,6 +1,6 @@
 import {GameStatus, HandStatus} from "../utils/Constant";
 import RootStore from "./RootStore";
-import {action, autorun, IReactionDisposer, makeAutoObservable, reaction,} from "mobx";
+import {IReactionDisposer, makeAutoObservable, reaction,} from "mobx";
 import HandStore from "./HandStore";
 
 class GameStore {
@@ -74,7 +74,7 @@ class GameStore {
         );
     }
 
-    setStatus(newStatus: GameStatus) {
+    public setStatus(newStatus: GameStatus) {
         this.status = newStatus;
     }
 

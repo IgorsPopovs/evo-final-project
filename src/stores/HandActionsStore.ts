@@ -4,8 +4,8 @@ import {makeAutoObservable} from "mobx";
 import {HandCombination, HandStatus} from "../utils/Constant";
 
 class HandActionsStore {
-    rootStore: RootStore; //TODO: change to walletStore
-    handStore: HandStore;
+    private rootStore: RootStore;
+    private handStore: HandStore;
 
     constructor(rootStore: RootStore, handStore: HandStore) {
         this.rootStore = rootStore;
@@ -17,8 +17,8 @@ class HandActionsStore {
     public get doubleEnabled() {
         return (
             this.handStore.cards.length === 2 &&
-            this.rootStore.walletStore.balance >= this.handStore.betStore.getBet &&
-            this.handStore.status === HandStatus.Playing
+            this.rootStore.walletStore.getBalance() >= this.handStore.betStore.getBet &&
+            this.handStore.getStatus() === HandStatus.Playing
         )
     }
 

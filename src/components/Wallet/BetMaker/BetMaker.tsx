@@ -24,7 +24,7 @@ const BetMaker: React.FC = () => {
                         }}
                         disabled={
                             rootStore.gameStore.status !== GameStatus.playersBet ||
-                            rootStore.walletStore.balance < chip
+                            rootStore.walletStore.getBalance() < chip
                         }
                         key={chip}
                     ><span>{chip}</span></button>

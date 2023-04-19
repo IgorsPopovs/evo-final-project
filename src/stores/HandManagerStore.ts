@@ -37,7 +37,7 @@ class HandManagerStore {
 
     private get isFinishedPlaying() {
         return (
-            this.hands.filter(hand => hand.status === HandStatus.Playing).length === 0
+            this.hands.filter(hand => hand.getStatus() === HandStatus.Playing).length === 0
         );
     }
 }

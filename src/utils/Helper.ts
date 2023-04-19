@@ -1,5 +1,4 @@
-import {DecksCount, suits, Value, values} from "./Constant";
-import CardStore from "../stores/CardStore";
+import {Value} from "./Constant";
 import {IReactionDisposer} from "mobx";
 
 export const dispose = (disposers: IReactionDisposer[]): IReactionDisposer[] => {
