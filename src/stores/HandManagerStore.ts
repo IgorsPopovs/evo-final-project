@@ -35,11 +35,11 @@ class HandManagerStore {
         this.hands = [new HandStore(this.rootStore)];
     }
 
-    private get isFinishedPlaying() {
-        return (
-            this.hands.filter(hand => hand.getStatus() === HandStatus.Playing).length === 0
-        );
-    }
+    // private get isFinishedPlaying() {
+    //     return (
+    //         this.hands.filter(hand => hand.getStatus() === HandStatus.Playing).length === 0
+    //     );
+    // }
 }
 
 export default HandManagerStore;

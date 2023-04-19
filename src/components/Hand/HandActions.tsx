@@ -1,9 +1,8 @@
 import React, {useContext} from 'react';
 import {observer} from "mobx-react";
 import {RootStoreContext} from "../../App";
-import {GameStatus, HandCombination} from "../../utils/Constant";
+import {GameStatus} from "../../utils/Constant";
 import HandStore from "../../stores/HandStore";
-import handActionsStore from "../../stores/HandActionsStore";
 
 type HandActionsProps = {
     handStore: HandStore;

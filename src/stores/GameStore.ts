@@ -36,18 +36,20 @@ class GameStore {
             reaction(
                 () => (this.status === GameStatus.turnsEnded),
                 (turnsEnded) => {
-                    console.log('Who is the winner?');
-                    const dealerScore = this.rootStore.dealersHandStore.totalScore;
-                    this.rootStore.handManagerStore.hands.forEach((hand) => {
-                        const playerScore = hand.totalScore;
-                        if (this.verifyPlayerWins(dealerScore, playerScore)) {
-                            this.playerWins(hand);
-                        } else if (this.verifyPlayerLoses(dealerScore, playerScore)) {
-                            this.playerLoses(hand);
-                        } else if (this.verifyTie(dealerScore, playerScore)) {
-                            this.tie(hand);
-                        }
-                    });
+                    if (turnsEnded) {
+                        console.log('Who is the winner?');
+                        const dealerScore = this.rootStore.dealersHandStore.totalScore;
+                        this.rootStore.handManagerStore.hands.forEach((hand) => {
+                            const playerScore = hand.totalScore;
+                            if (this.verifyPlayerWins(dealerScore, playerScore)) {
+                                this.playerWins(hand);
+                            } else if (this.verifyPlayerLoses(dealerScore, playerScore)) {
+                                this.playerLoses(hand);
+                            } else if (this.verifyTie(dealerScore, playerScore)) {
+                                this.tie(hand);
+                            }
+                        });
+                    }
                 }
             )
         );
