@@ -1,11 +1,11 @@
 import {makeAutoObservable} from "mobx";
-import {createDeck} from "../utils/Helper";
 import RootStore from "./RootStore";
 import CardStore from "./CardStore";
+import {DecksCount, suits, values} from "../utils/Constant";
 
 class DeckStore {
-    cards: CardStore[] = [];
-    rootStore: RootStore;
+    private cards: CardStore[] = [];
+    private rootStore: RootStore;
 
     constructor(rootStore: RootStore) {
         this.rootStore = rootStore;
@@ -15,15 +15,27 @@ class DeckStore {
         makeAutoObservable(this);
     }
 
-    createDeck(): void {
-        this.cards = createDeck();
+    public get getCards() {
+        return this.cards;
     }
 
-    dealCard(): CardStore | undefined {
+    public createDeck() {
+        this.cards = [];
+        for (let i = 0; i < DecksCount; i++) {
+            for (const suit of suits) {
+                for (const value of values) {
+                    const card = new CardStore({suit, value, isHidden: true});
+                    this.cards.push(card);
+                }
+            }
+        }
+    };
+
+    public dealCard(): CardStore | undefined {
         return this.cards.pop();
     }
 
-    shuffle(): void {
+    public shuffle(): void {
         for (let i = this.cards.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             const temp = this.cards[i];

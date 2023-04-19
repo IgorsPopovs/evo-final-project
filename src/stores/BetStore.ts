@@ -2,7 +2,7 @@ import {makeAutoObservable} from "mobx";
 import RootStore from "./RootStore";
 
 class BetStore {
-    rootStore: RootStore; //TODO: Change to walletStore
+    private rootStore: RootStore;
     private bet: number = 0;
 
     constructor(rootStore: RootStore) {

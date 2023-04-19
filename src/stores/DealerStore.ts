@@ -4,7 +4,7 @@ import {GameStatus} from "../utils/Constant";
 import HandStore from "./HandStore";
 
 class DealerStore {
-    rootStore: RootStore;
+    private rootStore: RootStore;
 
     constructor(rootStore: RootStore) {
         this.rootStore = rootStore;

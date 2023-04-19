@@ -7,7 +7,7 @@ import "./Deck.css";
 
 const Deck: React.FC = () => {
     const rootStore = useContext(RootStoreContext);
-    const cards = rootStore.deckStore.cards;
+    const cards = rootStore.deckStore.getCards;
 
     return (
         <div className={"deck-container"}>

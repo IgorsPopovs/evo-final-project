@@ -4,9 +4,9 @@ import {action, autorun, IReactionDisposer, makeAutoObservable, reaction,} from 
 import HandStore from "./HandStore";
 
 class GameStore {
-    rootStore: RootStore;
-    status: GameStatus = GameStatus.init;
-    disposers: IReactionDisposer[] = [];
+    private rootStore: RootStore;
+    private disposers: IReactionDisposer[] = [];
+    public status: GameStatus = GameStatus.init;
 
     constructor(rootStore: RootStore) {
         this.rootStore = rootStore;
@@ -17,7 +17,6 @@ class GameStore {
         });
 
         this.disposers.push(
-            // autorun(()=> {console.log()})
             autorun(() => {
                 if (this.status === GameStatus.playersTurn && this.rootStore.handManagerStore.isDone) {
                     console.log(this.rootStore.handManagerStore.isDone);
