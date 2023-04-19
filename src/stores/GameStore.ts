@@ -17,36 +17,39 @@ class GameStore {
         });
 
         this.disposers.push(
-            autorun(() => {
-                if (this.status === GameStatus.playersTurn && this.rootStore.handManagerStore.isDone) {
-                    console.log(this.rootStore.handManagerStore.isDone);
-                    this.setStatus(GameStatus.dealersTurn);
+            reaction(
+                () => (this.status === GameStatus.playersTurn && this.rootStore.handManagerStore.isDone),
+                (playerFinished) => {
+                    if (playerFinished) {
+                        console.log('Player is DONE');
+                        this.setStatus(GameStatus.dealersTurn);
+                    }
                 }
-            }),
-            autorun(() => {
-                if (this.status === GameStatus.dealersTurn && this.rootStore.dealersHandStore.isDone) {
-                    console.log('dealer is done');
-                    this.setStatus(GameStatus.turnsEnded);
-                }
-            }),
+            ),
+
+            reaction(() => (this.status === GameStatus.dealersTurn && this.rootStore.dealersHandStore.isDone),
+                (dealerFinished) => {
+                    if (dealerFinished) {
+                        console.log('Dealer is DONE');
+                        this.setStatus(GameStatus.turnsEnded);
+                    }
+                }),
 
             reaction(
-                () => this.status,
-                (status) => {
-                    if (status === GameStatus.turnsEnded) {
-                        console.log('Who is the winner?');
-                        const dealerScore = this.rootStore.dealersHandStore.totalScore;
-                        this.rootStore.handManagerStore.hands.forEach((hand) => {
-                            const playerScore = hand.totalScore;
-                            if (this.verifyPlayerWins(dealerScore, playerScore)) {
-                                this.playerWins(hand);
-                            } else if (this.verifyPlayerLoses(dealerScore, playerScore)) {
-                                this.playerLoses(hand);
-                            } else if (this.verifyTie(dealerScore, playerScore)) {
-                                this.tie(hand);
-                            }
-                        });
-                    }
+                () => (this.status === GameStatus.turnsEnded),
+                (turnsEnded) => {
+                    console.log('Who is the winner?');
+                    const dealerScore = this.rootStore.dealersHandStore.totalScore;
+                    this.rootStore.handManagerStore.hands.forEach((hand) => {
+                        const playerScore = hand.totalScore;
+                        if (this.verifyPlayerWins(dealerScore, playerScore)) {
+                            this.playerWins(hand);
+                        } else if (this.verifyPlayerLoses(dealerScore, playerScore)) {
+                            this.playerLoses(hand);
+                        } else if (this.verifyTie(dealerScore, playerScore)) {
+                            this.tie(hand);
+                        }
+                    });
                 }
             )
         );
@@ -79,20 +82,20 @@ class GameStore {
 
 
     private playerWins(hand: HandStore) {
-            this.rootStore.walletStore.deposit(hand.betStore.getBet * 2);
-            hand.betStore.setBet(0);
-            hand.setStatus(HandStatus.Win);
+        this.rootStore.walletStore.deposit(hand.betStore.getBet * 2);
+        hand.betStore.setBet(0);
+        hand.setStatus(HandStatus.Win);
     }
 
     private playerLoses(hand: HandStore) {
-            hand.betStore.setBet(0);
-            hand.setStatus(HandStatus.Lost);
+        hand.betStore.setBet(0);
+        hand.setStatus(HandStatus.Lost);
     }
 
     private tie(hand: HandStore) {
-            this.rootStore.walletStore.deposit(hand.betStore.getBet);
-            hand.betStore.setBet(0);
-            hand.setStatus(HandStatus.Tie);
+        this.rootStore.walletStore.deposit(hand.betStore.getBet);
+        hand.betStore.setBet(0);
+        hand.setStatus(HandStatus.Tie);
     }
 }
 
