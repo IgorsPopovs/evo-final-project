@@ -1,27 +1,18 @@
 import HandStore from "./HandStore";
 import RootStore from "./RootStore";
-import {autorun, computed, makeAutoObservable} from "mobx";
+import {makeAutoObservable} from "mobx";
 import {HandStatus} from "../utils/Constant";
 import {dispose} from "../utils/Helper";
 
 class HandManagerStore {
-    rootStore: RootStore;
-    hands: HandStore[];
+    private rootStore: RootStore;
+    public hands: HandStore[];
 
     constructor(rootStore: RootStore) {
         this.rootStore = rootStore;
         this.hands = [new HandStore(this.rootStore)];
 
-        makeAutoObservable(this, {
-            isDone: computed,
-        });
-
-        autorun(() => {
-            if (this.isFinishedPlaying) {
-                console.log('resultCalculated');
-            }
-        })
-
+        makeAutoObservable(this, {}, {autoBind: true})
     }
 
     public get handsLength(): number {

@@ -1,7 +1,7 @@
 import HandStore from "./HandStore";
 import RootStore from "./RootStore";
 import {makeAutoObservable} from "mobx";
-import {HandStatus} from "../utils/Constant";
+import {HandCombination, HandStatus} from "../utils/Constant";
 
 class HandActionsStore {
     rootStore: RootStore; //TODO: change to walletStore
@@ -20,6 +20,10 @@ class HandActionsStore {
             this.rootStore.walletStore.balance >= this.handStore.betStore.getBet &&
             this.handStore.status === HandStatus.Playing
         )
+    }
+
+    public get splitEnabled() {
+        return (this.handStore.getCombination() === HandCombination.Split);
     }
 }
 

@@ -12,9 +12,7 @@ class GameStore {
         this.rootStore = rootStore;
         this.setStatus(GameStatus.playersBet);
 
-        makeAutoObservable(this, {
-            setStatus: action,
-        });
+        makeAutoObservable(this, {}, {autoBind: true});
 
         this.disposers.push(
             reaction(

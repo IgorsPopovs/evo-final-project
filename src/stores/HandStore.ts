@@ -9,11 +9,11 @@ class HandStore {
     cards: CardStore[] = [];
     isDone: boolean = false;
     status: HandStatus = HandStatus.Playing;
-    combination: HandCombination = HandCombination.None;
-    rootStore: RootStore;
-    betStore: BetStore;
-    disposers: IReactionDisposer[] = [];
-    handActionsStore: HandActionsStore;
+    private combination: HandCombination = HandCombination.None;
+    private rootStore: RootStore;
+    public betStore: BetStore;
+    public disposers: IReactionDisposer[] = [];
+    public handActionsStore: HandActionsStore;
 
 
     constructor(rootStore: RootStore) {
@@ -21,10 +21,7 @@ class HandStore {
         this.betStore = new BetStore(this.rootStore);
         this.handActionsStore = new HandActionsStore(this.rootStore, this);
 
-        makeAutoObservable(this, {
-            setDone: action,
-            addCard: action,
-        });
+        makeAutoObservable(this, {}, {autoBind: true})
 
         this.disposers.push(
             reaction(
@@ -46,6 +43,10 @@ class HandStore {
 
     public setCombination(combo: HandCombination) {
         this.combination = combo;
+    }
+
+    public getCombination(): HandCombination {
+        return this.combination;
     }
 
     public addCard(card: CardStore) {

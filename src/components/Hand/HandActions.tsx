@@ -3,6 +3,7 @@ import {observer} from "mobx-react";
 import {RootStoreContext} from "../../App";
 import {GameStatus, HandCombination} from "../../utils/Constant";
 import HandStore from "../../stores/HandStore";
+import handActionsStore from "../../stores/HandActionsStore";
 
 type HandActionsProps = {
     handStore: HandStore;
@@ -55,7 +56,7 @@ const HandActions: React.FC<HandActionsProps> = ({handStore}) => {
                     Stay
                 </button>
                 <button
-                    disabled={handStore.combination !== HandCombination.Split}
+                    disabled={!handStore.handActionsStore.splitEnabled}
                     onClick={() => handStore.splitHand()}
                 >
                     Split
