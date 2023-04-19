@@ -1,4 +1,4 @@
-import {action, reaction, autorun, makeAutoObservable} from "mobx";
+import {reaction, makeAutoObservable} from "mobx";
 import RootStore from "./RootStore";
 import {GameStatus} from "../utils/Constant";
 import HandStore from "./HandStore";
@@ -19,7 +19,6 @@ class DealerStore {
             () => (this.rootStore.gameStore.status === GameStatus.dealersTurn),
             (dealersTurn) => {
                 if (dealersTurn) {
-                    console.log('autorun');
                     this.exposeCards();
                     while (!this.rootStore.dealersHandStore.isDone) {
                         console.log(this.rootStore.dealersHandStore.totalScore);
