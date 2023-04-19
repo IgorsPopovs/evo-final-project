@@ -2,9 +2,8 @@ import {action, reaction, autorun, makeAutoObservable} from "mobx";
 import RootStore from "./RootStore";
 import {GameStatus} from "../utils/Constant";
 import HandStore from "./HandStore";
-import Hand from "../components/Hand/Hand";
 
-class DealerStore {//extends HandStore{
+class DealerStore {
     rootStore: RootStore;
 
     constructor(rootStore: RootStore) {
@@ -66,14 +65,6 @@ class DealerStore {//extends HandStore{
                 card.expose();
             }
             hand.addCard(card);
-            // if (hand.owner === Users.Player) {
-            //     this.rootStore.handManagerStore.hands[hand].addCard(card);
-            //     // if (this.rootStore.handManagerStore.hands[hand].calculateScore >= 21) {
-            //     //     this.rootStore.handManagerStore.hands[hand].setDone();
-            //     // }
-            // } else if (receiver === Users.Dealer) {
-            //     this.rootStore.dealersHandStore.addCard(card);
-            // }
         }
     }
 
