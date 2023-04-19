@@ -1,4 +1,4 @@
-import {action, autorun, makeAutoObservable} from "mobx";
+import {action, reaction, autorun, makeAutoObservable} from "mobx";
 import RootStore from "./RootStore";
 import {GameStatus} from "../utils/Constant";
 import HandStore from "./HandStore";
@@ -34,11 +34,14 @@ class DealerStore {//extends HandStore{
             }
         });
 
-        autorun(() => {
-            if (this.rootStore.gameStore.status === GameStatus.initialDeal) {
-                this.initDeal();
+        reaction(
+            () => (this.rootStore.gameStore.status === GameStatus.initialDeal),
+            (initialDeal) => {
+                if (initialDeal) {
+                    this.initDeal();
+                }
             }
-        });
+        )
     }
 
     private initDeal(): void {
