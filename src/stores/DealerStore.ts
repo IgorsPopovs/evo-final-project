@@ -9,12 +9,6 @@ class DealerStore {
     constructor(rootStore: RootStore) {
         this.rootStore = rootStore;
 
-        // makeAutoObservable(this, {
-        //     exposeCards: action,
-        //     hit: action,
-        //     // initDeal: action,
-        // });
-
         reaction(
             () => (this.rootStore.gameStore.status === GameStatus.dealersTurn),
             (dealersTurn) => {
