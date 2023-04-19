@@ -19,9 +19,7 @@ const BetMaker: React.FC = () => {
                 return <div className={"chip-outer"} key={chip}>
                     <button
                         className={classNames("chip", {[`chip-${chip}`]: true})}
-                        onClick={() => {
-                            handleSetBet(chip)
-                        }}
+                        onClick={() => handleSetBet(chip)}
                         disabled={
                             rootStore.gameStore.getStatus() !== GameStatus.playersBet ||
                             rootStore.walletStore.getBalance() < chip
