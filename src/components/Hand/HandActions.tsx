@@ -17,22 +17,6 @@ const HandActions: React.FC<HandActionsProps> = ({handStore}) => {
         deckStore
     } = useContext(RootStoreContext);
 
-    const handleHit = () => {
-        dealerStore.hit(handStore, false);
-    };
-
-    const handleStay = () => {
-        handStore.setDone();
-    };
-
-    const handleSplit = () => {
-        handStore.splitHand();
-    };
-
-    const handleDouble = () => {
-        dealerStore.double(handStore);
-    };
-
     const handleReset = () => {
         console.log("Resetting...");
         gameStore.setStatus(GameStatus.playersBet);
@@ -48,7 +32,7 @@ const HandActions: React.FC<HandActionsProps> = ({handStore}) => {
             <div>
                 <button
                     disabled={!handStore.handActionsStore.doubleEnabled}
-                    onClick={() => handleDouble()}
+                    onClick={() => dealerStore.double(handStore)}
                 >
                     Double
                 </button>
@@ -57,7 +41,7 @@ const HandActions: React.FC<HandActionsProps> = ({handStore}) => {
                         handStore.isDone ||
                         gameStore.status !== GameStatus.playersTurn
                     }
-                    onClick={() => handleHit()}
+                    onClick={() => dealerStore.hit(handStore, false)}
                 >
                     Hit
                 </button>
@@ -66,15 +50,13 @@ const HandActions: React.FC<HandActionsProps> = ({handStore}) => {
                         !(!handStore.isDone &&
                             gameStore.status === GameStatus.playersTurn)
                     }
-                    onClick={() => handleStay()}
+                    onClick={() => handStore.setDone()}
                 >
                     Stay
                 </button>
                 <button
-                    disabled={
-                        handStore.combination !== HandCombination.Split
-                    }
-                    onClick={() => handleSplit()}
+                    disabled={handStore.combination !== HandCombination.Split}
+                    onClick={() => handStore.splitHand()}
                 >
                     Split
                 </button>
