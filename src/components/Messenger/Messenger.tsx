@@ -9,7 +9,7 @@ const Messenger: React.FC = () => {
     const rootStore = useContext(RootStoreContext);
 
     function getMessage(): string {
-        switch (rootStore.gameStore.status) {
+        switch (rootStore.gameStore.getStatus()) {
             case GameStatus.init:
                 return "Initializing..."
             case GameStatus.playersBet:

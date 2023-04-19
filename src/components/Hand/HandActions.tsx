@@ -39,7 +39,7 @@ const HandActions: React.FC<HandActionsProps> = ({handStore}) => {
                 <button
                     disabled={
                         handStore.isDone ||
-                        gameStore.status !== GameStatus.playersTurn
+                        gameStore.getStatus() !== GameStatus.playersTurn
                     }
                     onClick={() => dealerStore.hit(handStore, false)}
                 >
@@ -48,7 +48,7 @@ const HandActions: React.FC<HandActionsProps> = ({handStore}) => {
                 <button
                     disabled={
                         !(!handStore.isDone &&
-                            gameStore.status === GameStatus.playersTurn)
+                            gameStore.getStatus() === GameStatus.playersTurn)
                     }
                     onClick={() => handStore.setDone()}
                 >

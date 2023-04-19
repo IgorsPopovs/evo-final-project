@@ -17,7 +17,7 @@ function App() {
             <div className="App">
                 <div>
                     {/*<p> Player isDone: {rootStore.playersHandStore.isDone ? ('Yes') : ('No')} </p>*/}
-                    <p> Game status: {rootStore.gameStore.status} </p>
+                    <p> Game status: {rootStore.gameStore.getStatus()} </p>
                 </div>
 
                 <Messenger/>

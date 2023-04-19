@@ -10,7 +10,7 @@ class DealerStore {
         this.rootStore = rootStore;
 
         reaction(
-            () => (this.rootStore.gameStore.status === GameStatus.dealersTurn),
+            () => (this.rootStore.gameStore.getStatus() === GameStatus.dealersTurn),
             (dealersTurn) => {
                 if (dealersTurn) {
                     this.exposeCards();
@@ -28,7 +28,7 @@ class DealerStore {
         );
 
         reaction(
-            () => (this.rootStore.gameStore.status === GameStatus.initialDeal),
+            () => (this.rootStore.gameStore.getStatus() === GameStatus.initialDeal),
             (initialDeal) => {
                 if (initialDeal) {
                     this.initDeal();

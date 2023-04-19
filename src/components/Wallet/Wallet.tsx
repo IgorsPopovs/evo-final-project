@@ -22,10 +22,10 @@ const Wallet: React.FC = () => {
 
     return (
             <div className='wallet-controls'>
-                {rootStore.gameStore.status === GameStatus.playersBet &&
+                {rootStore.gameStore.getStatus() === GameStatus.playersBet &&
                     <BetTimer onTimeout={handleTimeout} />
                 }
-                {rootStore.gameStore.status === GameStatus.playersBet &&
+                {rootStore.gameStore.getStatus() === GameStatus.playersBet &&
                     <BetMaker/>
                 }
                 <p>Wallet balance: {rootStore.walletStore.getBalance()}</p>

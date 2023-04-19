@@ -6,7 +6,7 @@ import HandStore from "./HandStore";
 class GameStore {
     private rootStore: RootStore;
     private disposers: IReactionDisposer[] = [];
-    public status: GameStatus = GameStatus.init;
+    private status: GameStatus = GameStatus.init;
 
     constructor(rootStore: RootStore) {
         this.rootStore = rootStore;
@@ -78,6 +78,10 @@ class GameStore {
 
     public setStatus(newStatus: GameStatus) {
         this.status = newStatus;
+    }
+
+    public getStatus():GameStatus{
+        return this.status;
     }
 
 

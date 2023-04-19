@@ -1,7 +1,6 @@
 import HandStore from "./HandStore";
 import RootStore from "./RootStore";
 import {makeAutoObservable} from "mobx";
-import {HandStatus} from "../utils/Constant";
 import {dispose} from "../utils/Helper";
 
 class HandManagerStore {
