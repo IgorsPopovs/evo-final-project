@@ -9,29 +9,30 @@ class DealerStore {
     constructor(rootStore: RootStore) {
         this.rootStore = rootStore;
 
-        makeAutoObservable(this, {
-            exposeCards: action,
-            hit: action,
-            // initDeal: action,
-        });
+        // makeAutoObservable(this, {
+        //     exposeCards: action,
+        //     hit: action,
+        //     // initDeal: action,
+        // });
 
-        autorun(() => {
-            if (
-                this.rootStore.gameStore.status === GameStatus.dealersTurn
-            ) {
-                console.log('autorun');
-                this.exposeCards();
-                while (!this.rootStore.dealersHandStore.isDone) {
-                    console.log(this.rootStore.dealersHandStore.totalScore);
-                    if (this.canDealToDealer()) {
-                        this.hit(this.rootStore.dealersHandStore, false);
-                    } else {
-                        this.rootStore.dealersHandStore.setDone();
-                        console.log('dealer done')
+        reaction(
+            () => (this.rootStore.gameStore.status === GameStatus.dealersTurn),
+            (dealersTurn) => {
+                if (dealersTurn) {
+                    console.log('autorun');
+                    this.exposeCards();
+                    while (!this.rootStore.dealersHandStore.isDone) {
+                        console.log(this.rootStore.dealersHandStore.totalScore);
+                        if (this.canDealToDealer()) {
+                            this.hit(this.rootStore.dealersHandStore, false);
+                        } else {
+                            this.rootStore.dealersHandStore.setDone();
+                            console.log('dealer done')
+                        }
                     }
                 }
             }
-        });
+        );
 
         reaction(
             () => (this.rootStore.gameStore.status === GameStatus.initialDeal),
@@ -40,7 +41,9 @@ class DealerStore {
                     this.initDeal();
                 }
             }
-        )
+        );
+
+        makeAutoObservable(this, {}, {autoBind: true});
     }
 
     private initDeal(): void {
