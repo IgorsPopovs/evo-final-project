@@ -22,12 +22,6 @@ const Messenger: React.FC = () => {
                 return "Dealer's turn";
             case GameStatus.turnsEnded:
                 return "Turns ended!";
-            case GameStatus.tie:
-                return "Tie!";
-            case GameStatus.dealerWon:
-                return "Dealer Won!";
-            case GameStatus.playerWon:
-                return "You Won!";
             default:
                 return "";
         }

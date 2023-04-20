@@ -19,9 +19,6 @@ export enum GameStatus {
     'playersTurn',
     'dealersTurn',
     'turnsEnded',
-    'playerWon',
-    'dealerWon',
-    'tie',
 }
 
 export enum HandStatus {

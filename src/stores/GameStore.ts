@@ -49,6 +49,7 @@ class GameStore {
                                 this.tie(hand);
                             }
                         });
+                        this.reset();
                     }
                 }
             )
@@ -82,6 +83,16 @@ class GameStore {
 
     public getStatus():GameStatus{
         return this.status;
+    }
+
+    private reset() {
+        console.log("Resetting...");
+        this.setStatus(GameStatus.playersBet);
+        this.rootStore.dealersHandStore.reset();
+        //rootStore.playersHandStore.reset();
+        this.rootStore.handManagerStore.resetAll();
+        this.rootStore.deckStore.createDeck();
+        this.rootStore.deckStore.shuffle();
     }
 
 
