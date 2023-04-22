@@ -7,10 +7,10 @@ const Dealer: React.FC = () => {
     const rootStore = useContext(RootStoreContext);
 
     return (
-        <div className={"player-container"}>
-            <h2>DEALER</h2>
+        // <div className={"player-container"}>
+        //     <h2>DEALER</h2>
             <Hand handStore={rootStore.dealersHandStore} owner={"dealer"}/>
-        </div>
+        // </div>
     );
 };
 
