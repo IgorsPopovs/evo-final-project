@@ -6,37 +6,37 @@ import HandStore from "./HandStore";
 class GameStore {
     private rootStore: RootStore;
     private disposers: IReactionDisposer[] = [];
-    private status: GameStatus = GameStatus.init;
+    private status: GameStatus = GameStatus.playersBet;
 
     constructor(rootStore: RootStore) {
         this.rootStore = rootStore;
-        this.setStatus(GameStatus.playersBet);
+        // this.setStatus(GameStatus.playersBet);
 
         makeAutoObservable(this, {}, {autoBind: true});
 
         this.disposers.push(
             reaction(
                 () => (this.status === GameStatus.playersTurn && this.rootStore.handManagerStore.isDone),
-                (playerFinished) => {
+                async (playerFinished) => {
                     if (playerFinished) {
                         console.log('Player is DONE');
                         // this.setStatus(GameStatus.dealersTurn);
-                        this.rootStore.dealerStore.dealersTurn();
+                        await this.rootStore.dealerStore.dealersTurn();
                     }
                 }
             ),
 
-            reaction(() => (this.status === GameStatus.dealersTurn && this.rootStore.dealersHandStore.isDone),
-                (dealerFinished) => {
-                    if (dealerFinished) {
-                        console.log('Dealer is DONE');
-                        this.setStatus(GameStatus.turnsEnded);
-                    }
-                }),
+            // reaction(() => (this.status === GameStatus.dealersTurn && this.rootStore.dealersHandStore.isDone),
+            //     (dealerFinished) => {
+            //         if (dealerFinished) {
+            //             console.log('Dealer is DONE');
+            //             this.setStatus(GameStatus.turnsEnded);
+            //         }
+            //     }),
 
             reaction(
                 () => (this.status === GameStatus.turnsEnded),
-                (turnsEnded) => {
+                async (turnsEnded) => {
                     if (turnsEnded) {
                         console.log('Who is the winner?');
                         const dealerScore = this.rootStore.dealersHandStore.totalScore;
@@ -50,7 +50,7 @@ class GameStore {
                                 this.tie(hand);
                             }
                         });
-                        this.reset();
+                        await this.reset();
                     }
                 }
             )
@@ -78,22 +78,33 @@ class GameStore {
         );
     }
 
-    public setStatus(newStatus: GameStatus) {
-        this.status = newStatus;
+    public setStatus(newStatus: GameStatus): Promise<void> {
+        return new Promise((resolve) => {
+            this.status = newStatus;
+            setTimeout(() => {
+                resolve();
+            }, 2000);
+
+        });
     }
 
-    public getStatus():GameStatus{
+
+    public getStatus(): GameStatus {
         return this.status;
     }
 
-    private reset() {
+    private async reset() {
         console.log("Resetting...");
-        this.setStatus(GameStatus.playersBet);
-        this.rootStore.dealersHandStore.reset();
-        //rootStore.playersHandStore.reset();
-        this.rootStore.handManagerStore.resetAll();
-        this.rootStore.deckStore.createDeck();
-        this.rootStore.deckStore.shuffle();
+        await this.setStatus(GameStatus.init).then(()=>{
+            this.setStatus(GameStatus.playersBet);
+            this.rootStore.dealersHandStore.reset();
+            //rootStore.playersHandStore.reset();
+            this.rootStore.handManagerStore.resetAll();
+
+
+            this.rootStore.deckStore.createDeck();
+            this.rootStore.deckStore.shuffle();
+        });
     }
 
 

@@ -31,7 +31,7 @@ class DealerStore {
         await this.hit(this.rootStore.dealersHandStore, false);
         await this.hit(this.rootStore.dealersHandStore, true);
 
-        this.rootStore.gameStore.setStatus(GameStatus.playersTurn);
+        await this.rootStore.gameStore.setStatus(GameStatus.playersTurn);
     }
 
     public async dealersTurn() {
@@ -43,6 +43,7 @@ class DealerStore {
             } else {
                 this.rootStore.dealersHandStore.setDone();
                 console.log('dealer done')
+                await this.rootStore.gameStore.setStatus(GameStatus.turnsEnded);
             }
         }
     }

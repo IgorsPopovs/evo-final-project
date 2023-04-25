@@ -17,7 +17,7 @@ const Messenger: React.FC = () => {
             case GameStatus.initialDeal:
                 return "Initial deal...";
             case GameStatus.playersTurn:
-                return "Make a bet!"
+                return "Make a decision!"
             case GameStatus.dealersTurn:
                 return "Dealer's turn";
             case GameStatus.turnsEnded:

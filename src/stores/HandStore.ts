@@ -146,6 +146,7 @@ class HandStore {
     public reset() {
         this.cards = [];
         this.isDone = false;
+        this.showBlankCard = true;
     }
 
     public setDone() {
