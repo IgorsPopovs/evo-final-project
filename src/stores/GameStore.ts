@@ -20,7 +20,8 @@ class GameStore {
                 (playerFinished) => {
                     if (playerFinished) {
                         console.log('Player is DONE');
-                        this.setStatus(GameStatus.dealersTurn);
+                        // this.setStatus(GameStatus.dealersTurn);
+                        this.rootStore.dealerStore.dealersTurn();
                     }
                 }
             ),

@@ -12,6 +12,13 @@
     position: relative;
 }
 
+.blank {
+    border: 1px solid rgba(153, 153, 153, 0);
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0);
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0);
+}
+
 
 .card.hidden {
     background-image: url('../../../images/card-back-black.png');
@@ -54,4 +61,25 @@
     justify-content: center;
     align-items: center;
     font-size: 60px;
+}
+
+
+
+:root {
+    --hand-position-x: 0;
+    --hand-position-y: 0;
+}
+
+.card-passing-animation {
+    z-index: 1;
+    animation-name: card-passing;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes card-passing {
+    to {
+        transform: translateX(var(--hand-position-x)) translateY(var(--hand-position-y));
+        opacity: 0.7;
+    }
 }

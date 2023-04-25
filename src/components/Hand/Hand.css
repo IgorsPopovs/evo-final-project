@@ -1,11 +1,13 @@
 .hand {
     display: flex;
+    /*min-width: 343px;*/
+    /*min-height: 203px;*/
 }
 
 .handContainer {
     display: flex;
     flex-direction: column;
-    width: fit-content;
+    /*width: fit-content;*/
 
     /*border: solid;*/
     border-radius: 10px;

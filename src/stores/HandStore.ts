@@ -9,16 +9,20 @@ class HandStore {
     private rootStore: RootStore;
     private status: HandStatus = HandStatus.Playing;
     private combination: HandCombination = HandCombination.None;
+    public id: number;
     public cards: CardStore[] = [];
+    public showBlankCard: boolean = true;
     public isDone: boolean = false;
     public betStore: BetStore;
     public disposers: IReactionDisposer[] = [];
     public handActionsStore: HandActionsStore;
 
-    constructor(rootStore: RootStore) {
+    constructor(rootStore: RootStore, id: number) {
+        this.id = id;
         this.rootStore = rootStore;
         this.betStore = new BetStore(this.rootStore);
         this.handActionsStore = new HandActionsStore(this.rootStore, this);
+
 
         makeAutoObservable(this, {}, {autoBind: true})
 
@@ -36,6 +40,31 @@ class HandStore {
         );
     }
 
+    public getPosition() {
+        const handElement = document.getElementById("hand-" + this.id);
+        if (handElement) {
+            if (handElement.children.namedItem('blank-card')){
+                const blankCard = handElement.children.namedItem('blank-card') as HTMLElement;
+                const blankCardRect = blankCard.getBoundingClientRect();
+                console.log('returnin Blank Card position')
+                return [blankCardRect.x , blankCardRect.y];
+            }
+            // console.log(handElement.getBoundingClientRect());
+            if (handElement.lastChild){
+                console.log(handElement.lastChild)
+                const card = handElement.lastChild as HTMLElement;
+                const cardRect = card.getBoundingClientRect();
+                console.log('returnin Card position')
+                // return cardRect;
+                return [cardRect.x , cardRect.y];
+            }
+            console.log(handElement);
+            console.log('returnin Hand position')
+            return [handElement.getBoundingClientRect().x, handElement.getBoundingClientRect().y];
+        }
+        throw new Error(`Could not find element with id ${this.id}`);
+    }
+
     public setStatus(status: HandStatus) {
         this.status = status;
     }
@@ -43,6 +72,7 @@ class HandStore {
     public getStatus(): HandStatus {
         return this.status;
     }
+
     public setCombination(combo: HandCombination) {
         this.combination = combo;
     }
@@ -123,16 +153,17 @@ class HandStore {
         console.log("done");
     }
 
-    public splitHand() {
+    public async splitHand() {
         const popCard = this.pullCard();
         if (popCard !== undefined) {
-            const newHand = new HandStore(this.rootStore);
+            const newHand = new HandStore(this.rootStore, this.rootStore.handManagerStore.hands.length + 1);
             newHand.addCard(popCard)
+            // await this.rootStore.dealerStore.hit(newHand, false);
             newHand.betStore.addBet(this.betStore.getBet);
             this.rootStore.handManagerStore.hands.push(newHand);
 
-            this.rootStore.dealerStore.hit(this, false);
-            this.rootStore.dealerStore.hit(newHand, false);
+            await this.rootStore.dealerStore.hit(this, false);
+            await this.rootStore.dealerStore.hit(newHand, false);
         }
     }
 }

@@ -2,36 +2,22 @@ import {reaction, makeAutoObservable} from "mobx";
 import RootStore from "./RootStore";
 import {GameStatus} from "../utils/Constant";
 import HandStore from "./HandStore";
+import CardStore from "./CardStore";
+import handStore from "./HandStore";
 
 class DealerStore {
     private rootStore: RootStore;
+
+    public isPassingCard: boolean = false;
 
     constructor(rootStore: RootStore) {
         this.rootStore = rootStore;
 
         reaction(
-            () => (this.rootStore.gameStore.getStatus() === GameStatus.dealersTurn),
-            (dealersTurn) => {
-                if (dealersTurn) {
-                    this.exposeCards();
-                    while (!this.rootStore.dealersHandStore.isDone) {
-                        console.log(this.rootStore.dealersHandStore.totalScore);
-                        if (this.canDealToDealer()) {
-                            this.hit(this.rootStore.dealersHandStore, false);
-                        } else {
-                            this.rootStore.dealersHandStore.setDone();
-                            console.log('dealer done')
-                        }
-                    }
-                }
-            }
-        );
-
-        reaction(
             () => (this.rootStore.gameStore.getStatus() === GameStatus.initialDeal),
-            (initialDeal) => {
+            async (initialDeal) => {
                 if (initialDeal) {
-                    this.initDeal();
+                    await this.initDeal();
                 }
             }
         );
@@ -39,29 +25,72 @@ class DealerStore {
         makeAutoObservable(this, {}, {autoBind: true});
     }
 
-    private initDeal(): void {
-        this.hit(this.rootStore.handManagerStore.hands[0], false);
-        this.hit(this.rootStore.handManagerStore.hands[0], false);
-        this.hit(this.rootStore.dealersHandStore, false);
-        this.hit(this.rootStore.dealersHandStore, true);
+    private async initDeal() {
+        await this.hit(this.rootStore.handManagerStore.hands[0], false);
+        await this.hit(this.rootStore.handManagerStore.hands[0], false);
+        await this.hit(this.rootStore.dealersHandStore, false);
+        await this.hit(this.rootStore.dealersHandStore, true);
 
         this.rootStore.gameStore.setStatus(GameStatus.playersTurn);
     }
 
-    public double(hand: HandStore): void {
+    public async dealersTurn() {
+        this.exposeCards();
+        while (!this.rootStore.dealersHandStore.isDone) {
+            console.log(this.rootStore.dealersHandStore.totalScore + '  ' + this.isPassingCard);
+            if (this.canDealToDealer()) {
+                await this.hit(this.rootStore.dealersHandStore, false);
+            } else {
+                this.rootStore.dealersHandStore.setDone();
+                console.log('dealer done')
+            }
+        }
+    }
+
+
+    public async double(hand: HandStore) {
         hand.betStore.addBet(hand.betStore.getBet);
-        this.hit(hand, false);
+        await this.hit(hand, false);
         hand.setDone();
     }
 
-    public hit(hand: HandStore, hidden: boolean): void {
-        const card = this.rootStore.deckStore.dealCard();
-        if (card !== undefined) {
-            if (!hidden) {
-                card.expose();
-            }
-            hand.addCard(card);
+
+    public setHandPosition(x: number, y: number): void {
+        const deck = document.querySelector('.deck-container') as HTMLDivElement;
+        if (deck !== null) {
+            deck.style.setProperty('--hand-position-x', `${x}px`);
+            deck.style.setProperty('--hand-position-y', `${y}px`);
         }
+    }
+
+    public hit(hand: HandStore, hidden: boolean): Promise<void> {
+        return new Promise((resolve) => {
+            const card = this.rootStore.deckStore.dealCard();
+            const deckPosition = this.rootStore.deckStore.getPosition();
+            if (card !== undefined) {
+
+
+
+                const [handPositionX, handPositionY] = hand.getPosition();
+                this.setHandPosition(handPositionX-deckPosition.x, handPositionY-deckPosition.y);
+                this.rootStore.deckStore.setDealingAnimation(true);
+                hand.showBlankCard=true;
+                this.isPassingCard = true;
+
+                setTimeout(() => {
+                    hand.showBlankCard=false;
+                    if (!hidden) {
+                        card.expose();
+                    }
+                    hand.addCard(card);
+                    this.isPassingCard = false; // update state to indicate that the card passing is finished
+                    this.rootStore.deckStore.setDealingAnimation(false);
+                    resolve();
+                }, 1000);
+            } else {
+                return Promise.reject('No more cards in deck'); // Reject the Promise if there are no more cards in the deck
+            }
+        });
     }
 
     private canDealToDealer(): boolean {

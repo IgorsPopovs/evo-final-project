@@ -5,3 +5,7 @@
     border: solid;
     padding: 15px;
 }
+
+#card-to-deal {
+    position: absolute;
+}

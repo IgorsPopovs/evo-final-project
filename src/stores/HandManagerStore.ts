@@ -9,7 +9,7 @@ class HandManagerStore {
 
     constructor(rootStore: RootStore) {
         this.rootStore = rootStore;
-        this.hands = [new HandStore(this.rootStore)];
+        this.hands = [new HandStore(this.rootStore, 1)];
 
         makeAutoObservable(this, {}, {autoBind: true})
     }
@@ -31,7 +31,7 @@ class HandManagerStore {
 
     public resetAll() {
         this.hands.forEach((hand) => dispose(hand.disposers));
-        this.hands = [new HandStore(this.rootStore)];
+        this.hands = [new HandStore(this.rootStore, 1)];
     }
 
     // private get isFinishedPlaying() {

@@ -2,6 +2,7 @@ import {makeAutoObservable} from "mobx";
 import RootStore from "./RootStore";
 import CardStore from "./CardStore";
 import {DecksCount, suits, values} from "../utils/Constant";
+import hand from "../components/Hand/Hand";
 
 class DeckStore {
     private cards: CardStore[] = [];
@@ -13,6 +14,25 @@ class DeckStore {
         this.createDeck();
         this.shuffle();
         makeAutoObservable(this);
+    }
+
+    public getPosition(): DOMRect {
+        const handElement = document.getElementById("card-to-deal");
+        if (handElement) {
+            console.log(handElement.getBoundingClientRect());
+            return handElement.getBoundingClientRect();
+        }
+        throw new Error(`Could not find element with id deck`);
+    }
+
+    public setDealingAnimation(isActive: boolean) {
+        const handElement = document.getElementById("card-to-deal")!;
+        if (isActive) {
+            handElement.classList.add("card-passing-animation");
+        } else {
+            handElement.classList.remove("card-passing-animation")
+        }
+
     }
 
     public get getCards() {

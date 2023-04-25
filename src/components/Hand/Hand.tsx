@@ -1,10 +1,11 @@
-import React from "react";
+import React, {useState} from "react";
 import {Card} from "./Card/Card";
 import {observer} from "mobx-react";
 import HandStore from "../../stores/HandStore";
 import './Hand.css';
 import {HandCombination, HandStatus} from "../../utils/Constant";
 import classNames from "classnames";
+import {BlankCard} from "./Card/BlankCard";
 
 type HandProps = {
     handStore: HandStore;
@@ -26,14 +27,17 @@ const Hand: React.FC<HandProps> = ({handStore, owner}) => {
                     <div>Combination: {HandCombination[handStore.getCombination()]}</div>
                 </div>
             }
-            <div className={"hand"}>
+            <div className={"hand"} id={"hand-" + handStore.id}>
                 {handStore.cards.length > 0 ? (
                     handStore.cards.map((card, index) => (
                         <Card key={index} cardStore={card}/>
                     ))
                 ) : (
-                    <h2>{owner} has no cards.</h2>
+                    <></>
                 )}
+                {handStore.showBlankCard &&
+                    <BlankCard visible={false}/>
+                }
             </div>
         </div>
     );

@@ -18,7 +18,7 @@ class RootStore {
         this.handManagerStore = new HandManagerStore(this);
         this.deckStore = new DeckStore(this);
         this.dealerStore = new DealerStore(this);
-        this.dealersHandStore = new HandStore(this);
+        this.dealersHandStore = new HandStore(this, 0);
         this.walletStore = new WalletStore(this);
     }
 }
