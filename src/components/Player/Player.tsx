@@ -3,7 +3,7 @@ import Hand from "../Hand/Hand";
 import Wallet from "../Wallet/Wallet";
 import {RootStoreContext} from "../../App";
 import HandActions from "../Hand/HandActions";
-import Bet from "../Bet";
+import Bet from "../Wallet/Bet";
 import "./Player.css";
 import {observer} from "mobx-react";
 import {GameStatus} from "../../utils/Constant";

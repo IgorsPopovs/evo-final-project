@@ -1,6 +1,6 @@
 import React from "react";
 import {observer} from "mobx-react";
-import HandStore from "../stores/HandStore";
+import HandStore from "../../stores/HandStore";
 
 type betProps = {
     handStore: HandStore;
