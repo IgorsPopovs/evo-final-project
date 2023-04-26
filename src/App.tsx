@@ -15,21 +15,19 @@ function App() {
     return (
         <RootStoreContext.Provider value={rootStore}>
             <div className="App">
-                <div>
-                    {/*<p> Player isDone: {rootStore.playersHandStore.isDone ? ('Yes') : ('No')} </p>*/}
-                    <p> Game status: {rootStore.gameStore.getStatus()} </p>
-                </div>
-
                 <Messenger/>
-                <p>-------------------------------</p>
                 <div className={"main-container"}>
                     <div className={"top-main-container"}>
                         <Dealer/>
                         <Deck/>
                     </div>
-                    <Player/>
+                    <div className={"bottom-main-container"}>
+                        <Player/>
+                    </div>
                 </div>
+
             </div>
+
         </RootStoreContext.Provider>
     );
 }

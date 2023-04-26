@@ -37,9 +37,24 @@
   }
 }
 
+body {
+  background-image: url("./images/background-red.jpg");
+  background-color: #ff0000;
+
+  color: azure;
+}
+
 
 .top-main-container {
   display: flex;
+  position: absolute;
+  top: 20px;
+}
+
+.bottom-main-container {
+  display: flex;
+  position: absolute;
+  bottom: 5px;
 }
 
 .main-container {

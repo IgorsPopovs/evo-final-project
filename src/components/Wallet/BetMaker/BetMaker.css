@@ -1,34 +1,40 @@
+:root {
+    --chips-size: 0.6;
+}
+
 .chips-container {
     display: flex;
     justify-content: center;
-    flex-direction: column;
+    /*flex-direction: column;*/
 }
 
 .chips-container .chip {
+    position: absolute;
     display: flex;
     font-weight: bold;
-    font-size: 26px;
-    height: 90px;
-    width: 90px;
+    font-size: calc(26px * var(--chips-size));
+    height: calc(90px * var(--chips-size));
+    width: calc(90px * var(--chips-size));
     justify-content: center;
     align-items: center;
     border-radius: 50%;
     box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.5), 0 0 4px 0 rgba(0, 0, 0, 0.27) inset;
-    border: 7px dashed white;
+    border: calc(7px * var(--chips-size)) dashed white;
     transition: all 0.6s;
     color: white;
     font-family: 'Lato', sans-serif;
-    margin: 8px 8px;
+    margin: calc(8px * var(--chips-size));;
 }
 
 
 .chips-container .chip span {
-    border: 3px dashed white;
-    height: 60px;
-    width: 60px;
+    position: absolute;
+    border: calc(3px * var(--chips-size)) dashed white;
+    height: calc(60px * var(--chips-size));
+    width: calc(60px * var(--chips-size));
     border-radius: 50%;
     text-align: center;
-    line-height: 60px;
+    line-height: calc(60px * var(--chips-size));
 }
 
 .chips-container .chip-20 {
@@ -53,14 +59,14 @@
 
 .chips-container .chip-1000 {
     background-color: #323acc;
-    font-size: 20px;
+    font-size: calc(20px * var(--chips-size));;
 }
 
 .chips-container .chip:disabled{
     background-color: #282c34;
     color: dimgrey;
     box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.5), 0 0 3px 0 rgba(0, 0, 0, 0.4) inset;
-    border: 7px dashed rgba(255, 246, 222, 0.26);
+    border: calc(7px * var(--chips-size)) dashed rgba(255, 246, 222, 0.26);
 }
 .chips-container .chip:disabled span {
     border: 3px dashed rgba(255, 246, 222, 0.26);
@@ -76,8 +82,8 @@
     content: "";
     /*transform: rotate(360deg);*/
     background-color: rgba(125, 255, 0, 0.32);
-    height: 90px;
-    width: 90px;
+    height: calc(90px * var(--chips-size));
+    width: calc(90px * var(--chips-size));
     position: absolute;
     border-radius: 50%;
 }
@@ -92,8 +98,8 @@
     display: flex;
     border-radius: 50%;
     box-shadow: 0 9px #999;
-    height: 90px;
-    width: 90px;
+    height: calc(90px * var(--chips-size));
+    width: calc(90px * var(--chips-size));
     justify-content: center;
     align-items: center;
     margin-bottom: 15px;

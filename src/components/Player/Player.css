@@ -8,13 +8,24 @@
 
 .player-container {
     display: flex;
-    width: fit-content;
+    justify-content: space-between;
+
+    width: 80%;
+    min-width: 650px;
+    max-width: 900px;
+    padding: 15px;
 
     border: solid;
-    padding: 15px;
+}
+#dealer-container {
+    min-width: 250px;
 }
 
 .player-container h2 {
     border: solid;
     margin: 0;
+}
+
+.hand-actions-container {
+    min-height: 20px;
 }

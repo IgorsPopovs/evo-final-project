@@ -1,12 +1,16 @@
+:root {
+    --card-size: 0.7;
+}
+
 .card {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    width: 120px;
-    height: 180px;
+    width: calc(80px * var(--card-size));
+    height: calc(130px * var(--card-size));
     padding: 10px;
     border: 1px solid #999;
-    border-radius: 10px;
+    border-radius: calc(10px * var(--card-size));
     background-color: #fff;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
     position: relative;
@@ -28,8 +32,8 @@
 .corner {
     display: flex;
     align-items: center;
-    font-size: 30px;
-    padding: 0px 10px;
+    font-size: calc(23px * var(--card-size));
+    padding: 0px 3px;
 }
 
 .suit-hearts {
@@ -60,7 +64,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 60px;
+    font-size: calc(50px * var(--card-size));
 }
 
 

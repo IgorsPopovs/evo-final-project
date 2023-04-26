@@ -23,8 +23,10 @@ const Hand: React.FC<HandProps> = ({handStore, owner}) => {
             <div>Score: {handStore.totalScore}</div>
             {owner !== 'dealer' &&
                 <div>
-                    <div>Status: {HandStatus[handStore.getStatus()]}</div>
-                    <div>Combination: {HandCombination[handStore.getCombination()]}</div>
+                    {/*<div>Status: {HandStatus[handStore.getStatus()]}</div>*/}
+                    {handStore.getCombination() !== HandCombination.None &&
+                        <div>Combination: {HandCombination[handStore.getCombination()]}</div>
+                    }
                 </div>
             }
             <div className={"hand"} id={"hand-" + handStore.id}>

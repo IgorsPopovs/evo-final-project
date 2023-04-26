@@ -13,8 +13,6 @@ const Deck: React.FC = () => {
 
     return (
         <div className={"deck-container"}>
-            <h2>DECK</h2>
-            <h2>Cards count: {cards.length}</h2>
             <div className="hand" id="deck">
                 {cards && cards.length > 0 ? (
                     <Card key={9} cardStore={cards[cards.length - 1]}/>
