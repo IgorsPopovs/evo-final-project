@@ -68,6 +68,7 @@
 }
 
 
+
 :root {
     --hand-position-x: 0;
     --hand-position-y: 0;
@@ -76,7 +77,7 @@
 .card-passing-animation {
     z-index: 1;
     animation-name: card-passing;
-    animation-duration: 0.5s;
+    animation-duration: 1s;
     animation-fill-mode: forwards;
 }
 
@@ -84,6 +85,5 @@
     to {
         transform: translateX(var(--hand-position-x)) translateY(var(--hand-position-y));
         opacity: 0.7;
-        filter: blur(1px);
     }
 }

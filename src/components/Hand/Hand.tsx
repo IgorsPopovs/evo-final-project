@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {Card} from "./Card/Card";
 import {observer} from "mobx-react";
 import HandStore from "../../stores/HandStore";
@@ -37,7 +37,7 @@ const Hand: React.FC<HandProps> = ({handStore, owner}) => {
                 ) : (
                     <></>
                 )}
-                {handStore.getShowBlankCard() &&
+                {handStore.showBlankCard &&
                     <BlankCard visible={false}/>
                 }
             </div>
