@@ -1,11 +1,13 @@
-import React, {useState} from "react";
+import React from "react";
 import {Card} from "./Card/Card";
 import {observer} from "mobx-react";
 import HandStore from "../../stores/HandStore";
 import './Hand.css';
-import {HandCombination, HandStatus} from "../../utils/Constant";
+import {HandStatus} from "../../utils/Constant";
 import classNames from "classnames";
 import {BlankCard} from "./Card/BlankCard";
+import Combination from "./Combination";
+import TotalScore from "./TotalScore/TotalScore";
 
 type HandProps = {
     handStore: HandStore;
@@ -20,18 +22,9 @@ const Hand: React.FC<HandProps> = ({handStore, owner}) => {
                 yellow: handStore.getStatus() === HandStatus.Tie,
             }
         )}>
-            <div className="score">
-                <p>{handStore.totalScore}</p>
-            </div>
-            {owner !== 'dealer' &&
-                <div>
-                    {/*<div>Status: {HandStatus[handStore.getStatus()]}</div>*/}
-                    {handStore.getCombination() !== HandCombination.None &&
-                        <div>Combination: {HandCombination[handStore.getCombination()]}</div>
-                    }
-                </div>
-            }
+            <Combination handStore={handStore} owner={owner}/>
             <div className={"hand"} id={"hand-" + handStore.id}>
+                <TotalScore key={handStore.totalScore} handStore={handStore}/>
                 {handStore.cards.length > 0 ? (
                     handStore.cards.map((card, index) => (
                         <Card key={index} cardStore={card}/>

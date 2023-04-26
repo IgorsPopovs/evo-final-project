@@ -32,10 +32,3 @@
 
 
 
-.score {
-    position: absolute;
-    border: 1px solid;
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-}

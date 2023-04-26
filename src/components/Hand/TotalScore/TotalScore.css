@@ -1,0 +1,66 @@
+:root {
+    --total-score-scale: 1;
+}
+
+.score {
+    position: relative;
+
+    width: 30px;
+    height: 30px;
+    top: -15px;
+    left: 15px;
+    line-height: 0px;
+    margin-left: 30px;
+
+    background: #ffcb00;
+    z-index: 1;
+    font-weight: bold;
+    font-size: 15px;
+    border: 1px solid #999;
+
+    border-radius: 50%;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+
+
+
+    color: #282c34;
+
+    opacity: 1;
+    animation: bounce 0.3s ease-in-out;
+}
+
+@keyframes bounce {
+    0% {
+        width: 30px;
+        height: 30px;
+        top: -15px;
+        left: 15px;
+        line-height: 0px;
+        font-size: 15px;
+
+        margin-left: 30px;
+        background: #ffcb00;
+    }
+    50% {
+        width: 60px;
+        height: 60px;
+        top: -30px;
+        left: 30px;
+        line-height: 10px;
+        font-size: 25px;
+
+        margin-left: 0px;
+        background: #ff8800;
+    }
+    100% {
+        width: 30px;
+        height: 30px;
+        top: -15px;
+        left: 15px;
+        line-height: 0px;
+        font-size: 15px;
+
+        margin-left: 30px;
+        background: #ffcb00;
+    }
+}
