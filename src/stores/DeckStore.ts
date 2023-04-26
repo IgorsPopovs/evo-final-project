@@ -17,10 +17,10 @@ class DeckStore {
     }
 
     public getPosition(): DOMRect {
-        const handElement = document.getElementById("card-to-deal");
-        if (handElement) {
-            console.log(handElement.getBoundingClientRect());
-            return handElement.getBoundingClientRect();
+        const deckElement = document.getElementById("card-to-deal");
+        if (deckElement) {
+            console.log(deckElement.getBoundingClientRect());
+            return deckElement.getBoundingClientRect();
         }
         throw new Error(`Could not find element with id deck`);
     }

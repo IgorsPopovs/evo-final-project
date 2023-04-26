@@ -2,8 +2,6 @@ import {reaction, makeAutoObservable} from "mobx";
 import RootStore from "./RootStore";
 import {GameStatus} from "../utils/Constant";
 import HandStore from "./HandStore";
-import CardStore from "./CardStore";
-import handStore from "./HandStore";
 
 class DealerStore {
     private rootStore: RootStore;
@@ -71,15 +69,14 @@ class DealerStore {
             if (card !== undefined) {
 
 
-
                 const [handPositionX, handPositionY] = hand.getPosition();
-                this.setHandPosition(handPositionX-deckPosition.x, handPositionY-deckPosition.y);
+                this.setHandPosition(handPositionX - deckPosition.x, handPositionY - deckPosition.y);
                 this.rootStore.deckStore.setDealingAnimation(true);
-                hand.showBlankCard=true;
+                hand.setShowBlankCard(true);
                 this.isPassingCard = true;
 
                 setTimeout(() => {
-                    hand.showBlankCard=false;
+                    hand.setShowBlankCard(false);
                     if (!hidden) {
                         card.expose();
                     }
@@ -87,7 +84,7 @@ class DealerStore {
                     this.isPassingCard = false; // update state to indicate that the card passing is finished
                     this.rootStore.deckStore.setDealingAnimation(false);
                     resolve();
-                }, 1000);
+                }, 500);
             } else {
                 return Promise.reject('No more cards in deck'); // Reject the Promise if there are no more cards in the deck
             }
