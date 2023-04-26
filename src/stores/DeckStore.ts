@@ -2,7 +2,6 @@ import {makeAutoObservable} from "mobx";
 import RootStore from "./RootStore";
 import CardStore from "./CardStore";
 import {DecksCount, suits, values} from "../utils/Constant";
-import hand from "../components/Hand/Hand";
 
 class DeckStore {
     private cards: CardStore[] = [];
