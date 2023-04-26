@@ -10,7 +10,6 @@ class GameStore {
 
     constructor(rootStore: RootStore) {
         this.rootStore = rootStore;
-        // this.setStatus(GameStatus.playersBet);
 
         makeAutoObservable(this, {}, {autoBind: true});
 
@@ -19,42 +18,27 @@ class GameStore {
                 () => (this.status === GameStatus.playersTurn && this.rootStore.handManagerStore.isDone),
                 async (playerFinished) => {
                     if (playerFinished) {
-                        console.log('Player is DONE');
-                        // this.setStatus(GameStatus.dealersTurn);
                         await this.rootStore.dealerStore.dealersTurn();
                     }
                 }
             ),
-
-            // reaction(() => (this.status === GameStatus.dealersTurn && this.rootStore.dealersHandStore.isDone),
-            //     (dealerFinished) => {
-            //         if (dealerFinished) {
-            //             console.log('Dealer is DONE');
-            //             this.setStatus(GameStatus.turnsEnded);
-            //         }
-            //     }),
-
-            reaction(
-                () => (this.status === GameStatus.turnsEnded),
-                async (turnsEnded) => {
-                    if (turnsEnded) {
-                        console.log('Who is the winner?');
-                        const dealerScore = this.rootStore.dealersHandStore.totalScore;
-                        this.rootStore.handManagerStore.hands.forEach((hand) => {
-                            const playerScore = hand.totalScore;
-                            if (this.verifyPlayerWins(dealerScore, playerScore)) {
-                                this.playerWins(hand);
-                            } else if (this.verifyPlayerLoses(dealerScore, playerScore)) {
-                                this.playerLoses(hand);
-                            } else if (this.verifyTie(dealerScore, playerScore)) {
-                                this.tie(hand);
-                            }
-                        });
-                        await this.reset();
-                    }
-                }
-            )
         );
+    }
+
+    public async calculateResults() {
+        console.log('calculating results...');
+        const dealerScore = this.rootStore.dealersHandStore.totalScore;
+        this.rootStore.handManagerStore.hands.forEach((hand) => {
+            const playerScore = hand.totalScore;
+            if (this.verifyPlayerWins(dealerScore, playerScore)) {
+                this.playerWins(hand);
+            } else if (this.verifyPlayerLoses(dealerScore, playerScore)) {
+                this.playerLoses(hand);
+            } else if (this.verifyTie(dealerScore, playerScore)) {
+                this.tie(hand);
+            }
+        });
+        await this.reset();
     }
 
     private verifyPlayerWins(dealerScore: number, playerScore: number) {
@@ -72,6 +56,7 @@ class GameStore {
     }
 
     private verifyTie(dealerScore: number, playerScore: number) {
+        console.log('verifying tie...');
         return (
             (dealerScore === playerScore) ||
             (dealerScore > 21 && playerScore > 21)
@@ -94,11 +79,9 @@ class GameStore {
     }
 
     private async reset() {
-        console.log("Resetting...");
-        await this.setStatus(GameStatus.init).then(()=>{
+        await this.setStatus(GameStatus.init).then(() => {
             this.setStatus(GameStatus.playersBet);
             this.rootStore.dealersHandStore.reset();
-            //rootStore.playersHandStore.reset();
             this.rootStore.handManagerStore.resetAll();
 
 

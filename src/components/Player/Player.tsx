@@ -2,7 +2,7 @@ import React, {useContext} from "react";
 import Hand from "../Hand/Hand";
 import Wallet from "../Wallet/Wallet";
 import {RootStoreContext} from "../../App";
-import HandActions from "../Hand/HandActions";
+import HandActions from "../Hand/HandActions/HandActions";
 import Bet from "../Wallet/Bet";
 import "./Player.css";
 import {observer} from "mobx-react";
@@ -19,11 +19,7 @@ const Player: React.FC = () => {
                     return (<div key={i}>
                         <Bet handStore={hand}></Bet>
                         <Hand handStore={hand} owner={"player"}/>
-                        <div className="hand-actions-container">
-                            {rootStore.gameStore.getStatus() === GameStatus.playersTurn &&
-                                <HandActions handStore={hand}/>
-                            }
-                        </div>
+                        <HandActions handStore={hand}/>
                     </div>);
                 })}
             </div>

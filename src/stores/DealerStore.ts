@@ -1,14 +1,10 @@
-import {reaction, makeAutoObservable} from "mobx";
+import {makeAutoObservable, reaction} from "mobx";
 import RootStore from "./RootStore";
-import {GameStatus} from "../utils/Constant";
+import {GameStatus, HandStatus} from "../utils/Constant";
 import HandStore from "./HandStore";
-import CardStore from "./CardStore";
-import handStore from "./HandStore";
 
 class DealerStore {
     private rootStore: RootStore;
-
-    public isPassingCard: boolean = false;
 
     constructor(rootStore: RootStore) {
         this.rootStore = rootStore;
@@ -26,6 +22,7 @@ class DealerStore {
     }
 
     private async initDeal() {
+        this.rootStore.handManagerStore.hands[0].setStatus(HandStatus.Playing);
         await this.hit(this.rootStore.handManagerStore.hands[0], false);
         await this.hit(this.rootStore.handManagerStore.hands[0], false);
         await this.hit(this.rootStore.dealersHandStore, false);
@@ -37,13 +34,12 @@ class DealerStore {
     public async dealersTurn() {
         this.exposeCards();
         while (!this.rootStore.dealersHandStore.isDone) {
-            console.log(this.rootStore.dealersHandStore.totalScore + '  ' + this.isPassingCard);
             if (this.canDealToDealer()) {
                 await this.hit(this.rootStore.dealersHandStore, false);
             } else {
                 this.rootStore.dealersHandStore.setDone();
-                console.log('dealer done')
                 await this.rootStore.gameStore.setStatus(GameStatus.turnsEnded);
+                await this.rootStore.gameStore.calculateResults();
             }
         }
     }
@@ -75,21 +71,19 @@ class DealerStore {
                 const [handPositionX, handPositionY] = hand.getPosition();
                 this.setHandPosition(handPositionX-deckPosition.x, handPositionY-deckPosition.y);
                 this.rootStore.deckStore.setDealingAnimation(true);
-                hand.showBlankCard=true;
-                this.isPassingCard = true;
+                hand.setShowBlankCard(true);
 
                 setTimeout(() => {
-                    hand.showBlankCard=false;
+                    hand.setShowBlankCard(false);
                     if (!hidden) {
                         card.expose();
                     }
                     hand.addCard(card);
-                    this.isPassingCard = false; // update state to indicate that the card passing is finished
                     this.rootStore.deckStore.setDealingAnimation(false);
                     resolve();
                 }, 1000);
             } else {
-                return Promise.reject('No more cards in deck'); // Reject the Promise if there are no more cards in the deck
+                return Promise.reject('No more cards in deck');
             }
         });
     }

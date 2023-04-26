@@ -20,7 +20,6 @@ class HandManagerStore {
 
     public get isDone(): boolean {
         for (let i = 0; i < this.hands.length; i++) {
-            console.log(!this.hands[i].isDone);
             if (!this.hands[i].isDone) {
                 return false;
             }
@@ -34,11 +33,6 @@ class HandManagerStore {
         this.hands = [new HandStore(this.rootStore, 1)];
     }
 
-    // private get isFinishedPlaying() {
-    //     return (
-    //         this.hands.filter(hand => hand.getStatus() === HandStatus.Playing).length === 0
-    //     );
-    // }
 }
 
 export default HandManagerStore;

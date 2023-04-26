@@ -7,6 +7,8 @@ class DeckStore {
     private cards: CardStore[] = [];
     private rootStore: RootStore;
 
+    public isDealingAnimation: boolean = false;
+
     constructor(rootStore: RootStore) {
         this.rootStore = rootStore;
 
@@ -18,7 +20,6 @@ class DeckStore {
     public getPosition(): DOMRect {
         const handElement = document.getElementById("card-to-deal");
         if (handElement) {
-            console.log(handElement.getBoundingClientRect());
             return handElement.getBoundingClientRect();
         }
         throw new Error(`Could not find element with id deck`);
@@ -27,8 +28,10 @@ class DeckStore {
     public setDealingAnimation(isActive: boolean) {
         const handElement = document.getElementById("card-to-deal")!;
         if (isActive) {
+            this.isDealingAnimation = true;
             handElement.classList.add("card-passing-animation");
         } else {
+            this.isDealingAnimation = false;
             handElement.classList.remove("card-passing-animation")
         }
 

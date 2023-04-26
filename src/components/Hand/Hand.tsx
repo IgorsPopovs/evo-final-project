@@ -37,7 +37,7 @@ const Hand: React.FC<HandProps> = ({handStore, owner}) => {
                 ) : (
                     <></>
                 )}
-                {handStore.showBlankCard &&
+                {handStore.getShowBlankCard() &&
                     <BlankCard visible={false}/>
                 }
             </div>

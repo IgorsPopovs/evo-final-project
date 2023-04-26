@@ -1,8 +1,9 @@
 import React, {useContext} from 'react';
 import {observer} from "mobx-react";
-import {RootStoreContext} from "../../App";
-import {GameStatus} from "../../utils/Constant";
-import HandStore from "../../stores/HandStore";
+import {RootStoreContext} from "../../../App";
+import {GameStatus, HandStatus} from "../../../utils/Constant";
+import HandStore from "../../../stores/HandStore";
+import "./HandActions.css";
 
 type HandActionsProps = {
     handStore: HandStore;
@@ -19,17 +20,17 @@ const HandActions: React.FC<HandActionsProps> = ({handStore}) => {
 
     const handleReset = () => {
         console.log("Resetting...");
-        gameStore.setStatus(GameStatus.playersBet);
-        dealersHandStore.reset();
-        //rootStore.playersHandStore.reset();
-        handManagerStore.resetAll();
-        deckStore.createDeck();
-        deckStore.shuffle();
+        gameStore.setStatus(GameStatus.playersBet).then(r => {
+            dealersHandStore.reset();
+            handManagerStore.resetAll();
+            deckStore.createDeck();
+            deckStore.shuffle();
+        });
     }
 
     return (
-        <div>
-            <div>
+        <div className={`hand-actions-container`}>
+            <div className={`${handStore.getStatus() === HandStatus.Playing ? '' : 'hidden'}`}>
                 <button
                     disabled={!handStore.handActionsStore.doubleEnabled}
                     onClick={() => dealerStore.double(handStore)}
@@ -37,19 +38,13 @@ const HandActions: React.FC<HandActionsProps> = ({handStore}) => {
                     Double
                 </button>
                 <button
-                    disabled={
-                        handStore.isDone ||
-                        gameStore.getStatus() !== GameStatus.playersTurn
-                    }
+                    disabled={!handStore.handActionsStore.hitEnabled}
                     onClick={() => dealerStore.hit(handStore, false)}
                 >
                     Hit
                 </button>
                 <button
-                    disabled={
-                        !(!handStore.isDone &&
-                            gameStore.getStatus() === GameStatus.playersTurn)
-                    }
+                    disabled={!handStore.handActionsStore.stayEnabled}
                     onClick={() => handStore.setDone()}
                 >
                     Stay

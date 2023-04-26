@@ -7,11 +7,11 @@ import HandActionsStore from "./HandActionsStore";
 
 class HandStore {
     private rootStore: RootStore;
-    private status: HandStatus = HandStatus.Playing;
+    private status: HandStatus = HandStatus.Waiting;
     private combination: HandCombination = HandCombination.None;
+    private showBlankCard: boolean = true;
     public id: number;
     public cards: CardStore[] = [];
-    public showBlankCard: boolean = true;
     public isDone: boolean = false;
     public betStore: BetStore;
     public disposers: IReactionDisposer[] = [];
@@ -38,28 +38,33 @@ class HandStore {
                 }
             ),
         );
+    };
+
+    public setShowBlankCard(value: boolean): void {
+        this.showBlankCard = value;
+    }
+
+    public getShowBlankCard(): boolean {
+        return this.showBlankCard;
     }
 
     public getPosition() {
         const handElement = document.getElementById("hand-" + this.id);
         if (handElement) {
-            if (handElement.children.namedItem('blank-card')){
+            if (handElement.children.namedItem('blank-card')) {
                 const blankCard = handElement.children.namedItem('blank-card') as HTMLElement;
                 const blankCardRect = blankCard.getBoundingClientRect();
-                console.log('returnin Blank Card position')
-                return [blankCardRect.x , blankCardRect.y];
+                console.log('BLANK CARD')
+                return [blankCardRect.x, blankCardRect.y];
             }
-            // console.log(handElement.getBoundingClientRect());
-            if (handElement.lastChild){
-                console.log(handElement.lastChild)
+
+            if (handElement.lastChild) {
+                console.log('LAST CHILD')
                 const card = handElement.lastChild as HTMLElement;
                 const cardRect = card.getBoundingClientRect();
-                console.log('returnin Card position')
-                // return cardRect;
-                return [cardRect.x , cardRect.y];
+                return [cardRect.x, cardRect.y];
             }
-            console.log(handElement);
-            console.log('returnin Hand position')
+            console.log('HAND')
             return [handElement.getBoundingClientRect().x, handElement.getBoundingClientRect().y];
         }
         throw new Error(`Could not find element with id ${this.id}`);
@@ -83,13 +88,11 @@ class HandStore {
 
     public addCard(card: CardStore) {
         this.cards.push(card);
-        console.log(this.totalScore);
         this.checkIsDone();
         this.assignCombination();
     }
 
     private assignCombination() {
-        console.log('assigning combination...' + this.totalScore);
         if (this.cards.length === 2 && this.totalScore === 21) this.setCombination(HandCombination.NaturalBlackJack);
         else if (this.totalScore === 21) this.setCombination(HandCombination.BlackJack);
         else if (this.checkSplit()) this.setCombination(HandCombination.Split);
@@ -98,7 +101,6 @@ class HandStore {
     }
 
     private checkSplit() {
-        console.log('SPLIT ' + this.rootStore.handManagerStore.handsLength)
         return (
             (this.cards.length === 2) &&
             (this.cards[0].value === this.cards[1].value) &&
@@ -132,7 +134,6 @@ class HandStore {
         });
 
         for (let i = 0; i < aceCount; i++) {
-            console.log('t:' + total + ' aC:' + aceCount + ' i:' + i)
             if (total + 11 + aceCount - i - 1 > 21) {
                 total += 1;
             } else {
@@ -151,15 +152,14 @@ class HandStore {
 
     public setDone() {
         this.isDone = true;
-        console.log("done");
     }
 
     public async splitHand() {
         const popCard = this.pullCard();
         if (popCard !== undefined) {
             const newHand = new HandStore(this.rootStore, this.rootStore.handManagerStore.hands.length + 1);
+            newHand.setStatus(HandStatus.Playing);
             newHand.addCard(popCard)
-            // await this.rootStore.dealerStore.hit(newHand, false);
             newHand.betStore.addBet(this.betStore.getBet);
             this.rootStore.handManagerStore.hands.push(newHand);
 
