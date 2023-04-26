@@ -1,0 +1,56 @@
+.combination {
+    background-image: url("../../../images/combination-bg.png");
+    /*background-image: url("../../../images/combination-bust-bg.png");*/
+    width: 100px;
+    height: 100px;
+    background-size: contain;
+    position: absolute;
+    translate: 110% -40%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    rotate: 15deg;
+
+    z-index: 1;
+    font-weight: bold;
+    font-size: 18px;
+    color: #282c34;
+    background-repeat: no-repeat;
+
+    animation: fade-combo 0.4s linear;
+}
+
+.combination p {
+    rotate: 5deg;
+}
+
+.combo-Split {
+    font-size: 24px;
+}
+
+.combo-BlackJack {
+    font-size: 15px;
+}
+
+
+.combo-NaturalBlackJack {
+    font-size: 14px;
+}
+
+.combo-Bust {
+    background-image: url("../../../images/combination-bust-bg.png");
+    color: #ffffff;
+    height: 90px;
+    width: 120px;
+}
+
+@keyframes fade-combo {
+    0% {
+        opacity: 0;
+        rotate: 0deg;
+    }
+    100% {
+        opacity: 1;
+        rotate: 360deg;
+    }
+}

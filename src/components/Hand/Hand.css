@@ -8,7 +8,7 @@
 .handContainer {
     display: flex;
     flex-direction: column;
-    /*width: fit-content;*/
+    width: fit-content;
 
     /*border: solid;*/
     border-radius: 10px;

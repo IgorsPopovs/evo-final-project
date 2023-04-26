@@ -159,6 +159,7 @@ class HandStore {
     public async splitHand() {
         const popCard = this.pullCard();
         if (popCard !== undefined) {
+            this.rootStore.handManagerStore.hands[0].setCombination(HandCombination.None);
             const newHand = new HandStore(this.rootStore, this.rootStore.handManagerStore.hands.length + 1);
             newHand.setStatus(HandStatus.Playing);
             newHand.addCard(popCard)

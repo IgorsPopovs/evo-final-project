@@ -6,7 +6,7 @@ import './Hand.css';
 import {HandStatus} from "../../utils/Constant";
 import classNames from "classnames";
 import {BlankCard} from "./Card/BlankCard";
-import Combination from "./Combination";
+import Combination from "./Combination/Combination";
 import TotalScore from "./TotalScore/TotalScore";
 
 type HandProps = {
@@ -22,9 +22,8 @@ const Hand: React.FC<HandProps> = ({handStore, owner}) => {
                 yellow: handStore.getStatus() === HandStatus.Tie,
             }
         )}>
-            <Combination handStore={handStore} owner={owner}/>
+            <TotalScore key={handStore.totalScore} handStore={handStore}/>
             <div className={"hand"} id={"hand-" + handStore.id}>
-                <TotalScore key={handStore.totalScore} handStore={handStore}/>
                 {handStore.cards.length > 0 ? (
                     handStore.cards.map((card, index) => (
                         <Card key={index} cardStore={card}/>
@@ -32,6 +31,11 @@ const Hand: React.FC<HandProps> = ({handStore, owner}) => {
                 ) : (
                     <></>
                 )}
+                <Combination
+                    key={handStore.id + "-" + handStore.getCombination()}
+                    handStore={handStore}
+                    owner={owner}
+                />
                 {handStore.getShowBlankCard() &&
                     <BlankCard visible={false}/>
                 }
