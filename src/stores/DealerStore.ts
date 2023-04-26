@@ -40,10 +40,10 @@ class DealerStore {
             } else {
                 console.log('setting done')
                 this.rootStore.dealersHandStore.setDone();
-                await this.rootStore.gameStore.setStatus(GameStatus.turnsEnded);
-                await this.rootStore.gameStore.calculateResults();
             }
         }
+        await this.rootStore.gameStore.setStatus(GameStatus.turnsEnded);
+        await this.rootStore.gameStore.calculateResults();
     }
 
 
