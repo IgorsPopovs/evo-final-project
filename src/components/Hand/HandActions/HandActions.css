@@ -25,6 +25,8 @@
     user-select: none;
     -webkit-user-select: none;
     touch-action: manipulation;
+    opacity: 1;
+    animation: fade 0.5s linear;
 }
 
 .hand-actions-container button:hover {
@@ -39,4 +41,14 @@
 
 .hand-actions-container .hidden {
     display: none;
+}
+
+
+@keyframes fade {
+    0% {
+        opacity: 0
+    }
+    100% {
+        opacity: 1
+    }
 }

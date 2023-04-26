@@ -18,6 +18,7 @@ class GameStore {
                 () => (this.status === GameStatus.playersTurn && this.rootStore.handManagerStore.isDone),
                 async (playerFinished) => {
                     if (playerFinished) {
+                        await this.setStatus(GameStatus.dealersTurn);
                         await this.rootStore.dealerStore.dealersTurn();
                     }
                 }
@@ -80,13 +81,13 @@ class GameStore {
 
     private async reset() {
         await this.setStatus(GameStatus.init).then(() => {
-            this.setStatus(GameStatus.playersBet);
-            this.rootStore.dealersHandStore.reset();
-            this.rootStore.handManagerStore.resetAll();
-
 
             this.rootStore.deckStore.createDeck();
             this.rootStore.deckStore.shuffle();
+
+            this.setStatus(GameStatus.playersBet);
+            this.rootStore.handManagerStore.resetAll();
+            this.rootStore.dealersHandStore.reset();
         });
     }
 

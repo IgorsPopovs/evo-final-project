@@ -20,7 +20,9 @@ const Hand: React.FC<HandProps> = ({handStore, owner}) => {
                 yellow: handStore.getStatus() === HandStatus.Tie,
             }
         )}>
-            <div>Score: {handStore.totalScore}</div>
+            <div className="score">
+                <p>{handStore.totalScore}</p>
+            </div>
             {owner !== 'dealer' &&
                 <div>
                     {/*<div>Status: {HandStatus[handStore.getStatus()]}</div>*/}

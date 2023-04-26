@@ -145,9 +145,11 @@ class HandStore {
     }
 
     public reset() {
+        this.status = HandStatus.Waiting;
         this.cards = [];
         this.isDone = false;
         this.showBlankCard = true;
+        this.combination = HandCombination.None;
     }
 
     public setDone() {

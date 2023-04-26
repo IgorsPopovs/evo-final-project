@@ -33,10 +33,12 @@ class DealerStore {
 
     public async dealersTurn() {
         this.exposeCards();
-        while (!this.rootStore.dealersHandStore.isDone) {
+        while (!this.rootStore.dealersHandStore.isDone && this.rootStore.gameStore.getStatus() === GameStatus.dealersTurn) {
             if (this.canDealToDealer()) {
+                console.log('dealing to diller')
                 await this.hit(this.rootStore.dealersHandStore, false);
             } else {
+                console.log('setting done')
                 this.rootStore.dealersHandStore.setDone();
                 await this.rootStore.gameStore.setStatus(GameStatus.turnsEnded);
                 await this.rootStore.gameStore.calculateResults();

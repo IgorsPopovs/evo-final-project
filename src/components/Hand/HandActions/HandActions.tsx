@@ -18,16 +18,6 @@ const HandActions: React.FC<HandActionsProps> = ({handStore}) => {
         deckStore
     } = useContext(RootStoreContext);
 
-    const handleReset = () => {
-        console.log("Resetting...");
-        gameStore.setStatus(GameStatus.playersBet).then(r => {
-            dealersHandStore.reset();
-            handManagerStore.resetAll();
-            deckStore.createDeck();
-            deckStore.shuffle();
-        });
-    }
-
     return (
         <div className={`hand-actions-container`}>
             <div className={`${handStore.getStatus() === HandStatus.Playing ? '' : 'hidden'}`}>
@@ -54,11 +44,6 @@ const HandActions: React.FC<HandActionsProps> = ({handStore}) => {
                     onClick={() => handStore.splitHand()}
                 >
                     Split
-                </button>
-                <button
-                    onClick={() => handleReset()}
-                >
-                    Reset
                 </button>
             </div>
         </div>
