@@ -1,0 +1,57 @@
+:root {
+    --bet-change-color: #08cb08;
+}
+
+.bet-container {
+    position: absolute;
+    display: flex;
+    align-items: flex-start;
+    translate: 25px -40px;
+    width: 100px;
+
+    font-size: 15px;
+
+    animation: bounce-bet 0.3s ease-in-out;
+    color: #ffffff  ;
+}
+
+.bet-tie {
+    color: #c4b50a;
+}
+.bet-win {
+    color: #04AA6D;
+}
+.bet-lost {
+    color: red;
+}
+
+.bet-green-anim{
+    animation: green-bet 0.3s ease-in-out;
+}
+@keyframes green-bet {
+    0% {
+        color: #ffffff;
+    }
+    33% {
+        color: var(--bet-change-color);
+        translate: 25px -45px;
+    }
+    77% {
+        color: var(--bet-change-color);
+    }
+    100% {
+        color: #ffffff;
+        translate: 25px -40px;
+    }
+}
+
+@keyframes bounce-bet {
+    33% {
+        /*font-size: 20px;*/
+        translate: 25px -45px;
+    }
+    100% {
+        font-size: 15px;
+        translate: 25px -40px;
+    }
+}
