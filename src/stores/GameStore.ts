@@ -68,7 +68,7 @@ class GameStore {
         return new Promise((resolve) => {
             this.status = newStatus;
             let time = 2000;
-            if (newStatus === GameStatus.turnsEnded) time = 4000;
+            if (newStatus === GameStatus.init) time = 4000;
 
             setTimeout(() => {
                 resolve();

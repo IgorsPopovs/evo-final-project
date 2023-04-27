@@ -68,18 +68,20 @@ class DealerStore {
             const deckPosition = this.rootStore.deckStore.getPosition();
             if (card !== undefined) {
                 hand.setShowBlankCard(true);
-                const [handPositionX, handPositionY] = hand.getPosition();
-                this.setHandPosition(handPositionX - deckPosition.x, handPositionY - deckPosition.y);
-                this.rootStore.deckStore.setDealingAnimation(true);
-                await setTimeout(() => {
-                    hand.setShowBlankCard(false);
-                    if (!hidden) {
-                        card.expose();
-                    }
-                    hand.addCard(card);
-                    this.rootStore.deckStore.setDealingAnimation(false);
-                    resolve();
-                }, 1000);
+                await setTimeout(async () => {
+                    const [handPositionX, handPositionY] = hand.getPosition();
+                    this.setHandPosition(handPositionX - deckPosition.x, handPositionY - deckPosition.y);
+                    this.rootStore.deckStore.setDealingAnimation(true);
+                    await setTimeout(() => {
+                        hand.setShowBlankCard(false);
+                        if (!hidden) {
+                            card.expose();
+                        }
+                        hand.addCard(card);
+                        this.rootStore.deckStore.setDealingAnimation(false);
+                        resolve();
+                    }, 1000);
+                },100);
             } else {
                 return Promise.reject('No more cards in deck');
             }

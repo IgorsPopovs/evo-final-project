@@ -15,9 +15,12 @@ export const Card: React.FC<CardProps> = ({cardStore}) => {
 
     return (
         <div className={`card ${suitClass} ${cardStore.isHidden ? 'hidden' : ''}`}>
-            <div className="corner top-left">{valueText}</div>
-            <div className="value">{suitIcon}</div>
-            <div className="corner bottom-right">{valueText}</div>
+            {!cardStore.isHidden && <>
+                <div className="corner top-left">{valueText}</div>
+                <div className="value">{suitIcon}</div>
+                <div className="corner bottom-right">{valueText}</div>
+            </>
+            }
         </div>
     );
 };
