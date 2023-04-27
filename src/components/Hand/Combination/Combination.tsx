@@ -12,9 +12,15 @@ type HandProps = {
 const Combination: React.FC<HandProps> = ({handStore, owner}) => {
     return (
         <>
-            {owner !== 'dealer' && handStore.getCombination() !== HandCombination.None &&
+            {
+                (
+                    (owner === 'dealer' && (
+                            handStore.getCombination() !== HandCombination.None &&
+                            handStore.getCombination() !== HandCombination.Split)
+                    ) ||
+                    (owner === 'player' && handStore.getCombination() !== HandCombination.None)
+                ) &&
                 <div className={`combination combo-${HandCombination[handStore.getCombination()]}`}>
-                    <p>{HandCombination[handStore.getCombination()]}</p>
                 </div>
             }
         </>

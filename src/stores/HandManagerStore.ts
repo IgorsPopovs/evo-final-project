@@ -31,9 +31,6 @@ class HandManagerStore {
     public resetAll() {
         this.hands.forEach((hand) => dispose(hand.disposers));
         this.hands = [new HandStore(this.rootStore, 1)];
-
-        // dispose(this.rootStore.dealersHandStore.disposers);
-        // this.rootStore.dealersHandStore = new HandStore(this.rootStore, 0);
     }
 
 }

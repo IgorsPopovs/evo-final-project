@@ -5,7 +5,7 @@
     height: 100px;
     background-size: contain;
     position: absolute;
-    translate: 110% -40%;
+    translate: 80% -40%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -20,25 +20,23 @@
     animation: fade-combo 0.4s linear;
 }
 
-.combination p {
-    rotate: 5deg;
-}
+
 
 .combo-Split {
-    font-size: 24px;
+    background-image: url("../../../images/combination-split.png");
 }
 
 .combo-BlackJack {
-    font-size: 15px;
+    background-image: url("../../../images/combination-bj.png");
 }
 
 
 .combo-NaturalBlackJack {
-    font-size: 14px;
+    background-image: url("../../../images/combination-nbj.png");
 }
 
 .combo-Bust {
-    background-image: url("../../../images/combination-bust-bg.png");
+    background-image: url("../../../images/combination-bust.png");
     color: #ffffff;
     height: 90px;
     width: 120px;

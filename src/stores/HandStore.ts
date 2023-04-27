@@ -165,7 +165,6 @@ class HandStore {
             newHand.addCard(popCard)
             newHand.betStore.addBet(this.betStore.getBet);
             this.rootStore.handManagerStore.hands.push(newHand);
-
             await this.rootStore.dealerStore.hit(this, false);
             await this.rootStore.dealerStore.hit(newHand, false);
         }

@@ -63,19 +63,15 @@ class DealerStore {
     }
 
     public hit(hand: HandStore, hidden: boolean): Promise<void> {
-        return new Promise((resolve) => {
+        return new Promise(async (resolve) => {
             const card = this.rootStore.deckStore.dealCard();
             const deckPosition = this.rootStore.deckStore.getPosition();
             if (card !== undefined) {
-
-
-
-                const [handPositionX, handPositionY] = hand.getPosition();
-                this.setHandPosition(handPositionX-deckPosition.x, handPositionY-deckPosition.y);
-                this.rootStore.deckStore.setDealingAnimation(true);
                 hand.setShowBlankCard(true);
-
-                setTimeout(() => {
+                const [handPositionX, handPositionY] = hand.getPosition();
+                this.setHandPosition(handPositionX - deckPosition.x, handPositionY - deckPosition.y);
+                this.rootStore.deckStore.setDealingAnimation(true);
+                await setTimeout(() => {
                     hand.setShowBlankCard(false);
                     if (!hidden) {
                         card.expose();
