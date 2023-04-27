@@ -21,6 +21,7 @@ const Bet: React.FC<betProps> = ({handStore}) => {
             </div>
         </>
     );
+
 }
 
 export default observer(Bet);

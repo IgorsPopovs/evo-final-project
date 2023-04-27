@@ -9,7 +9,7 @@
     height: 30px;
     line-height: 0px;
     /*background: #FFF3CE;*/
-    background-image: url("../../../images/total-score-bg.PNG");
+    background-image: url("../../../images/total-score-bg.png");
     background-size: contain;
     z-index: 1;
     font-weight: bold;

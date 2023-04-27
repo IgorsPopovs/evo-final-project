@@ -28,6 +28,9 @@
 .card.hidden {
     background-image: url('../../../images/card-back-black.png');
     background-size: cover;
+    border: none;
+    background-blend-mode: hard-light;
+    background-repeat: round;
 }
 
 .corner {
@@ -67,7 +70,6 @@
     align-items: center;
     font-size: calc(50px * var(--card-size));
 }
-
 
 
 :root {
