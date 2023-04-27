@@ -81,7 +81,7 @@ class DealerStore {
                         this.rootStore.deckStore.setDealingAnimation(false);
                         resolve();
                     }, 1000);
-                },100);
+                },200);
             } else {
                 return Promise.reject('No more cards in deck');
             }

@@ -3,6 +3,7 @@ import {Card} from "./Card/Card";
 import {observer} from "mobx-react";
 import HandStore from "../../stores/HandStore";
 import './Hand.css';
+import './Combination/Combination.css';
 import {HandStatus} from "../../utils/Constant";
 import classNames from "classnames";
 import {BlankCard} from "./Card/BlankCard";
