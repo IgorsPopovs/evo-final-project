@@ -40,8 +40,13 @@
 body {
   background-image: url("./images/background-red.jpg");
   background-color: #ff0000;
-
+  font-family: 'Comics Deluxe', sans-serif;
+  text-shadow: 1px 1px 2px #000000, 0 0 1em rgba(255, 255, 255, 0.24), 0 0 0.2em #ff0000;
   color: azure;
+}
+
+button {
+  font-family: 'Comics Deluxe', sans-serif;
 }
 
 

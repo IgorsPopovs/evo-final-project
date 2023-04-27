@@ -22,7 +22,7 @@
     border: calc(7px * var(--chips-size)) dashed white;
     transition: all 0.6s;
     color: white;
-    font-family: 'Lato', sans-serif;
+    /*font-family: 'Lato', sans-serif;*/
     margin: calc(8px * var(--chips-size));;
 }
 
@@ -39,27 +39,32 @@
 
 .chips-container .chip-20 {
     background-color: #61dafb;
+    font-size: calc(22px * var(--chips-size));;
 }
 
 .chips-container .chip-50 {
     background-color: #04AA6D;
+    font-size: calc(22px * var(--chips-size));;
 }
 
 .chips-container .chip-100 {
     background-color: goldenrod;
+    font-size: calc(20px * var(--chips-size));;
 }
 
 .chips-container .chip-200 {
     background-color: crimson;
+    font-size: calc(20px * var(--chips-size));;
 }
 
 .chips-container .chip-500 {
     background-color: #92199a;
+    font-size: calc(20px * var(--chips-size));;
 }
 
 .chips-container .chip-1000 {
     background-color: #323acc;
-    font-size: calc(20px * var(--chips-size));;
+    font-size: calc(17px * var(--chips-size));;
 }
 
 .chips-container .chip:disabled{

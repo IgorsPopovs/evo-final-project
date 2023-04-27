@@ -6,14 +6,14 @@ import HandActions from "../Hand/HandActions/HandActions";
 import Bet from "../Wallet/Bet";
 import "./Player.css";
 import {observer} from "mobx-react";
-import {GameStatus} from "../../utils/Constant";
+import PlayerName from "./PlayerName/PlayerName";
 
 const Player: React.FC = () => {
     const rootStore = useContext(RootStoreContext);
 
     return (
-        <div className={"player-container"}>
-            <h2>PLAYER</h2>
+        <div className="player-container">
+            <PlayerName name={"PLAYER"}/>
             <div className={"player-hands-container"}>
                 {rootStore.handManagerStore.hands.map((hand, i) => {
                     return (<div key={i}>

@@ -1,0 +1,20 @@
+
+.player-container .player-name {
+    rotate: -90deg;
+    align-self: center;
+    display: flex;
+}
+
+
+:root {
+    --hs: 225, 100%;
+    --paper: hsl(var(--hs), 25%);
+    --highlight: hsl(var(--hs), 45%);
+    --shadow: hsl(var(--hs), 15%);
+}
+
+.player-container .player-name h2 {
+    font-family: 'Comics Deluxe', sans-serif;
+}
+
+

@@ -19,6 +19,7 @@
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
     color: #282c34;
     opacity: 1;
+    text-shadow: none;
     animation: bounce 0.3s ease-in-out;
 }
 .score :before {

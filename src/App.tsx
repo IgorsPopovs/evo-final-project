@@ -14,6 +14,9 @@ export const RootStoreContext = createContext(rootStore);
 function App() {
     return (
         <RootStoreContext.Provider value={rootStore}>
+            <style>
+                @import url('https://fonts.cdnfonts.com/css/comics-deluxe-96168');
+            </style>
             <div className="App">
                 <Messenger/>
                 <div className={"main-container"}>
