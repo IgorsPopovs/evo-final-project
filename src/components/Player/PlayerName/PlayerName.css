@@ -18,3 +18,14 @@
 }
 
 
+@media only screen and (max-width: 700px) {
+    .player-container .player-name {
+        margin: 0px;
+        rotate: 0deg;
+    }
+
+    .player-container .player-name h2 {
+        margin: 0px;
+    }
+}
+

@@ -2,6 +2,42 @@
     --card-size: 0.7;
 }
 
+@media only screen and (min-height: 500px) and (max-width: 700px)  {
+    :root {
+        --card-size: 0.3;
+    }
+}
+
+@media only screen and (min-height: 600px) {
+    :root {
+        --card-size: 0.5;
+    }
+}
+
+@media only screen and (min-height: 700px) {
+    :root {
+        --card-size: 0.7;
+    }
+}
+
+@media only screen and (min-height: 800px) {
+    :root {
+        --card-size: 0.9;
+    }
+}
+
+@media only screen and (min-height: 900px) {
+    :root {
+        --card-size: 1.2;
+    }
+}
+
+@media only screen and (min-height: 1000px) {
+    :root {
+        --card-size: 1.6;
+    }
+}
+
 .card {
     display: flex;
     flex-direction: column;

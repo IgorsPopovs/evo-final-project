@@ -3,6 +3,7 @@ import {observer} from "mobx-react";
 import Hand from "../Hand/Hand";
 import {RootStoreContext} from "../../App";
 import PlayerName from "./PlayerName/PlayerName";
+import {GameStatus} from "../../utils/Constant";
 
 const Dealer: React.FC = () => {
     const rootStore = useContext(RootStoreContext);
@@ -10,7 +11,9 @@ const Dealer: React.FC = () => {
     return (
         <div className={"player-container"} id={"dealer-container"}>
             <PlayerName name={"DEALER"}/>
-            <Hand handStore={rootStore.dealersHandStore} owner={"dealer"}/>
+            <div className={"player-hands-container"}>
+                <Hand handStore={rootStore.dealersHandStore} owner={"dealer"}/>
+            </div>
         </div>
     );
 };

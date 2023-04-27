@@ -8,6 +8,7 @@ import RootStore from "./stores/RootStore";
 import Messenger from "./components/Messenger/Messenger";
 import BetTimer from "./components/Wallet/BetTimer/BetTimer";
 import {Chips, GameStatus} from "./utils/Constant";
+import {observer} from "mobx-react";
 
 const rootStore = new RootStore();
 export const RootStoreContext = createContext(rootStore);
@@ -32,11 +33,12 @@ function App() {
             </style>
             <div className="App">
                 <div className={"main-container"}>
-                    <div className={"top-main-container"}>
+                    <div
+                        className={`top-main-container ${(rootStore.gameStore.getStatus() === GameStatus.playersBet) ? 'hide-container' : ''}`}>
                         <Dealer/>
                         <Deck/>
                     </div>
-                    <div className={"bottom-main-container"}>
+                    <div className={`bottom-main-container ${(rootStore.gameStore.getStatus() === GameStatus.playersBet) ? 'focus-container' : ''}`}>
                         <Messenger key={rootStore.gameStore.getStatus()}/>
                         <Player/>
                     </div>
@@ -48,4 +50,4 @@ function App() {
     );
 }
 
-export default App;
+export default observer(App);

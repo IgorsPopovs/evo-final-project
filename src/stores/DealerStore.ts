@@ -22,13 +22,16 @@ class DealerStore {
     }
 
     private async initDeal() {
-        this.rootStore.handManagerStore.hands[0].setStatus(HandStatus.Playing);
-        await this.hit(this.rootStore.handManagerStore.hands[0], false);
-        await this.hit(this.rootStore.handManagerStore.hands[0], false);
-        await this.hit(this.rootStore.dealersHandStore, false);
-        await this.hit(this.rootStore.dealersHandStore, true);
+        await setTimeout(async () => {
+            this.rootStore.handManagerStore.hands[0].setStatus(HandStatus.Playing);
+            await this.hit(this.rootStore.handManagerStore.hands[0], false);
+            await this.hit(this.rootStore.handManagerStore.hands[0], false);
+            await this.hit(this.rootStore.dealersHandStore, false);
+            await this.hit(this.rootStore.dealersHandStore, true);
 
-        await this.rootStore.gameStore.setStatus(GameStatus.playersTurn);
+            await this.rootStore.gameStore.setStatus(GameStatus.playersTurn);
+        },500)
+
     }
 
     public async dealersTurn() {

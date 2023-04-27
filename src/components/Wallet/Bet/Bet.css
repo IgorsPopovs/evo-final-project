@@ -15,6 +15,15 @@
     color: #ffffff  ;
 }
 
+@media only screen and (max-width: 700px) {
+    .bet-container {
+        left: 10px;
+        /*translate: 0px 133px;*/
+        /*position: relative;*/
+        width: 20px;
+    }
+}
+
 .bet-tie {
     color: #c4b50a;
 }

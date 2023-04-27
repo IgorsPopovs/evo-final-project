@@ -37,12 +37,18 @@
 .hand-actions-container button:disabled {
     cursor: default;
     background-color: rgba(255, 255, 255, 0.23);
+    display: none;
 }
 
 .hand-actions-container .hidden {
     display: none;
 }
 
+@media only screen and (max-width: 700px) {
+    .hand-actions-container button:disabled {
+        min-height: 30px;
+    }
+}
 
 @keyframes fade {
     0% {
