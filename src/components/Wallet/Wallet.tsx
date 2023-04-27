@@ -3,7 +3,7 @@ import {observer} from "mobx-react";
 import {Chips, GameStatus} from "../../utils/Constant";
 import {RootStoreContext} from "../../App";
 import BetMaker from "./BetMaker/BetMaker";
-import BetTimer from "./BetTimer";
+import BetTimer from "./BetTimer/BetTimer";
 
 const Wallet: React.FC = () => {
     const rootStore = useContext(RootStoreContext);
@@ -16,8 +16,6 @@ const Wallet: React.FC = () => {
         })
 
         rootStore.gameStore.setStatus(GameStatus.initialDeal);
-        // rootStore.dealerStore.initDeal();
-        console.log('Betting timer has ended');
     };
 
     return (

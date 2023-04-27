@@ -7,6 +7,7 @@ import Bet from "../Wallet/Bet/Bet";
 import "./Player.css";
 import {observer} from "mobx-react";
 import PlayerName from "./PlayerName/PlayerName";
+import Messenger from "../Messenger/Messenger";
 
 const Player: React.FC = () => {
     const rootStore = useContext(RootStoreContext);
