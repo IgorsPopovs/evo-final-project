@@ -67,9 +67,12 @@ class GameStore {
     public setStatus(newStatus: GameStatus): Promise<void> {
         return new Promise((resolve) => {
             this.status = newStatus;
+            let time = 2000;
+            if (newStatus === GameStatus.turnsEnded) time = 4000;
+
             setTimeout(() => {
                 resolve();
-            }, 2000);
+            }, time);
 
         });
     }

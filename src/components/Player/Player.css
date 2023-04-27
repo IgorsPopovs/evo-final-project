@@ -2,7 +2,6 @@
     display: flex;
     width: fit-content;
 
-    border: solid;
     padding: 15px;
 }
 
@@ -15,14 +14,11 @@
     max-width: 900px;
     padding: 15px;
 
-    border: solid;
 }
 #dealer-container {
     min-width: 250px;
 }
 
 .player-container h2 {
-    border: solid;
-    margin: 0;
 }
 
