@@ -32,7 +32,7 @@ class HandStore {
                     status: this.status,
                 }),
                 ({status}) => {
-                    if (status === HandStatus.Win) console.log('results... I WON!');
+                    if (status === HandStatus.Won) console.log('results... I WON!' + this.betStore.getBet);
                     if (status === HandStatus.Lost) console.log('results... I LOST!');
                     if (status === HandStatus.Tie) console.log('results... I Dont know!');
                 }

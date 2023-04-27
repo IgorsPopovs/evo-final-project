@@ -98,7 +98,7 @@ class GameStore {
     private playerWins(hand: HandStore) {
         this.rootStore.walletStore.deposit(hand.betStore.getBet * 2);
         hand.betStore.setBet(0);
-        hand.setStatus(HandStatus.Win);
+        hand.setStatus(HandStatus.Won);
     }
 
     private playerLoses(hand: HandStore) {

@@ -37,7 +37,7 @@ function App() {
                         <Deck/>
                     </div>
                     <div className={"bottom-main-container"}>
-                        <Messenger/>
+                        <Messenger key={rootStore.gameStore.getStatus()}/>
                         <Player/>
                     </div>
                 </div>

@@ -11,7 +11,7 @@ const Bet: React.FC<betProps> = ({handStore}) => {
     const classes = [];
     if (handStore.betStore.getBet > 0) classes.push('bet-green-anim');
     if (handStore.getStatus() === HandStatus.Tie) classes.push('bet-tie');
-    if (handStore.getStatus() === HandStatus.Win) classes.push('bet-win');
+    if (handStore.getStatus() === HandStatus.Won) classes.push('bet-win');
     if (handStore.getStatus() === HandStatus.Lost) classes.push('bet-lost');
 
     return (

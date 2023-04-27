@@ -18,7 +18,7 @@ type HandProps = {
 const Hand: React.FC<HandProps> = ({handStore, owner}) => {
     return (
         <div className={classNames("handContainer", {
-                green: handStore.getStatus() === HandStatus.Win,
+                green: handStore.getStatus() === HandStatus.Won,
                 red: handStore.getStatus() === HandStatus.Lost,
                 yellow: handStore.getStatus() === HandStatus.Tie,
             }
