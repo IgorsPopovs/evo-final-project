@@ -1,7 +1,7 @@
 .App {
   text-align: center;
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   height: 100vh;
   align-items: center;
 }
@@ -10,7 +10,7 @@ body {
   background-image: url("./images/background-red.jpg");
   background-size: 300px;
   background-color: #110000;
-  background-blend-mode: difference;
+  /*background-blend-mode: difference;*/
   backdrop-filter: blur(1px);
   background-position-y: 8px;
   font-family: 'Comics Deluxe', sans-serif;
@@ -28,6 +28,7 @@ button {
   /*position: absolute;*/
   align-items: baseline;
   top: 20px;
+  width: 100%;
 }
 
 .bottom-main-container {
@@ -47,7 +48,7 @@ button {
   height: 100vh;
   max-height: 800px;
   justify-content: center;
-
+  width: 80%;
   background-image: url("./images/background-red.jpg");
   background-size: 300px;
   background-color: #110000;

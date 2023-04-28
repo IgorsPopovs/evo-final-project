@@ -17,7 +17,7 @@ const Player: React.FC = () => {
             <PlayerName name={"PLAYER"}/>
             <div className={"player-hands-container"}>
                 {rootStore.handManagerStore.hands.map((hand, i) => {
-                    return (<div key={i}>
+                    return (<div key={i} className={"hand-container"}>
                         <Bet key={hand.betStore.getBet} handStore={hand}></Bet>
                         <Hand handStore={hand} owner={"player"}/>
                         <HandActions handStore={hand}/>

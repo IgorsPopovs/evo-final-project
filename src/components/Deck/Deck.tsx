@@ -19,7 +19,7 @@ const Deck: React.FC = () => {
                 ) : (
                     <h2>No more cards in the deck</h2>
                 )}
-                <div id="card-to-deal">
+                <div id="card-to-deal" >
                     <BlankCard visible={true}/>
                 </div>
             </div>

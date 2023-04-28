@@ -12,7 +12,9 @@ const Dealer: React.FC = () => {
         <div className={"player-container"} id={"dealer-container"}>
             <PlayerName name={"DEALER"}/>
             <div className={"player-hands-container"}>
-                <Hand handStore={rootStore.dealersHandStore} owner={"dealer"}/>
+                <div className={"hand-container"}>
+                    <Hand handStore={rootStore.dealersHandStore} owner={"dealer"}/>
+                </div>
             </div>
         </div>
     );

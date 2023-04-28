@@ -69,6 +69,7 @@ class GameStore {
             this.status = newStatus;
             let time = 2000;
             if (newStatus === GameStatus.init) time = 4000;
+            if (newStatus === GameStatus.turnsEnded) time = 444000;
 
             setTimeout(() => {
                 resolve();
