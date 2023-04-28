@@ -26,7 +26,7 @@ const Wallet: React.FC = () => {
                 {rootStore.gameStore.getStatus() === GameStatus.playersBet &&
                     <BetMaker/>
                 }
-                <p>balance: {rootStore.walletStore.getBalance()}</p>
+                <p className={rootStore.gameStore.getStatus()!==GameStatus.playersBet ? 'balance-bottom': ''}>balance: {rootStore.walletStore.getBalance()}</p>
             </div>
     );
 }

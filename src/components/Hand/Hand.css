@@ -41,5 +41,9 @@
     background-color: goldenrod;
 }
 
-
+.hand-score {
+    display: flex;
+    position: relative;
+    flex-grow: 1;
+}
 
