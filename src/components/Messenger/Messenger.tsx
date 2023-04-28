@@ -9,7 +9,7 @@ const Messenger: React.FC = () => {
     const rootStore = useContext(RootStoreContext);
 
     return (
-        <div className='message-container'>
+        <div className='message-container' key={rootStore.messengerStore.getMessage}>
             <p className='message-text'>{rootStore.messengerStore.getMessage}</p>
         </div>
     );

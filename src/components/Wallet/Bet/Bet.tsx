@@ -2,7 +2,7 @@ import React from "react";
 import {observer} from "mobx-react";
 import HandStore from "../../../stores/HandStore";
 import "./Bet.css";
-import {HandStatus} from "../../../utils/Constant";
+import {currencySign, HandStatus} from "../../../utils/Constant";
 
 type betProps = {
     handStore: HandStore;
@@ -17,7 +17,7 @@ const Bet: React.FC<betProps> = ({handStore}) => {
     return (
         <>
             <div className={`bet-container ${classes.join(' ')}`}>
-                <p>bet: {handStore.betStore.getBet}</p>
+                <p>bet: {handStore.betStore.getBet + currencySign}</p>
             </div>
         </>
     );

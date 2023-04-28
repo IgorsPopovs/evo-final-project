@@ -16,7 +16,7 @@
 @media only screen and (min-width: 700px) {
     .wallet-controls .balance-bottom {
         position: absolute;
-        bottom: -15px;
+        bottom: -30px;
         right: 0;
     }
 }

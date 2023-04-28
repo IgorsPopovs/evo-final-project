@@ -2,6 +2,10 @@
     --total-score-scale: 1;
 }
 
+.score:after {
+    width: 40px;
+    content: "";
+}
 .score {
     /*position: absolute;*/
     translate: 0px -18px;
@@ -22,11 +26,12 @@
     opacity: 1;
     text-shadow: none;
     animation: bounce 0.3s ease-in-out;
+    margin: 5px;
 }
 
 @media only screen and (max-width: 700px) {
     .score {
-        translate: -28px 6px;
+        /*translate: -28px 6px;*/
     }
 }
 
@@ -49,20 +54,21 @@
         height: 30px;
         line-height: 0px;
         font-size: 15px;
+        margin: 5px;
 
     }
     50% {
-        width: 60px;
-        height: 60px;
-        line-height: 10px;
-        font-size: 25px;
-
+        width: 40px;
+        height: 40px;
+        line-height: 0px;
+        font-size: 20px;
+        margin: 0px;
     }
     100% {
         width: 30px;
         height: 30px;
         line-height: 0px;
         font-size: 15px;
-
+        margin: 5px;
     }
 }

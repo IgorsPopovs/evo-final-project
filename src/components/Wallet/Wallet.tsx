@@ -1,6 +1,6 @@
 import React, {useContext} from "react";
 import {observer} from "mobx-react";
-import {Chips, GameStatus} from "../../utils/Constant";
+import {Chips, currencySign, GameStatus} from "../../utils/Constant";
 import {RootStoreContext} from "../../App";
 import BetMaker from "./BetMaker/BetMaker";
 import BetTimer from "./BetTimer/BetTimer";
@@ -26,7 +26,7 @@ const Wallet: React.FC = () => {
                 {rootStore.gameStore.getStatus() === GameStatus.playersBet &&
                     <BetMaker/>
                 }
-                <p className={rootStore.gameStore.getStatus()!==GameStatus.playersBet ? 'balance-bottom': ''}>balance: {rootStore.walletStore.getBalance()}</p>
+                <p className={rootStore.gameStore.getStatus()!==GameStatus.playersBet ? 'balance-bottom': ''}>balance: {rootStore.walletStore.getBalance() + currencySign}</p>
             </div>
     );
 }

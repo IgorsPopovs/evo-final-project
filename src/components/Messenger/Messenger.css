@@ -2,6 +2,7 @@
     color: crimson;
     font-size: 23px;
     margin: 0px;
+    animation: message-anim 0.2s ease-in-out;
 }
 
 .message-container {
@@ -12,6 +13,8 @@
     /*position: absolute;*/
     align-self: flex-start;
     top: -40px;
+
+
 }
 
 
@@ -19,5 +22,15 @@
     .message-container {
         width: 100%;
         text-wrap: normal;
+    }
+}
+
+@keyframes message-anim {
+    33% {
+        /*font-size: 20px;*/
+        opacity: 0%;
+    }
+    100% {
+        opacity: 100%;
     }
 }

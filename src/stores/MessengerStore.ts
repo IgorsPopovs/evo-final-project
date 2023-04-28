@@ -52,7 +52,7 @@ class MessengerStore {
             case GameStatus.playersBet:
                 return "Make a bet!";
             case GameStatus.initialDeal:
-                return "Initial deal...";
+                return "Dealing cards...";
             case GameStatus.playersTurn:
                 return "Make a decision!"
             case GameStatus.dealersTurn:

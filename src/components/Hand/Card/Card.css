@@ -41,8 +41,9 @@
 .card {
     display: flex;
     flex-direction: column;
+    flex-grow: 1;
     justify-content: space-between;
-    width: calc(80px * var(--card-size));
+    max-width: calc(80px * var(--card-size));
     height: calc(130px * var(--card-size));
     padding: 10px;
     border: 1px solid #999;
@@ -125,4 +126,16 @@
         transform: translateX(var(--hand-position-x)) translateY(var(--hand-position-y));
         opacity: 0.7;
     }
+}
+
+
+#deck {
+    display: flex;
+    width: 90px;
+    justify-content: flex-start;
+}
+
+#card-to-deal {
+    width: calc(80px * var(--card-size) * 2);
+    display: flex;
 }
