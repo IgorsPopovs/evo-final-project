@@ -1,5 +1,6 @@
 .hand {
     display: flex;
+    position: relative;
     justify-content: center;
     /*min-width: 343px;*/
     /*min-height: 203px;*/

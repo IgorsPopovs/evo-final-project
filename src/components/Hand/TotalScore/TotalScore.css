@@ -4,7 +4,8 @@
 
 .score {
     position: absolute;
-    translate: -18px -18px;
+    /*translate: -18px -18px;*/
+    left:0px;
     width: 30px;
     height: 30px;
     line-height: 0px;

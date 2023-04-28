@@ -23,8 +23,8 @@ const Hand: React.FC<HandProps> = ({handStore, owner}) => {
                 yellow: handStore.getStatus() === HandStatus.Tie,
             }
         )}>
-            <TotalScore key={handStore.totalScore} handStore={handStore}/>
             <div className={"hand"} id={"hand-" + handStore.id}>
+                <TotalScore key={handStore.totalScore} handStore={handStore}/>
                 {handStore.cards.length > 0 ? (
                     handStore.cards.map((card, index) => (
                         <Card key={index} cardStore={card}/>
