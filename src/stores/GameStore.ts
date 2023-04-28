@@ -27,7 +27,6 @@ class GameStore {
     }
 
     public async calculateResults() {
-        // console.log('calculating results...');
         const dealerScore = this.rootStore.dealersHandStore.totalScore;
         this.rootStore.handManagerStore.hands.forEach((hand) => {
             const playerScore = hand.totalScore;

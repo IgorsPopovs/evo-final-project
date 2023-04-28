@@ -1,10 +1,9 @@
 import React, {useContext} from "react";
 import {observer} from "mobx-react";
-import {Chips, currencySign, GameStatus} from "../../utils/Constant";
+import {currencySign, GameStatus} from "../../utils/Constant";
 import {RootStoreContext} from "../../App";
 import BetMaker from "./BetMaker/BetMaker";
 import BetTimer from "./BetTimer/BetTimer";
-import {start} from "repl";
 
 const Wallet: React.FC = () => {
     const rootStore = useContext(RootStoreContext);
@@ -13,7 +12,6 @@ const Wallet: React.FC = () => {
         let startGame = true;
         rootStore.handManagerStore.hands.forEach((hand) => {
             if (hand.betStore.getBet === 0) {
-                // hand.betStore.addBet(Chips[0]);
                 startGame = false;
             }
         })
@@ -28,15 +26,15 @@ const Wallet: React.FC = () => {
     };
 
     return (
-            <div className='wallet-controls'>
-                {rootStore.gameStore.getStatus() === GameStatus.playersBet &&
-                    <BetTimer onTimeout={handleTimeout} />
-                }
-                {rootStore.gameStore.getStatus() === GameStatus.playersBet &&
-                    <BetMaker/>
-                }
-                <p className={rootStore.gameStore.getStatus()!==GameStatus.playersBet ? 'balance-bottom': ''}>balance: {rootStore.walletStore.getBalance() + currencySign}</p>
-            </div>
+        <div className='wallet-controls'>
+            {rootStore.gameStore.getStatus() === GameStatus.playersBet &&
+                <BetTimer onTimeout={handleTimeout}/>
+            }
+            {rootStore.gameStore.getStatus() === GameStatus.playersBet &&
+                <BetMaker/>
+            }
+            <p className={rootStore.gameStore.getStatus() !== GameStatus.playersBet ? 'balance-bottom' : ''}>balance: {rootStore.walletStore.getBalance() + currencySign}</p>
+        </div>
     );
 }
 
