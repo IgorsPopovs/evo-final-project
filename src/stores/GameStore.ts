@@ -27,7 +27,7 @@ class GameStore {
     }
 
     public async calculateResults() {
-        console.log('calculating results...');
+        // console.log('calculating results...');
         const dealerScore = this.rootStore.dealersHandStore.totalScore;
         this.rootStore.handManagerStore.hands.forEach((hand) => {
             const playerScore = hand.totalScore;
@@ -57,19 +57,24 @@ class GameStore {
     }
 
     private verifyTie(dealerScore: number, playerScore: number) {
-        console.log('verifying tie...');
+        // console.log('verifying tie...');
         return (
             (dealerScore === playerScore) ||
             (dealerScore > 21 && playerScore > 21)
         );
     }
 
-    public setStatus(newStatus: GameStatus): Promise<void> {
+    public setStatus(newStatus: GameStatus, t?: number): Promise<void> {
         return new Promise((resolve) => {
             this.status = newStatus;
             let time = 2000;
-            if (newStatus === GameStatus.init) time = 6000;
-
+            if (t === undefined) {
+                if (newStatus === GameStatus.init) time = 6000;
+                console.log(newStatus === GameStatus.init && this.getStatus() === GameStatus.playersBet);
+                if (newStatus === GameStatus.init && this.getStatus() === GameStatus.playersBet) time = 500;
+            } else {
+                time = t;
+            }
 
             setTimeout(() => {
                 resolve();

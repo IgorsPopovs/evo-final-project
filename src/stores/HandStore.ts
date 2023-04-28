@@ -27,16 +27,16 @@ class HandStore {
         makeAutoObservable(this, {}, {autoBind: true})
 
         this.disposers.push(
-            reaction(
-                () => ({
-                    status: this.status,
-                }),
-                ({status}) => {
-                    if (status === HandStatus.Won) console.log('results... I WON!' + this.betStore.getBet);
-                    if (status === HandStatus.Lost) console.log('results... I LOST!');
-                    if (status === HandStatus.Tie) console.log('results... I Dont know!');
-                }
-            ),
+            // reaction(
+            //     () => ({
+            //         status: this.status,
+            //     }),
+            //     ({status}) => {
+            //         if (status === HandStatus.Won) console.log('results... I WON!' + this.betStore.getBet);
+            //         if (status === HandStatus.Lost) console.log('results... I LOST!');
+            //         if (status === HandStatus.Tie) console.log('results... I Dont know!');
+            //     }
+            // ),
         );
     };
 
@@ -54,17 +54,17 @@ class HandStore {
             if (handElement.children.namedItem('blank-card')) {
                 const blankCard = handElement.children.namedItem('blank-card') as HTMLElement;
                 const blankCardRect = blankCard.getBoundingClientRect();
-                console.log('BLANK CARD')
+                // console.log('BLANK CARD')
                 return [blankCardRect.x, blankCardRect.y];
             }
 
             if (handElement.lastChild) {
-                console.log('LAST CHILD')
+                // console.log('LAST CHILD')
                 const card = handElement.lastChild as HTMLElement;
                 const cardRect = card.getBoundingClientRect();
                 return [cardRect.x, cardRect.y];
             }
-            console.log('HAND')
+            // console.log('HAND')
             return [handElement.getBoundingClientRect().x, handElement.getBoundingClientRect().y];
         }
         throw new Error(`Could not find element with id ${this.id}`);

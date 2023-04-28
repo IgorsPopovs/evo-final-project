@@ -4,18 +4,27 @@ import {Chips, currencySign, GameStatus} from "../../utils/Constant";
 import {RootStoreContext} from "../../App";
 import BetMaker from "./BetMaker/BetMaker";
 import BetTimer from "./BetTimer/BetTimer";
+import {start} from "repl";
 
 const Wallet: React.FC = () => {
     const rootStore = useContext(RootStoreContext);
 
     const handleTimeout = () => {
+        let startGame = true;
         rootStore.handManagerStore.hands.forEach((hand) => {
             if (hand.betStore.getBet === 0) {
-                hand.betStore.addBet(Chips[0]);
+                // hand.betStore.addBet(Chips[0]);
+                startGame = false;
             }
         })
+        if (startGame) {
+            rootStore.gameStore.setStatus(GameStatus.initialDeal);
+        } else {
+            rootStore.gameStore.setStatus(GameStatus.init, 500).then(r =>
+                rootStore.gameStore.setStatus(GameStatus.playersBet));
 
-        rootStore.gameStore.setStatus(GameStatus.initialDeal);
+        }
+
     };
 
     return (

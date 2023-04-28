@@ -27,7 +27,7 @@ class MessengerStore {
                             bet: hand.betStore.getBet,
                         }
                     });
-                    console.log(this.summary);
+                    // console.log(this.summary);
                 }
             });
 
@@ -37,7 +37,7 @@ class MessengerStore {
                 if (resultsCalculated && this.summary !== undefined) {
                     for (let i = 0; i < this.summary.length; i++) {
                         this.summary[i].status = this.rootStore.handManagerStore.hands[i].getStatus();
-                        console.log('setting stauuuus' + this.summary[i].status);
+                        // console.log('setting stauuuus' + this.summary[i].status);
                     }
                 }
             });
@@ -69,7 +69,7 @@ class MessengerStore {
         if (this.summary !== undefined) {
             let result: string[] = [];
             this.summary.forEach((sum) => {
-                console.log(this.summary);
+                // console.log(this.summary);
                     if (this.summary!.length === 1) {
                         if (sum.status === HandStatus.Tie) {
                             result.push("It's a TIE!");

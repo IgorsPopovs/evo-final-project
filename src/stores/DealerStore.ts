@@ -38,10 +38,10 @@ class DealerStore {
         this.exposeCards();
         while (!this.rootStore.dealersHandStore.isDone && this.rootStore.gameStore.getStatus() === GameStatus.dealersTurn) {
             if (this.canDealToDealer()) {
-                console.log('dealing to diller')
+                // console.log('dealing to diller')
                 await this.hit(this.rootStore.dealersHandStore, false);
             } else {
-                console.log('setting done')
+                // console.log('setting done')
                 this.rootStore.dealersHandStore.setDone();
             }
         }

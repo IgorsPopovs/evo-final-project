@@ -18,7 +18,7 @@ class BetStore {
         if (this.rootStore.walletStore.withdrawal(amount)) {
             this.bet += amount;
         } else {
-            console.log('Not enough money');
+            // console.log('Not enough money');
         }
     }
 
